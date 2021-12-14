@@ -69,5 +69,6 @@
     "ts-node": "~8.3.0",
     "typescript": "~4.4.4"
   },
-  "description": "CityWays fontend project"
+  "description": "CityWays fontend project",
+  "license": "MIT"
 }

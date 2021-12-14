@@ -1,8 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-title> Blank </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -15,6 +13,38 @@
 
   <div id="container">
     <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <p>
+      Start with Ionic
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://ionicframework.com/docs/components"
+        >UI Components</a
+      >
+    </p>
   </div>
+  <ion-chip color="primary">
+    <ion-label color="ligth">Secondary w/ Dark label</ion-label>
+  </ion-chip>
+
+  <ion-chip>
+    <ion-label>Button Chip</ion-label>
+    <ion-icon name="close-circle"></ion-icon>
+  </ion-chip>
+  <!-- fab placed to the (vertical) center and end -->
+  <ion-fab vertical="center" horizontal="end" slot="fixed">
+    <ion-fab-button color="tertiary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <!-- Input with placeholder -->
+  <ion-input placeholder="Enter Input"></ion-input>
+  <ion-button color="light">Light</ion-button>
+  <ion-button color="medium">Medium</ion-button>
+  <ion-button color="medium">Medium</ion-button>
+  <button
+    class="px-2 py-3 bg-ioprimary-default shadow-lg shadow-cyan-500/50 rounded bg-ioprimary"
+  >
+    holass
+  </button>
 </ion-content>

@@ -1,0 +1,42 @@
+{
+  "parkings": [
+    {
+      "id": 1,
+      "direccion": "C. del Muelle, 23",
+      "ocupado": false,
+      "periodosDisponible": [
+        {
+          "inicio": 1639499436,
+          "fin": 1639513836
+        },
+        {
+          "inicio": 1639499436,
+          "fin": 1639513836
+        },
+        {
+          "inicio": 1639499436,
+          "fin": 1639513836
+        },{
+          "inicio": 1639499436,
+          "fin": 1639513836
+        },{
+          "inicio": 1639499436,
+          "fin": 1639513836
+        },{
+          "inicio": 1639499436,
+          "fin": 1639513836
+        }
+      ],
+      "precioPorHr": 0.56,
+      "largaEstancia": false,
+      "nombre": "juanjo",
+      "ranking": 3.5
+    },
+    {
+      "id": 2
+    }
+  ],
+  "usuarios": [
+
+  ]
+}

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Parking } from '../shared/parking';
-import { catchError, map, mapTo, reduce } from 'rxjs/operators';
+import { catchError, map, mapTo, reduce, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -35,6 +35,13 @@ export class ParkingService {
   public getParkings(): Observable<Parking[]> {
     return this.http
       .get<Parking[]>(this.url)
+      .pipe(catchError(ParkingService.handleError));
+  }
+
+  public getFreParkings(): Observable<Parking[]> {
+    const param = new HttpParams().append('ocupado', false);
+    return this.http
+      .get<Parking[]>(this.url, { params: param })
       .pipe(catchError(ParkingService.handleError));
   }
 

@@ -7,7 +7,7 @@ import { ParkingService } from '../core/parking.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  constructor(private parking: ParkingService) {}
+  constructor(private parkingService: ParkingService) {}
 
   ngOnInit(): void {}
 }

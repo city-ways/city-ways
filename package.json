@@ -5,7 +5,7 @@
   "homepage": "http://cityways.app/",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve -o",
+    "start": "ionic serve -o",
     "api": "json-server --watch db.json",
     "build": "ng build",
     "test": "ng test",

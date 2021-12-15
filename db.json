@@ -1,0 +1,129 @@
+{
+  "parkings": [
+    {
+      "id": 1,
+      "direccion": "C. del Muelle, 23",
+      "ocupado": false,
+      "periodosDisponible": [
+        {
+          "inicio": 1639499436,
+          "fin": 1639513836
+        },
+        {
+          "inicio": 1639499436,
+          "fin": 1639513836
+        },
+        {
+          "inicio": 1639499436,
+          "fin": 1639513836
+        },
+        {
+          "inicio": 1639499436,
+          "fin": 1639513836
+        },
+        {
+          "inicio": 1639499436,
+          "fin": 1639513836
+        },
+        {
+          "inicio": 1639499436,
+          "fin": 1639513836
+        }
+      ],
+      "precioPorHr": 0.56,
+      "largaEstancia": false,
+      "nombre": "juanjo",
+      "ranking": 3.5
+    },
+    {
+      "id": 2,
+      "direccion": "C. del Muelle, 25",
+      "ocupado": false,
+      "periodosDisponible": [
+        {
+          "inicio": 1639499436,
+          "fin": 1639513836
+        },
+        {
+          "inicio": 1639499436,
+          "fin": 1639513836
+        },
+        {
+          "inicio": 1639499436,
+          "fin": 1639513836
+        },
+        {
+          "inicio": 1639499436,
+          "fin": 1639513836
+        },
+        {
+          "inicio": 1639499436,
+          "fin": 1639513836
+        },
+        {
+          "inicio": 1639499436,
+          "fin": 1639513836
+        }
+      ],
+      "precioPorHr": 0.56,
+      "largaEstancia": false,
+      "nombre": "juanjo",
+      "ranking": 3.5
+    },
+    {
+      "id": 3,
+      "direccion": "C. del Muelle, 13",
+      "ocupado": true,
+      "periodosDisponible": [
+        {
+          "inicio": 1639499436,
+          "fin": 1639513836
+        },
+        {
+          "inicio": 1639499436,
+          "fin": 1639513836
+        },
+        {
+          "inicio": 1639499436,
+          "fin": 1639513836
+        },
+        {
+          "inicio": 1639499436,
+          "fin": 1639513836
+        },
+        {
+          "inicio": 1639499436,
+          "fin": 1639513836
+        },
+        {
+          "inicio": 1639499436,
+          "fin": 1639513836
+        }
+      ],
+      "precioPorHr": 0.56,
+      "largaEstancia": false,
+      "nombre": "juanjo",
+      "ranking": 3.5
+    },
+    {
+      "id": 4,
+      "direccion": "C. del Muelle, 13",
+      "ocupado": true,
+      "periodosDisponible": [
+        {
+          "inicio": 12,
+          "fin": 44
+        },
+        {
+          "inicio": 33,
+          "fin": 55
+        }
+      ],
+      "precioPorHr": 0.56,
+      "largaEstancia": false,
+      "nombre": "juanjo",
+      "ranking": 3.5
+    }
+  ],
+  "usuarios": []
+}

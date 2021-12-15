@@ -7,4 +7,4 @@ import { ParkingService } from './parking.service';
   imports: [CommonModule],
   providers: [ParkingService],
 })
-export class ServicesModule {}
+export class CoreModule {}

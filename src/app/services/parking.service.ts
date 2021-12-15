@@ -8,6 +8,7 @@ import { map, mapTo, reduce } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
+// todo: Refactor
 export class ParkingService {
   constructor(private http: HttpClient) {}
 
@@ -28,10 +29,10 @@ export class ParkingService {
     return this.executeQueryGet<Parking>('parkings', `/${id}`);
   }
   public createParking(parking: Parking): Observable<Parking> {
-    // product.id = 0;
-    return this.http
-      .post<Parking>(this.productsUrl, product, { headers: headers })
-      .pipe();
+    return this.executeQueryPost<Parking>('parkings', parking);
+  }
+  public deleteParking(id: number): Observable<any> {
+    return this.executeQueryDelete<any>('/parkings', id);
   }
 
   private executeQueryGet<T>(endpoint: string, query?: string): Observable<T> {
@@ -40,9 +41,17 @@ export class ParkingService {
       `${environment.apiUrlBase}/${endpoint}${(query ??= '')}`
     );
   }
-  private executeQueryPost<T>(endpoint: string, newObj: string): Observable<T> {
-    // todo: intentar refacotizar la query
+  private executeQueryPost<T>(
+    endpoint: string,
+    newObj: Parking
+  ): Observable<T> {
     return this.http.post<T>(`${environment.apiUrlBase}`, newObj, {
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+  private executeQueryDelete<T>(endpoint: string, id: number): Observable<T> {
+    return this.http.delete<T>(`${environment.apiUrlBase}/${id}`, {
       // eslint-disable-next-line @typescript-eslint/naming-convention
       headers: { 'Content-Type': 'application/json' },
     });

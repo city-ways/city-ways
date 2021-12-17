@@ -38,7 +38,7 @@ export class ParkingService {
       .pipe(catchError(ParkingService.handleError));
   }
 
-  public getFreParkings(): Observable<Parking[]> {
+  public getFreeParkings(): Observable<Parking[]> {
     const param = new HttpParams().append('ocupado', false);
     return this.http
       .get<Parking[]>(this.url, { params: param })
@@ -76,6 +76,11 @@ export class ParkingService {
       .delete<any>(`${this.url}/${id}`, {
         headers: this.headers,
       })
+      .pipe(catchError(ParkingService.handleError));
+  }
+  public updateParking(parking: Parking) {
+    return this.http
+      .put<Parking>(this.url, parking, { headers: this.headers })
       .pipe(catchError(ParkingService.handleError));
   }
 }

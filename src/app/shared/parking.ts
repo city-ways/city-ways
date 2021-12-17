@@ -1,11 +1,13 @@
 export interface Parking {
   id: number;
-  direccion: string;
-  ocupado: boolean;
-  periodosDisponible: { inicio: number; fin: number }[];
-  precioPorHr?: number;
-  largaEstancia: boolean;
-  precioPorDia?: number;
-  nombre: string;
+  direction: string;
+  cords: { longitude: number; latitude: number };
+  type: string;
+  timesAvailable?: { start: number; end: number }[];
+  daysAvailable?: { start: number; end: number }[];
+  // todo: refactor cuando este el modelo de usuario
+  user: any;
   ranking: number;
+  pricePerHour?: number;
+  pricePerDay?: number;
 }

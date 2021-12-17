@@ -13,20 +13,22 @@
           formControlName="direction"
         ></ion-input>
       </ion-item>
-      <ion-item *ngFor="let input of getPriceInputs().controls">
-        <ion-label>inicio</ion-label>
-        <ion-input
-          type="date"
-          placeholder="fecha"
-          formControlName="start"
-        ></ion-input>
-        <ion-label>fin</ion-label>
-        <ion-input
-          type="date"
-          placeholder="fecha"
-          formControlName="end"
-        ></ion-input>
-      </ion-item>
+      <ion-item-group formArrayName="pricePerHour">
+        <ion-item *ngFor="let inputData of getPriceInputs().controls">
+          <ion-label>inicio</ion-label>
+          <ion-input
+            type="date"
+            placeholder="fecha"
+            formControlName="start"
+          ></ion-input>
+          <ion-label>fin</ion-label>
+          <ion-input
+            type="date"
+            placeholder="fecha"
+            formControlName="end"
+          ></ion-input>
+        </ion-item>
+      </ion-item-group>
     </ion-list>
   </form>
 </ion-content>

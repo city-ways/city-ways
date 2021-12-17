@@ -6,6 +6,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: './parking-data.component.html',
   styleUrls: ['./parking-data.component.scss'],
 })
+// ! bug: a la hora de generar los nuevos inputs, Cannot find control with path: 'pricePerHour
 export class ParkingDataComponent implements OnInit {
   @Input() title;
   parkingData: FormGroup;

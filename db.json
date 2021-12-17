@@ -1,129 +1,141 @@
-{
-  "parkings": [
-    {
-      "id": 1,
-      "direccion": "C. del Muelle, 23",
-      "ocupado": false,
-      "periodosDisponible": [
-        {
-          "inicio": 1639499436,
-          "fin": 1639513836
-        },
-        {
-          "inicio": 1639499436,
-          "fin": 1639513836
-        },
-        {
-          "inicio": 1639499436,
-          "fin": 1639513836
-        },
-        {
-          "inicio": 1639499436,
-          "fin": 1639513836
-        },
-        {
-          "inicio": 1639499436,
-          "fin": 1639513836
-        },
-        {
-          "inicio": 1639499436,
-          "fin": 1639513836
-        }
-      ],
-      "precioPorHr": 0.56,
-      "largaEstancia": false,
-      "nombre": "juanjo",
-      "ranking": 3.5
-    },
-    {
-      "id": 2,
-      "direccion": "C. del Muelle, 25",
-      "ocupado": false,
-      "periodosDisponible": [
-        {
-          "inicio": 1639499436,
-          "fin": 1639513836
-        },
-        {
-          "inicio": 1639499436,
-          "fin": 1639513836
-        },
-        {
-          "inicio": 1639499436,
-          "fin": 1639513836
-        },
-        {
-          "inicio": 1639499436,
-          "fin": 1639513836
-        },
-        {
-          "inicio": 1639499436,
-          "fin": 1639513836
-        },
-        {
-          "inicio": 1639499436,
-          "fin": 1639513836
-        }
-      ],
-      "precioPorHr": 0.56,
-      "largaEstancia": false,
-      "nombre": "juanjo",
-      "ranking": 3.5
-    },
-    {
-      "id": 3,
-      "direccion": "C. del Muelle, 13",
-      "ocupado": true,
-      "periodosDisponible": [
-        {
-          "inicio": 1639499436,
-          "fin": 1639513836
-        },
-        {
-          "inicio": 1639499436,
-          "fin": 1639513836
-        },
-        {
-          "inicio": 1639499436,
-          "fin": 1639513836
-        },
-        {
-          "inicio": 1639499436,
-          "fin": 1639513836
-        },
-        {
-          "inicio": 1639499436,
-          "fin": 1639513836
-        },
-        {
-          "inicio": 1639499436,
-          "fin": 1639513836
-        }
-      ],
-      "precioPorHr": 0.56,
-      "largaEstancia": false,
-      "nombre": "juanjo",
-      "ranking": 3.5
-    },
-    {
-      "id": 4,
-      "direccion": "C. del Muelle, 13",
-      "ocupado": true,
-      "periodosDisponible": [
-        {
-          "inicio": 12,
-          "fin": 44
-        },
-        {
-          "inicio": 33,
-          "fin": 55
-        }
-      ],
-      "precioPorHr": 0.56,
-      "largaEstancia": false,
-      "nombre": "juanjo",
-      "ranking": 3.5
-    }
-  ],
-  "usuarios": []
-}
+//{
+//  "parkings": [
+//    {
+//      "id": 1,
+//      "direccion": "C. del Muelle, 23",
+//      "ocupado": false,
+//      "periodosDisponible": [
+//        {
+//          "inicio": 1639499436,
+//          "fin": 1639513836
+//        },
+//        {
+//          "inicio": 1639499436,
+//          "fin": 1639513836
+//        },
+//        {
+//          "inicio": 1639499436,
+//          "fin": 1639513836
+//        },
+//        {
+//          "inicio": 1639499436,
+//          "fin": 1639513836
+//        },
+//        {
+//          "inicio": 1639499436,
+//          "fin": 1639513836
+//        },
+//        {
+//          "inicio": 1639499436,
+//          "fin": 1639513836
+//        }
+//      ],
+//      "precioPorHr": 0.56,
+//      "largaEstancia": false,
+//      "nombre": "juanjo",
+//      "ranking": 3.5
+//    },
+//    {
+//      "id": 2,
+//      "direccion": "C. del Muelle, 25",
+//      "ocupado": false,
+//      "periodosDisponible": [
+//        {
+//          "inicio": 1639499436,
+//          "fin": 1639513836
+//        },
+//        {
+//          "inicio": 1639499436,
+//          "fin": 1639513836
+//        },
+//        {
+//          "inicio": 1639499436,
+//          "fin": 1639513836
+//        },
+//        {
+//          "inicio": 1639499436,
+//          "fin": 1639513836
+//        },
+//        {
+//          "inicio": 1639499436,
+//          "fin": 1639513836
+//        },
+//        {
+//          "inicio": 1639499436,
+//          "fin": 1639513836
+//        }
+//      ],
+//      "precioPorHr": 0.56,
+//      "largaEstancia": false,
+//      "nombre": "juanjo",
+//      "ranking": 3.5
+//    },
+//    {
+//      "id": 3,
+//      "direccion": "C. del Muelle, 13",
+//      "ocupado": true,
+//      "periodosDisponible": [
+//        {
+//          "inicio": 1639499436,
+//          "fin": 1639513836
+//        },
+//        {
+//          "inicio": 1639499436,
+//          "fin": 1639513836
+//        },
+//        {
+//          "inicio": 1639499436,
+//          "fin": 1639513836
+//        },
+//        {
+//          "inicio": 1639499436,
+//          "fin": 1639513836
+//        },
+//        {
+//          "inicio": 1639499436,
+//          "fin": 1639513836
+//        },
+//        {
+//          "inicio": 1639499436,
+//          "fin": 1639513836
+//        }
+//      ],
+//      "precioPorHr": 0.56,
+//      "largaEstancia": false,
+//      "nombre": "juanjo",
+//      "ranking": 3.5
+//    },
+//    {
+//      "id": 4,
+//      "direccion": "C. del Muelle, 13",
+//      "ocupado": true,
+//      "periodosDisponible": [
+//        {
+//          "inicio": 12,
+//          "fin": 44
+//        },
+//        {
+//          "inicio": 33,
+//          "fin": 55
+//        }
+//      ],
+//      "precioPorHr": 0.56,
+//      "largaEstancia": false,
+//      "nombre": "juanjo",
+//      "ranking": 3.5
+//    },
+//    {"id":1,"direction":"709 Hooker Hill","cords":{"longitude":43.7385844,"latitude":40.5931238},"type":"neque aenean auctor gravida sem praesent id massa id nisl","timesAvailable":[{
+//      ""ista"rt: 344," end:4566
+//    },{
+//      "start":  "344,
+//"      "e"nd": 4566
+//    },{"start":  344, "end: 4566},{"start":  344, "end: 4566},{"start":  344, "end: 4566},{"start":  344, "end: 4566}],"daysAvailable":[{"start":  344, "end: 4566},{"start":  344, "end: 4566}],"user":"Jonis Rawll","ranking":1,"pricePerHour":0.95,"pricePerDay":20},
+//    {"id":2,"direction":"52026 Jenifer Alley","cords":{"longitude":89.1366848,"latitude":48.9359551},"type":"justo lacinia eget tincidunt eget tempus vel pede morbi porttitor lorem id ligula suspendisse ornare consequat lectus","timesAvailable":[],"daysAvailable":[{"start":  344, "end: 4566}],"user":"Petunia Corpe","ranking":5,"pricePerHour":1.46,"pricePerDay":28},
+//    {"id":3,"direction":"29550 Commercial Way","cords":{"longitude":41.5474702,"latitude":58.4705978},"type":"leo odio condimentum id luctus nec molestie sed justo pellentesque viverra pede ac","timesAvailable":[{"start":  344, "end: 4566},{"start":  344, "end: 4566},{"start":  344, "end: 4566}],"daysAvailable":[{"start":  344, "end: 4566},{"start":  344, "end: 4566},{"start":  344, "end: 4566},{"start":  344, "end: 4566},{"start":  344, "end: 4566},{"start":  344, "end: 4566},{"start":  344, "end: 4566}],"user":"Dian Slany","ranking":4,"pricePerHour":1.58,"pricePerDay":24},
+//    {"id":4,"direction":"52 Schlimgen Crossing","cords":{"longitude":-99.1476908,"latitude":19.3803931},"type":"pulvinar sed nisl nunc rhoncus dui vel sem sed sagittis nam congue","timesAvailable":[],"daysAvailable":[{"start":  344, "end: 4566}],"user":"Kimberlyn Dohr","ranking":5,"pricePerHour":1.81,"pricePerDay":17},
+//    {"id":5,"direction":"5873 Glacier Hill Alley","cords":{"longitude":18.4922736,"latitude":49.6603908},"type":"orci nullam molestie nibh in lectus pellentesque at nulla suspendisse potenti cras in purus eu magna vulputate","timesAvailable":[{}],"daysAvailable":[{"start":  344, "end: 4566},{"start":  344, "end: 4566},{"start":  344, "end: 4566},{"start":  344, "end: 456"6}sta"rt: 344," end:4566{},{
+//      ""ista"rt: 344," end:4566
+//    }],"user":"Eldridge Bowe","ranking":5,"pricePerHour":1.06,"pricePerDay":24}
+//  ],
+//  "usuarios": []
+//}

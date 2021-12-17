@@ -7,5 +7,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [ParkingDataComponent],
   imports: [CommonModule, IonicModule, ReactiveFormsModule],
+  exports: [ParkingDataComponent],
 })
 export class SharedModule {}

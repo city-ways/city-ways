@@ -21,12 +21,12 @@ export class ParkingDataComponent implements OnInit {
   }
 
   getPriceInputs(): FormArray {
-    return this.parkingData.get('precioPorHora') as FormArray;
+    return this.parkingData.get('pricePerHour') as FormArray;
   }
   addPriceInput(dayInput: boolean) {
     if (dayInput) {
       const timestampSelector = this.parkingData.controls
-        .precioPorHora as FormArray;
+        .pricePerHour as FormArray;
       timestampSelector.push(
         this.formBuilder.group({
           start: '',

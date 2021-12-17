@@ -1,3 +1,32 @@
-<p>
-  parking-data works!
-</p>
+<ion-content>
+  <ion-button (click)="addPriceInput(true)" color="primary">hols</ion-button>
+  <form [formGroup]="parkingData">
+    <ion-list>
+      <ion-list-header>
+        {{ title }}
+      </ion-list-header>
+      <ion-item>
+        <ion-label>Dirección</ion-label>
+        <ion-input
+          type="text"
+          placeholder="Dirección"
+          formControlName="direction"
+        ></ion-input>
+      </ion-item>
+      <ion-item *ngFor="let input of getPriceInputs().controls">
+        <ion-label>inicio</ion-label>
+        <ion-input
+          type="date"
+          placeholder="fecha"
+          formControlName="start"
+        ></ion-input>
+        <ion-label>fin</ion-label>
+        <ion-input
+          type="date"
+          placeholder="fecha"
+          formControlName="end"
+        ></ion-input>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>

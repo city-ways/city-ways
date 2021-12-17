@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-parking-data',
@@ -6,9 +7,32 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./parking-data.component.scss'],
 })
 export class ParkingDataComponent implements OnInit {
+  @Input() title;
+  parkingData: FormGroup;
+  constructor(private formBuilder: FormBuilder) {}
 
-  constructor() { }
+  ngOnInit() {
+    this.parkingData = this.formBuilder.group({
+      direction: ['', Validators.required],
+      longPeriod: ['', Validators.required],
+      pricePerHour: this.formBuilder.array([]),
+      pricePerDay: this.formBuilder.array([]),
+    });
+  }
 
-  ngOnInit() {}
-
+  getPriceInputs(): FormArray {
+    return this.parkingData.get('precioPorHora') as FormArray;
+  }
+  addPriceInput(dayInput: boolean) {
+    if (dayInput) {
+      const timestampSelector = this.parkingData.controls
+        .precioPorHora as FormArray;
+      timestampSelector.push(
+        this.formBuilder.group({
+          start: '',
+          end: '',
+        })
+      );
+    }
+  }
 }

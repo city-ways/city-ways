@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-
+import { ParkingDataComponent } from './parking-data/parking-data.component';
+import { IonicModule } from '@ionic/angular';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule
-  ]
+  declarations: [ParkingDataComponent],
+  imports: [CommonModule, IonicModule, ReactiveFormsModule],
 })
-export class SharedModule { }
+export class SharedModule {}

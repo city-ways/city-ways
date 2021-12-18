@@ -7,5 +7,8 @@ import { ParkingService } from './core/parking.service';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
+  public appPages = [
+    { title: 'Inicio', url: './pages/home/home.module', icon: 'home' },
+  ];
   constructor() {}
 }

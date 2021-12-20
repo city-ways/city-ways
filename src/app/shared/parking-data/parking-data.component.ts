@@ -47,4 +47,10 @@ export class ParkingDataComponent implements OnInit {
     this.getDayPriceInputs().clear();
     console.log('ff');
   }
+  deleteInput(i: number) {
+    (this.getTypeParking()
+      ? this.getDayPriceInputs()
+      : this.getHourPriceInputs()
+    ).removeAt(i);
+  }
 }

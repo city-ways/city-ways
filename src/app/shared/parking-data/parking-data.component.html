@@ -1,5 +1,4 @@
 <ion-content>
-  <ion-button (click)="addPriceInput()" color="primary">Add</ion-button>
   <form [formGroup]="parkingData">
     <ion-list>
       <ion-list-header>
@@ -21,6 +20,7 @@
           (ionChange)="clearInputs()"
         ></ion-toggle>
       </ion-item>
+      <ion-button (click)="addPriceInput()" color="primary">Add</ion-button>
 
       <!--      inputs de estancia larga-->
       <div *ngIf="getTypeParking; else cortaEstancia">
@@ -28,6 +28,12 @@
           formArrayName="pricePerDay"
           *ngFor="let inputData of getDayPriceInputs().controls; let i = index"
         >
+          <ion-item>
+            <ion-label>Parking disponible</ion-label>
+            <ion-button color="danger" (click)="deleteInput(i)">
+              <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+            </ion-button>
+          </ion-item>
           <ion-item>
             <ion-label>inicio</ion-label>
             <ion-input

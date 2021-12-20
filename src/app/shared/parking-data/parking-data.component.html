@@ -13,9 +13,8 @@
         ></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label>Larga Duracion</ion-label>
+        <ion-label>Larga Duración</ion-label>
         <ion-toggle
-          checked
           formControlName="longPeriod"
           (ionChange)="clearInputs()"
         ></ion-toggle>
@@ -26,11 +25,14 @@
       <div *ngIf="getTypeParking(); else cortaEstancia">
         <ion-item>
           <ion-label>Precio Por Dia</ion-label>
-          <ion-input type="number"> </ion-input>
+          <ion-input type="number" formControlName="dayPrice"> </ion-input>
         </ion-item>
         <ion-item-group
-          formArrayName="pricePerDay"
-          *ngFor="let inputData of getDayPriceInputs().controls; let i = index"
+          formArrayName="daysRanges"
+          *ngFor="
+            let inputData of getDaysRangesInputs().controls;
+            let i = index
+          "
         >
           <ion-item>
             <ion-label>Parking disponible</ion-label>
@@ -57,13 +59,17 @@
         </ion-item-group>
       </div>
       <!--      Corta estancia-->
-      <ng-template formArrayName="pricePerHour" #cortaEstancia>
+      <ng-template #cortaEstancia>
         <ion-item>
           <ion-label>Precio Por hr</ion-label>
-          <ion-input type="number"> </ion-input>
+          <ion-input type="number" formControlName="hourPrice"> </ion-input>
         </ion-item>
         <ion-item-group
-          *ngFor="let inputData of getHourPriceInputs().controls; let i = index"
+          formArrayName="hoursRanges"
+          *ngFor="
+            let inputData of getHoursRangesInputs().controls;
+            let i = index
+          "
         >
           <ion-item>
             <ion-label>inicio</ion-label>
@@ -87,5 +93,5 @@
       <div></div>
     </ion-list>
   </form>
-  <pre>{{ getDayPriceInputs() }}</pre>
+  <pre>{{ getDaysRangesInputs() }}</pre>
 </ion-content>

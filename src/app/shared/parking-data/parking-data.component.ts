@@ -14,43 +14,47 @@ export class ParkingDataComponent implements OnInit {
     this.parkingData = this.formBuilder.group({
       direction: ['', Validators.required],
       longPeriod: [false, Validators.required],
-      pricePerHour: this.formBuilder.array([]),
-      pricePerDay: this.formBuilder.array([]),
+      hoursRanges: this.formBuilder.array([]),
+      daysRanges: this.formBuilder.array([]),
+      hourPrice: '',
+      dayPrice: '',
     });
   }
 
-  getHourPriceInputs(): FormArray {
-    return this.parkingData.get('pricePerHour') as FormArray;
+  getHoursRangesInputs(): FormArray {
+    return this.parkingData.get('hoursRanges') as FormArray;
   }
-  getDayPriceInputs(): FormArray {
-    return this.parkingData.get('pricePerDay') as FormArray;
+  getDaysRangesInputs(): FormArray {
+    return this.parkingData.get('daysRanges') as FormArray;
   }
   getTypeParking(): boolean {
     return this.parkingData.get('longPeriod').value;
   }
   addPriceInput() {
     (this.getTypeParking()
-      ? this.getDayPriceInputs()
-      : this.getHourPriceInputs()
+      ? this.getDaysRangesInputs()
+      : this.getHoursRangesInputs()
     ).push(
       this.formBuilder.control({
         start: ['', Validators.required],
         end: ['', Validators.required],
       })
     );
-
-    console.log(this.getHourPriceInputs().controls);
   }
   clearInputs() {
     // todo: refactor
-    this.getHourPriceInputs().clear();
-    this.getDayPriceInputs().clear();
-    console.log('ff');
+    if (this.getTypeParking()) {
+      this.parkingData.get('dayPrice').setValidators([Validators.required]);
+    } else {
+      this.parkingData.get('hourPrice').setValidators([Validators.required]);
+    }
+    this.getHoursRangesInputs().clear();
+    this.getDaysRangesInputs().clear();
   }
   deleteInput(i: number) {
     (this.getTypeParking()
-      ? this.getDayPriceInputs()
-      : this.getHourPriceInputs()
+      ? this.getDaysRangesInputs()
+      : this.getHoursRangesInputs()
     ).removeAt(i);
   }
 }

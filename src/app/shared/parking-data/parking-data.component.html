@@ -23,7 +23,11 @@
       <ion-button (click)="addPriceInput()" color="primary">Add</ion-button>
 
       <!--      inputs de estancia larga-->
-      <div *ngIf="getTypeParking; else cortaEstancia">
+      <div *ngIf="getTypeParking(); else cortaEstancia">
+        <ion-item>
+          <ion-label>Precio Por Dia</ion-label>
+          <ion-input type="number"> </ion-input>
+        </ion-item>
         <ion-item-group
           formArrayName="pricePerDay"
           *ngFor="let inputData of getDayPriceInputs().controls; let i = index"
@@ -54,6 +58,10 @@
       </div>
       <!--      Corta estancia-->
       <ng-template formArrayName="pricePerHour" #cortaEstancia>
+        <ion-item>
+          <ion-label>Precio Por hr</ion-label>
+          <ion-input type="number"> </ion-input>
+        </ion-item>
         <ion-item-group
           *ngFor="let inputData of getHourPriceInputs().controls; let i = index"
         >
@@ -76,6 +84,7 @@
           </ion-item>
         </ion-item-group>
       </ng-template>
+      <div></div>
     </ion-list>
   </form>
   <pre>{{ getDayPriceInputs() }}</pre>

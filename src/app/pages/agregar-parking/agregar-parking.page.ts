@@ -20,6 +20,8 @@ export class AgregarParkingPage implements OnInit {
   ngOnInit() {
     this.parkingForm = this.formBuilder.group({
       direccion: ['', Validators.required],
+      type: '',
+
     });
   }
   public addParking(parking: ParkingService) {}

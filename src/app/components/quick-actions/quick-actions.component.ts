@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-quick-actions',
@@ -6,9 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./quick-actions.component.scss'],
 })
 export class QuickActionsComponent implements OnInit {
-
-  constructor() { }
+  @Output() newParking = new EventEmitter();
+  @Output() editParking = new EventEmitter();
+  constructor() {}
 
   ngOnInit() {}
-
+  addNewParkingEmit(): void {
+    this.newParking.emit();
+  }
+  editParkingEmit(): void {
+    this.editParking.emit();
+  }
 }

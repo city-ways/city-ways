@@ -8,9 +8,10 @@ import { DashboardPageRoutingModule } from './dashboard-routing.module';
 
 import { DashboardPage } from './dashboard.page';
 import { QuickActionsComponent } from '../../components/quick-actions/quick-actions.component';
+import { ParkingListComponent } from '../../components/parking-list/parking-list.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, DashboardPageRoutingModule],
-  declarations: [DashboardPage, QuickActionsComponent],
+  declarations: [DashboardPage, QuickActionsComponent, ParkingListComponent],
 })
 export class DashboardPageModule {}

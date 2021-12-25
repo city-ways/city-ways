@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ParkingService } from '../../core/parking.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.page.scss'],
 })
 export class DashboardPage implements OnInit {
+  public editModalIsOpen: boolean;
+  constructor(private parkingService: ParkingService) {}
 
-  constructor() { }
-
-  ngOnInit() {
+  ngOnInit() {}
+  newParking() {
+    console.log('ff');
   }
-
+  editParking() {
+    this.editModalIsOpen = true;
+  }
 }

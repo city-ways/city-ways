@@ -5,5 +5,11 @@
 </ion-header>
 
 <ion-content>
-  <app-quick-actions></app-quick-actions>
+  <app-quick-actions
+    (newParking)="newParking()"
+    (editParking)="editParking()"
+  ></app-quick-actions>
+
+  <!--  Modals-->
+  <app-parking-list [isOpen]="editModalIsOpen"></app-parking-list>
 </ion-content>

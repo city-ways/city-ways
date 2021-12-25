@@ -33,4 +33,3 @@ npm-debug.log*
 /.husky
 db.json
 src/environments/
-src/environments/

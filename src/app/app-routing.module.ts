@@ -17,6 +17,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/home/home.module').then((m) => m.HomePageModule),
   },
+  {
+    path: 'add',
+    loadChildren: () =>
+      import('./pages/agregar-parking/agregar-parking.module').then(
+        (m) => m.AgregarParkingPageModule
+      ),
+  },
 ];
 
 @NgModule({

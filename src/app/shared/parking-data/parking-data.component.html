@@ -1,5 +1,4 @@
 <ion-content>
-  <ion-button (click)="addPriceInput(true)" color="primary">hols</ion-button>
   <form [formGroup]="parkingData">
     <ion-list>
       <ion-list-header>
@@ -13,22 +12,91 @@
           formControlName="direction"
         ></ion-input>
       </ion-item>
-      <ion-item-group formArrayName="pricePerHour">
-        <ion-item *ngFor="let inputData of getPriceInputs().controls">
-          <ion-label>inicio</ion-label>
-          <ion-input
-            type="date"
-            placeholder="fecha"
-            formControlName="start"
-          ></ion-input>
-          <ion-label>fin</ion-label>
-          <ion-input
-            type="date"
-            placeholder="fecha"
-            formControlName="end"
-          ></ion-input>
+      <ion-item>
+        <ion-label>Larga Duración</ion-label>
+        <ion-toggle
+          formControlName="longPeriod"
+          (ionChange)="clearInputs()"
+        ></ion-toggle>
+      </ion-item>
+      <ion-button (click)="addPriceInput()" color="primary">Add</ion-button>
+
+      <!--      inputs de estancia larga-->
+      <div *ngIf="getTypeParking(); else cortaEstancia">
+        <ion-item>
+          <ion-label>Precio Por Dia</ion-label>
+          <ion-input type="number" formControlName="dayPrice"> </ion-input>
         </ion-item>
-      </ion-item-group>
+        <ion-item-group
+          formArrayName="daysRanges"
+          *ngFor="
+            let inputData of getDaysRangesInputs().controls;
+            let i = index
+          "
+        >
+          <ion-item>
+            <ion-label>Parking disponible</ion-label>
+            <ion-button color="danger" (click)="deleteInput(i)">
+              <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+            </ion-button>
+          </ion-item>
+          <ion-item>
+            <ion-label>inicio</ion-label>
+            <ion-input
+              type="date"
+              placeholder="fecha"
+              [formControlName]="i"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>fin</ion-label>
+            <ion-input
+              type="date"
+              placeholder="fecha"
+              [formControlName]="i"
+            ></ion-input>
+          </ion-item>
+        </ion-item-group>
+      </div>
+      <!--      Corta estancia-->
+      <ng-template #cortaEstancia>
+        <ion-item>
+          <ion-label>Precio Por hr</ion-label>
+          <ion-input type="number" formControlName="hourPrice"> </ion-input>
+        </ion-item>
+        <ion-item-group
+          formArrayName="hoursRanges"
+          *ngFor="
+            let inputData of getHoursRangesInputs().controls;
+            let i = index
+          "
+        >
+          <ion-item>
+            <ion-label>Parking disponible</ion-label>
+            <ion-button color="danger" (click)="deleteInput(i)">
+              <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+            </ion-button>
+          </ion-item>
+          <ion-item>
+            <ion-label>inicio</ion-label>
+            <ion-input
+              type="time"
+              placeholder="fecha"
+              [formControlName]="i"
+            ></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>fin</ion-label>
+            <ion-input
+              type="time"
+              placeholder="fecha"
+              [formControlName]="i"
+            ></ion-input>
+          </ion-item>
+        </ion-item-group>
+      </ng-template>
+      <div></div>
     </ion-list>
   </form>
 </ion-content>

@@ -6,34 +6,55 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: './parking-data.component.html',
   styleUrls: ['./parking-data.component.scss'],
 })
-// ! bug: a la hora de generar los nuevos inputs, Cannot find control with path: 'pricePerHour
 export class ParkingDataComponent implements OnInit {
   @Input() title;
   parkingData: FormGroup;
   constructor(private formBuilder: FormBuilder) {}
-
   ngOnInit() {
     this.parkingData = this.formBuilder.group({
       direction: ['', Validators.required],
-      longPeriod: ['', Validators.required],
-      pricePerHour: this.formBuilder.array([]),
-      pricePerDay: this.formBuilder.array([]),
+      longPeriod: [false, Validators.required],
+      hoursRanges: this.formBuilder.array([]),
+      daysRanges: this.formBuilder.array([]),
+      hourPrice: '',
+      dayPrice: '',
     });
   }
 
-  getPriceInputs(): FormArray {
-    return this.parkingData.get('pricePerHour') as FormArray;
+  getHoursRangesInputs(): FormArray {
+    return this.parkingData.get('hoursRanges') as FormArray;
   }
-  addPriceInput(dayInput: boolean) {
-    if (dayInput) {
-      const timestampSelector = this.parkingData.controls
-        .pricePerHour as FormArray;
-      timestampSelector.push(
-        this.formBuilder.group({
-          start: '',
-          end: '',
-        })
-      );
+  getDaysRangesInputs(): FormArray {
+    return this.parkingData.get('daysRanges') as FormArray;
+  }
+  getTypeParking(): boolean {
+    return this.parkingData.get('longPeriod').value;
+  }
+  addPriceInput() {
+    (this.getTypeParking()
+      ? this.getDaysRangesInputs()
+      : this.getHoursRangesInputs()
+    ).push(
+      this.formBuilder.control({
+        start: ['', Validators.required],
+        end: ['', Validators.required],
+      })
+    );
+  }
+  clearInputs() {
+    // todo: refactor
+    if (this.getTypeParking()) {
+      this.parkingData.get('dayPrice').setValidators([Validators.required]);
+    } else {
+      this.parkingData.get('hourPrice').setValidators([Validators.required]);
     }
+    this.getHoursRangesInputs().clear();
+    this.getDaysRangesInputs().clear();
+  }
+  deleteInput(i: number) {
+    (this.getTypeParking()
+      ? this.getDaysRangesInputs()
+      : this.getHoursRangesInputs()
+    ).removeAt(i);
   }
 }

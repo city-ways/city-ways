@@ -57,34 +57,37 @@
         <ion-label>Precio Por hr</ion-label>
         <ion-input type="number" formControlName="pricePerHour"> </ion-input>
       </ion-item>
-      <ion-item-group
-        formArrayName="timesAvailable"
-        *ngFor="let inputData of getHoursRangesInputs().controls; let i = index"
-      >
-        <ion-item>
-          <ion-label>Parking disponible</ion-label>
-          <ion-button color="danger" (click)="deleteInput(i)">
-            <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-          </ion-button>
-        </ion-item>
-        <ion-item>
-          <ion-label>inicio</ion-label>
-          <ion-input
-            type="time"
-            placeholder="fecha"
-            [formControlName]="i"
-          ></ion-input>
-        </ion-item>
+      <ng-container formArrayName="timesAvailable">
+        <ion-item-group
+          *ngFor="let ranges of getHoursRangesInputs().controls; let i = index"
+        >
+          <div [formGroup]="ranges">
+            <ion-item>
+              <ion-label>Parking disponible</ion-label>
+              <ion-button color="danger" (click)="deleteInput(i)">
+                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+              </ion-button>
+            </ion-item>
+            <ion-item>
+              <ion-label>inicio</ion-label>
+              <ion-input
+                type="time"
+                placeholder="fecha"
+                formControlName="start"
+              ></ion-input>
+            </ion-item>
 
-        <ion-item>
-          <ion-label>fin</ion-label>
-          <ion-input
-            type="time"
-            placeholder="fecha"
-            [formControlName]="i"
-          ></ion-input>
-        </ion-item>
-      </ion-item-group>
+            <ion-item>
+              <ion-label>fin</ion-label>
+              <ion-input
+                type="time"
+                placeholder="fecha"
+                formControlName="end"
+              ></ion-input>
+            </ion-item>
+          </div>
+        </ion-item-group>
+      </ng-container>
     </ng-template>
     <ion-button color="primary" type="submit">{{ type }}</ion-button>
     <ion-button *ngIf="type === 'editar'" color="danger">Borrar</ion-button>

@@ -39,7 +39,7 @@ export class ParkingDataComponent implements OnInit {
       ? this.getDaysRangesInputs()
       : this.getHoursRangesInputs()
     ).push(
-      this.formBuilder.control({
+      this.formBuilder.group({
         start: ['', Validators.required],
         end: ['', Validators.required],
       })

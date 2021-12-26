@@ -4,9 +4,10 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { HomePageRoutingModule } from './home-routing.module';
+import { DashboardPageRoutingModule } from './dashboard-routing.module';
 
-import { HomePage } from './home.page';
+import { DashboardPage } from './dashboard.page';
+import { QuickActionsComponent } from '../../components/quick-actions/quick-actions.component';
 import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
@@ -14,9 +15,9 @@ import { SharedModule } from '../../shared/shared.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule,
+    DashboardPageRoutingModule,
     SharedModule,
   ],
-  declarations: [HomePage],
+  declarations: [DashboardPage, QuickActionsComponent],
 })
-export class HomePageModule {}
+export class DashboardPageModule {}

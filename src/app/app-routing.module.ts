@@ -3,11 +3,6 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'home',
-    loadChildren: () =>
-      import('./pages/home/home.module').then((m) => m.HomePageModule),
-  },
-  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',
@@ -15,13 +10,25 @@ const routes: Routes = [
   {
     path: 'home',
     loadChildren: () =>
-      import('./pages/home/home.module').then((m) => m.HomePageModule),
+      import('./pages/tabs/tabs.module').then((m) => m.TabsPageModule),
   },
   {
-    path: 'add',
+    path: 'dashboard',
     loadChildren: () =>
-      import('./pages/agregar-parking/agregar-parking.module').then(
-        (m) => m.AgregarParkingPageModule
+      import('./pages/dashboard/dashboard.module').then(
+        (m) => m.DashboardPageModule
+      ),
+  },
+  {
+    path: 'map',
+    loadChildren: () =>
+      import('./pages/map/map.module').then((m) => m.MapPageModule),
+  },
+  {
+    path: 'parking-list-info',
+    loadChildren: () =>
+      import('./shared/parking-list-info/parking-list-info.module').then(
+        (m) => m.ParkingListInfoPageModule
       ),
   },
 ];

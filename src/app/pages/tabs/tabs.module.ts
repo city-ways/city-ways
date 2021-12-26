@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AgregarParkingPageRoutingModule } from './agregar-parking-routing.module';
+import { TabsPageRoutingModule } from './tabs-routing.module';
 
-import { AgregarParkingPage } from './agregar-parking.page';
+import { TabsPage } from './tabs.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AgregarParkingPageRoutingModule
+    TabsPageRoutingModule
   ],
-  declarations: [AgregarParkingPage]
+  declarations: [TabsPage]
 })
-export class AgregarParkingPageModule {}
+export class TabsPageModule {}

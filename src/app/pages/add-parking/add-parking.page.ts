@@ -23,18 +23,28 @@ export class AddParkingPage implements OnInit {
       pricePerHour,
       pricePerDay,
     } = e;
-    console.log(daysAvailable);
-    console.log(timesAvailable);
-    // const parking: Parking = {
-    //   id: 0,
-    //   direction,
-    //   type: longPeriod ? 'larga estancia' : 'corta estancia',
-    // };
-    // this.parkingService.getMaxParkingId().subscribe((id) => (e.id = ++id));
-    // this.parkingService.createParking(e).subscribe(() => console.log('fd'));
-    // this.parkingService
-    //   .getParkingById(5)
-    //   .subscribe((data) => console.log(data));
+
+    let parking: Parking = {
+      id: 0,
+      direction,
+      cords: null,
+      type: longPeriod ? 'larga estancia' : 'corta estancia',
+      timesAvailable,
+      daysAvailable,
+      pricePerHour,
+      pricePerDay,
+      user: null,
+      ranking: 0,
+    };
+    this.parkingService
+      .getMaxParkingId()
+      .subscribe((id) => (parking.id = ++id));
+    this.parkingService
+      .createParking(parking)
+      .subscribe(() => console.log('fd'));
+    this.parkingService
+      .getParkingById(parking.id)
+      .subscribe((data) => console.log(data));
     // console.log(e);
   }
 }

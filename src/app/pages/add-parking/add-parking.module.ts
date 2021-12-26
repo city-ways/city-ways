@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ParkingListInfoPageRoutingModule } from './parking-list-info-routing.module';
+import { AddParkingPageRoutingModule } from './add-parking-routing.module';
 
-import { ParkingListInfoPage } from './parking-list-info.page';
+import { AddParkingPage } from './add-parking.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ParkingListInfoPageRoutingModule,
+    AddParkingPageRoutingModule
   ],
-  declarations: [ParkingListInfoPage],
+  declarations: [AddParkingPage]
 })
-export class ParkingListInfoPageModule {}
+export class AddParkingPageModule {}

@@ -18,6 +18,13 @@ const routes: Routes = [
                 (m) => m.DashboardPageModule
               ),
           },
+          {
+            path: 'new-parking',
+            loadChildren: () =>
+              import('../add-parking/add-parking.module').then(
+                (m) => m.AddParkingPageModule
+              ),
+          },
         ],
       },
       {

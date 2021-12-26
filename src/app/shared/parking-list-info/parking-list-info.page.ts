@@ -1,7 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Parking } from '../parking';
-import { ParkingService } from '../../core/parking.service';
-import { UserIdService } from '../../core/user-id.service';
 
 @Component({
   selector: 'app-parking-list-info',
@@ -13,5 +11,7 @@ export class ParkingListInfoPage implements OnInit {
   @Input() route: string;
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.parkingList);
+  }
 }

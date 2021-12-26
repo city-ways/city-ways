@@ -24,13 +24,6 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/map/map.module').then((m) => m.MapPageModule),
   },
-  {
-    path: 'parking-list-info',
-    loadChildren: () =>
-      import('./shared/parking-list-info/parking-list-info.module').then(
-        (m) => m.ParkingListInfoPageModule
-      ),
-  },
 ];
 
 @NgModule({

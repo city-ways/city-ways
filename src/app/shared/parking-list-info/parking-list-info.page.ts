@@ -10,6 +10,7 @@ import { UserIdService } from '../../core/user-id.service';
 })
 export class ParkingListInfoPage implements OnInit {
   @Input() parkingList: Parking[];
+  @Input() route: string;
   constructor() {}
 
   ngOnInit() {}

@@ -7,7 +7,11 @@
 <ion-content>
   <ion-list>
     <!--    <ion-searchbar showCancelButton="focus"></ion-searchbar>-->
-    <ion-item *ngFor="let parking of parkingList">
+    <ion-item
+      *ngFor="let parking of parkingList"
+      button="true"
+      [routerLink]="[route, parking.id]"
+    >
       <ion-icon name="location-outline" class="ion-margin-end"></ion-icon>
       <ion-label>{{parking.direction}}</ion-label>
     </ion-item>

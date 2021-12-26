@@ -3,6 +3,7 @@ import { ParkingListModalComponent } from '../../shared/parking-list-modal/parki
 import { ParkingService } from '../../core/parking.service';
 import { UserIdService } from '../../core/user-id.service';
 import { Parking } from '../../shared/parking';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-quick-actions',
@@ -15,7 +16,8 @@ export class QuickActionsComponent implements OnInit {
   parkingsOfUser: Parking[];
   constructor(
     private parkingService: ParkingService,
-    private idUserService: UserIdService
+    private idUserService: UserIdService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -28,7 +30,10 @@ export class QuickActionsComponent implements OnInit {
       .getParkingsOfUser(this.idUser)
       .subscribe((parkings) => (this.parkingsOfUser = parkings));
   }
-  showModal(parkings: Parking[]) {
-    this.modalList.showModal(parkings);
+  showModal(route: string, parkings: Parking[]) {
+    if (parkings.length === 1) {
+      this.router.navigate([route]);
+    }
+    this.modalList.showModal(route, parkings);
   }
 }

@@ -11,13 +11,18 @@
       <ion-button
         class="ion-padding-end"
         shape="round"
-        (click)="showModal(parkingsOfUser)"
+        (click)="showModal('edit', parkingsOfUser)"
         >Editar Parking</ion-button
       >
-      <ion-button class="ion-padding-end" shape="round"
+      <ion-button
+        class="ion-padding-end"
+        shape="round"
+        (click)="showModal('', parkingsOfUser)"
         >Deshabilitar Parking</ion-button
       >
-      <ion-button class="" shape="round">Activar Parking</ion-button>
+      <ion-button class="" shape="round" (click)="showModal('', parkingsOfUser)"
+        >Activar Parking</ion-button
+      >
     </div>
   </ion-card-content>
   <app-parking-list-modal #modalList></app-parking-list-modal>

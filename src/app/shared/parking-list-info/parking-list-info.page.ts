@@ -21,10 +21,9 @@ export class ParkingListInfoPage implements OnInit {
     this.idUserService.id.subscribe((id) => {
       this.idUser = id;
     });
-    console.log(this.idUser);
     // get all parkings of the user
     this.parkingService
       .getParkingsOfUser(this.idUser)
-      .subscribe((parkings) => console.log(parkings));
+      .subscribe((parkings) => (this.parkingsOfUser = parkings));
   }
 }

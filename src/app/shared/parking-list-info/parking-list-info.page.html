@@ -4,4 +4,12 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content> </ion-content>
+<ion-content>
+  <ion-list>
+    <!--    <ion-searchbar showCancelButton="focus"></ion-searchbar>-->
+    <ion-item *ngFor="let parking of parkingsOfUser">
+      <ion-icon name="location-outline" class="ion-margin-end"></ion-icon>
+      <ion-label>{{parking.direction}}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -83,4 +83,9 @@ export class ParkingService {
       .put<Parking>(this.url, parking, { headers: this.headers })
       .pipe(catchError(ParkingService.handleError));
   }
+  // todo refactor id
+  public getParkingsOfUser(idUser: string): Observable<Parking[]> {
+    const param = new HttpParams().append('user', idUser);
+    return this.http.get<Parking[]>(this.url, { params: param });
+  }
 }

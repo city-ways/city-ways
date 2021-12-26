@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Parking } from '../parking';
+import { ParkingService } from '../../core/parking.service';
+import { UserIdService } from '../../core/user-id.service';
 
 @Component({
   selector: 'app-parking-list-info',
@@ -6,10 +9,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./parking-list-info.page.scss'],
 })
 export class ParkingListInfoPage implements OnInit {
-
-  constructor() { }
+  public parkingsOfUser: Parking[];
+  private idUser: string;
+  constructor(
+    private parkingService: ParkingService,
+    private idUserService: UserIdService
+  ) {}
 
   ngOnInit() {
+    // get the id of the user
+    this.idUserService.id.subscribe((id) => {
+      this.idUser = id;
+    });
+    console.log(this.idUser);
+    // get all parkings of the user
+    this.parkingService
+      .getParkingsOfUser(this.idUser)
+      .subscribe((parkings) => console.log(parkings));
   }
-
 }

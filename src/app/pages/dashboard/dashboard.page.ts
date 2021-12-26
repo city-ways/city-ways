@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ParkingService } from '../../core/parking.service';
-import { ParkingListModalComponent } from '../../shared/parking-list-modal/parking-list-modal.component';
+import { UserIdService } from '../../core/user-id.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,8 +9,14 @@ import { ParkingListModalComponent } from '../../shared/parking-list-modal/parki
 })
 export class DashboardPage implements OnInit {
   public editModalIsOpen: boolean;
-  constructor(private parkingService: ParkingService) {}
-  ngOnInit() {}
+  constructor(
+    private parkingService: ParkingService,
+    private userIdService: UserIdService
+  ) {}
+  ngOnInit() {
+    this.userIdService.updateId('Petunia Corpe');
+    this.userIdService.id.subscribe((data) => console.log(data));
+  }
   newParking() {
     console.log('ff');
   }

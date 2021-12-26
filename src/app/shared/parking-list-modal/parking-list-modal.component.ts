@@ -1,8 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ParkingListInfoPage } from '../parking-list-info/parking-list-info.page';
-import { ParkingService } from '../../core/parking.service';
-import { UserIdService } from '../../core/user-id.service';
 import { Parking } from '../parking';
 
 @Component({
@@ -15,9 +13,12 @@ export class ParkingListModalComponent implements OnInit {
 
   ngOnInit() {}
 
-  async showModal() {
+  async showModal(parkings: Parking[]) {
     const modal = await this.modalCtrl.create({
       component: ParkingListInfoPage,
+      componentProps: {
+        parkingList: parkings,
+      },
       initialBreakpoint: 0.5,
       breakpoints: [0, 0.5, 1],
     });

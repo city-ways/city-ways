@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ParkingListInfoPage } from '../parking-list-info/parking-list-info.page';
 
@@ -8,6 +8,7 @@ import { ParkingListInfoPage } from '../parking-list-info/parking-list-info.page
   styleUrls: ['./parking-list-modal.component.scss'],
 })
 export class ParkingListModalComponent implements OnInit {
+  @Input() idUser: number;
   constructor(private modalCtrl: ModalController) {}
 
   ngOnInit() {}
@@ -15,6 +16,9 @@ export class ParkingListModalComponent implements OnInit {
   async showModal() {
     const modal = await this.modalCtrl.create({
       component: ParkingListInfoPage,
+      componentProps: {
+        idUser: this.idUser,
+      },
       initialBreakpoint: 0.5,
       breakpoints: [0, 0.5, 1],
     });

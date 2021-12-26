@@ -5,7 +5,7 @@
 
   <ion-card-content>
     <div id="scroll">
-      <ion-button class="ion-padding-end" shape="round"
+      <ion-button class="ion-padding-end" shape="round" (click)="showModal()"
         >Agregar Parking</ion-button
       >
       <ion-button class="ion-padding-end" shape="round"
@@ -17,4 +17,5 @@
       <ion-button class="" shape="round">Activar Parking</ion-button>
     </div>
   </ion-card-content>
+  <app-parking-list-modal #modalList></app-parking-list-modal>
 </ion-card>

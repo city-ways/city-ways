@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ParkingListModalComponent } from '../../shared/parking-list-modal/parking-list-modal.component';
 
 @Component({
   selector: 'app-quick-actions',
@@ -6,7 +7,11 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styleUrls: ['./quick-actions.component.scss'],
 })
 export class QuickActionsComponent implements OnInit {
+  @ViewChild('modalList') modalList: ParkingListModalComponent;
   constructor() {}
 
   ngOnInit() {}
+  showModal() {
+    this.modalList.showModal();
+  }
 }

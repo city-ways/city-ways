@@ -14,7 +14,7 @@ export class DashboardPage implements OnInit {
     private userIdService: UserIdService
   ) {}
   ngOnInit() {
-    this.userIdService.updateId('Petunia Corpe');
+    this.userIdService.updateId(1);
     this.userIdService.id.subscribe((data) => console.log(data));
   }
   newParking() {

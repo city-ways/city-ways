@@ -15,7 +15,11 @@
           "end": 4566
         }
       ],
-      "user": "Petunia Corpe",
+      "user": {
+        "id": 1,
+        "mail": "fff@gmail.com",
+        "name": "Petunia Corpe"
+      },
       "ranking": 5,
       "pricePerHour": 1.46,
       "pricePerDay": 28
@@ -72,7 +76,11 @@
           "end": 4566
         }
       ],
-      "user": "Petunia Corpe",
+      "user": {
+        "id": 1,
+        "mail": "fff@gmail.com",
+        "name": "Petunia Corpe"
+      },
       "ranking": 4,
       "pricePerHour": 1.58,
       "pricePerDay": 24
@@ -92,7 +100,11 @@
           "end": 4566
         }
       ],
-      "user": "Kimberlyn Dohr",
+      "user": {
+        "id": 2,
+        "mail": "fff@gmail.com",
+        "name": "Kimberlyn Dohr"
+      },
       "ranking": 5,
       "pricePerHour": 1.81,
       "pricePerDay": 17
@@ -110,101 +122,9 @@
       "pricePerHour": "",
       "pricePerDay": "",
       "id": 5
-    },
-    {
-      "direction": "fgskhjfgsjk",
-      "longPeriod": false,
-      "timesAvailable": [
-        {
-          "start": "22:10",
-          "end": "22:14"
-        },
-        {
-          "start": "23:08",
-          "end": "00:09"
-        }
-      ],
-      "daysAvailable": [],
-      "pricePerHour": "",
-      "pricePerDay": "",
-      "id": 6
-    },
-    {
-      "direction": "ddfff",
-      "longPeriod": false,
-      "timesAvailable": [
-        {
-          "start": "22:11",
-          "end": "22:17"
-        },
-        {
-          "start": "23:11",
-          "end": "00:13"
-        }
-      ],
-      "daysAvailable": [],
-      "pricePerHour": "",
-      "pricePerDay": "",
-      "id": 7
-    },
-    {
-      "id": 8,
-      "direction": "dfff",
-      "cords": null,
-      "type": "corta estancia",
-      "timesAvailable": [
-        {
-          "start": "22:12",
-          "end": "22:14"
-        },
-        {
-          "start": "23:13",
-          "end": "23:18"
-        }
-      ],
-      "daysAvailable": [],
-      "pricePerHour": "",
-      "pricePerDay": "",
-      "user": null,
-      "ranking": 0
-    },
-    {
-      "id": 9,
-      "direction": "dfff",
-      "cords": null,
-      "type": "corta estancia",
-      "timesAvailable": [
-        {
-          "start": "22:12",
-          "end": "22:14"
-        },
-        {
-          "start": "23:13",
-          "end": "23:18"
-        }
-      ],
-      "daysAvailable": [],
-      "pricePerHour": "",
-      "pricePerDay": "",
-      "user": null,
-      "ranking": 0
-    },
-    {
-      "id": 10,
-      "direction": "vv",
-      "cords": null,
-      "type": "corta estancia",
-      "timesAvailable": [
-        {
-          "start": "22:13",
-          "end": "22:18"
-        }
-      ],
-      "daysAvailable": [],
-      "pricePerHour": "",
-      "pricePerDay": "",
-      "user": null,
-      "ranking": 0
     }
+  ],
+  "users": [
+
   ]
 }

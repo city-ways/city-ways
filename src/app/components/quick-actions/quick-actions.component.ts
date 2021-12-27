@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class QuickActionsComponent implements OnInit {
   @ViewChild('modalList') modalList: ParkingListModalComponent;
-  idUser: string;
+  idUser: number;
   parkingsOfUser: Parking[];
   constructor(
     private parkingService: ParkingService,

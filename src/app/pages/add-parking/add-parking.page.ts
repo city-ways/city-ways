@@ -28,6 +28,7 @@ export class AddParkingPage implements OnInit {
       id: 0,
       direction,
       cords: null,
+      status: false,
       type: longPeriod ? 'larga estancia' : 'corta estancia',
       timesAvailable,
       daysAvailable,

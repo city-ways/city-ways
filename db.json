@@ -1,0 +1,103 @@
+{
+  "parkings": [
+    {
+      "id": 2,
+      "direction": "52026 Jenifer Alley",
+      "cords": {
+        "longitude": 89.1366848,
+        "latitude": 48.9359551
+      },
+      "type": "larga estancia",
+      "status": false,
+      "timesAvailable": [],
+      "daysAvailable": [
+        {
+          "start": 344,
+          "end": 4566
+        }
+      ],
+      "user": {
+        "id": 1,
+        "mail": "fff@gmail.com",
+        "name": "Petunia Corpe"
+      },
+      "ranking": 5,
+      "pricePerHour": 1.46,
+      "pricePerDay": 28
+    },
+    {
+      "id": 3,
+      "direction": "29550 Commercial Way",
+      "cords": {
+        "longitude": 41.5474702,
+        "latitude": 58.4705978
+      },
+      "type": "corta estancia",
+      "status": false,
+      "timesAvailable": [
+        {
+          "start": 344,
+          "end": 4566
+        },
+        {
+          "start": 344,
+          "end": 4566
+        },
+        {
+          "start": 344,
+          "end": 4566
+        }
+      ],
+      "user": {
+        "id": 1,
+        "mail": "fff@gmail.com",
+        "name": "Petunia Corpe"
+      },
+      "ranking": 4,
+      "pricePerHour": 1.58,
+      "pricePerDay": 24
+    },
+    {
+      "id": 4,
+      "direction": "52 Schlimgen Crossing",
+      "cords": {
+        "longitude": -99.1476908,
+        "latitude": 19.3803931
+      },
+      "type": "larga estancia",
+      "status": false,
+      "timesAvailable": [],
+      "daysAvailable": [
+        {
+          "start": 344,
+          "end": 4566
+        }
+      ],
+      "user": {
+        "id": 2,
+        "mail": "fff@gmail.com",
+        "name": "Kimberlyn Dohr"
+      },
+      "ranking": 5,
+      "pricePerHour": 1.81,
+      "pricePerDay": 17
+    },
+    {
+      "direction": "holSS",
+      "longPeriod": false,
+      "timesAvailable": [
+        {
+          "start": "22:08",
+          "end": "22:14"
+        }
+      ],
+      "daysAvailable": [],
+      "pricePerHour": "",
+      "pricePerDay": "",
+      "id": 5
+    }
+  ],
+  "users": [
+
+  ]
+}

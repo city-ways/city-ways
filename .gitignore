@@ -32,4 +32,5 @@ npm-debug.log*
 /.angular
 /.husky
 db.json
-src/environments/
+src/environments/environment.ts
+src/environments/enviroment.prod.ts

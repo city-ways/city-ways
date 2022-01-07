@@ -4,8 +4,8 @@
       "id": 2,
       "direction": "52026 Jenifer Alley",
       "cords": {
-        "longitude": 89.1366848,
-        "latitude": 48.9359551
+        "longitude": -1.686205,
+        "latitude":  42.782156
       },
       "type": "larga estancia",
       "status": false,
@@ -81,20 +81,6 @@
       "ranking": 5,
       "pricePerHour": 1.81,
       "pricePerDay": 17
-    },
-    {
-      "direction": "holSS",
-      "longPeriod": false,
-      "timesAvailable": [
-        {
-          "start": "22:08",
-          "end": "22:14"
-        }
-      ],
-      "daysAvailable": [],
-      "pricePerHour": "",
-      "pricePerDay": "",
-      "id": 5
     }
   ],
   "users": [

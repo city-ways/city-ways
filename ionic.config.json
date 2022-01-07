@@ -1,7 +1,0 @@
-{
-  "name": "city-ways",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular"
-}

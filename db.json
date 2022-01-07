@@ -29,8 +29,8 @@
       "id": 3,
       "direction": "29550 Commercial Way",
       "cords": {
-        "longitude": 41.5474702,
-        "latitude": 58.4705978
+        "longitude": -1.683978,
+        "latitude": 42.782959
       },
       "type": "corta estancia",
       "status": false,
@@ -61,8 +61,8 @@
       "id": 4,
       "direction": "52 Schlimgen Crossing",
       "cords": {
-        "longitude": -99.1476908,
-        "latitude": 19.3803931
+        "longitude": -1.689218,
+        "latitude": 42.783332
       },
       "type": "larga estancia",
       "status": false,

@@ -22,11 +22,12 @@ export class MapPage implements OnInit {
   ngOnInit() {
     this.parkingService.getParkings().subscribe((data) => {
       data.map(({ cords: { longitude, latitude }, id }) => {
+        console.log(longitude);
         const popup = new Popup();
         popup.on('open', () => {
           this.presentModal();
         });
-        new Marker({ color: 'red' })
+        new Marker({ color: '#3880ff' })
           .setLngLat([longitude, latitude])
           .setPopup(popup)
           .addTo(this.map);

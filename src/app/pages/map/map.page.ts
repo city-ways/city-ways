@@ -13,7 +13,6 @@ import { BookParkingPage } from '../book-parking/book-parking.page';
 })
 export class MapPage implements OnInit {
   private map!: Map;
-  private parkingsCords: { longitude: number; latitude: number }[];
   constructor(
     private parkingService: ParkingService,
     public modalController: ModalController
@@ -33,7 +32,6 @@ export class MapPage implements OnInit {
           .addTo(this.map);
       });
     });
-    console.log(this.parkingsCords);
     this.map = new Map({
       container: 'map', //  containerID
       style: 'mapbox://styles/fgergfer/ckx2flh2d12km14pcyrf8mfqw',
@@ -44,6 +42,7 @@ export class MapPage implements OnInit {
       this.map.resize();
     });
   }
+  // todo: pass the id
   async presentModal() {
     const modal = await this.modalController.create({
       component: BookParkingPage,

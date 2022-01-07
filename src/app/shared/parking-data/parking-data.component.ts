@@ -12,6 +12,7 @@ export class ParkingDataComponent implements OnInit {
   @Input() data: Parking;
   @Output() submitEvent: EventEmitter<any> = new EventEmitter<any>();
   parkingData: FormGroup;
+  pageTitle: string;
   constructor(private formBuilder: FormBuilder) {}
   ngOnInit() {
     this.parkingData = this.formBuilder.group({
@@ -22,6 +23,10 @@ export class ParkingDataComponent implements OnInit {
       pricePerHour: '',
       pricePerDay: '',
     });
+    if (this.data !== null) {
+      console.log(this.data);
+      this.loadData();
+    }
   }
 
   getHoursRangesInputs(): FormArray {
@@ -73,5 +78,18 @@ export class ParkingDataComponent implements OnInit {
     }
   }
 
-  loadData() {}
+  loadData() {
+    if (this.parkingData) {
+      this.parkingData.reset();
+    }
+    this.pageTitle = `Parking: ${this.data.direction}`;
+    this.parkingData.patchValue({
+      direction: this.data.direction,
+      longPeriod: this.data.type !== 'corta estancia',
+      timesAvailable: this.data.timesAvailable,
+      daysAvailable: this.data.daysAvailable,
+      pricePerHour: this.data.pricePerHour,
+      pricePerDay: this.data.pricePerDay,
+    });
+  }
 }

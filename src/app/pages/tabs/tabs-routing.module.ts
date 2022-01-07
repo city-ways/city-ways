@@ -25,6 +25,13 @@ const routes: Routes = [
                 (m) => m.AddParkingPageModule
               ),
           },
+          {
+            path: 'edit/:id',
+            loadChildren: () =>
+              import('../edit-parking/edit-parking.module').then(
+                (m) => m.EditParkingPageModule
+              ),
+          },
         ],
       },
       {

@@ -24,7 +24,7 @@ export class MapPage implements OnInit {
         console.log(longitude);
         const popup = new Popup();
         popup.on('open', () => {
-          this.presentModal();
+          this.presentModal(id);
         });
         new Marker({ color: '#3880ff' })
           .setLngLat([longitude, latitude])
@@ -42,11 +42,13 @@ export class MapPage implements OnInit {
       this.map.resize();
     });
   }
-  // todo: pass the id
-  async presentModal() {
+  async presentModal(id: number) {
     const modal = await this.modalController.create({
       component: BookParkingPage,
       initialBreakpoint: 0.5,
+      componentProps: {
+        id,
+      },
       breakpoints: [0, 0.5, 1],
     });
     return await modal.present();

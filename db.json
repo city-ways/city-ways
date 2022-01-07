@@ -4,8 +4,8 @@
       "id": 2,
       "direction": "52026 Jenifer Alley",
       "cords": {
-        "longitude": 89.1366848,
-        "latitude": 48.9359551
+        "longitude": -1.686205,
+        "latitude":  42.782156
       },
       "type": "larga estancia",
       "status": false,
@@ -29,8 +29,8 @@
       "id": 3,
       "direction": "29550 Commercial Way",
       "cords": {
-        "longitude": 41.5474702,
-        "latitude": 58.4705978
+        "longitude": -1.683978,
+        "latitude": 42.782959
       },
       "type": "corta estancia",
       "status": false,
@@ -61,8 +61,8 @@
       "id": 4,
       "direction": "52 Schlimgen Crossing",
       "cords": {
-        "longitude": -99.1476908,
-        "latitude": 19.3803931
+        "longitude": -1.689218,
+        "latitude": 42.783332
       },
       "type": "larga estancia",
       "status": false,
@@ -81,20 +81,6 @@
       "ranking": 5,
       "pricePerHour": 1.81,
       "pricePerDay": 17
-    },
-    {
-      "direction": "holSS",
-      "longPeriod": false,
-      "timesAvailable": [
-        {
-          "start": "22:08",
-          "end": "22:14"
-        }
-      ],
-      "daysAvailable": [],
-      "pricePerHour": "",
-      "pricePerDay": "",
-      "id": 5
     }
   ],
   "users": [

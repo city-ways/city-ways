@@ -15,7 +15,11 @@
           "end": 4566
         }
       ],
-      "user": "Petunia Corpe",
+      "user": {
+        "id": 1,
+        "mail": "fff@gmail.com",
+        "name": "Petunia Corpe"
+      },
       "ranking": 5,
       "pricePerHour": 1.46,
       "pricePerDay": 28
@@ -72,7 +76,11 @@
           "end": 4566
         }
       ],
-      "user": "Petunia Corpe",
+      "user": {
+        "id": 1,
+        "mail": "fff@gmail.com",
+        "name": "Petunia Corpe"
+      },
       "ranking": 4,
       "pricePerHour": 1.58,
       "pricePerDay": 24
@@ -92,10 +100,31 @@
           "end": 4566
         }
       ],
-      "user": "Kimberlyn Dohr",
+      "user": {
+        "id": 2,
+        "mail": "fff@gmail.com",
+        "name": "Kimberlyn Dohr"
+      },
       "ranking": 5,
       "pricePerHour": 1.81,
       "pricePerDay": 17
+    },
+    {
+      "direction": "holSS",
+      "longPeriod": false,
+      "timesAvailable": [
+        {
+          "start": "22:08",
+          "end": "22:14"
+        }
+      ],
+      "daysAvailable": [],
+      "pricePerHour": "",
+      "pricePerDay": "",
+      "id": 5
     }
+  ],
+  "users": [
+
   ]
 }

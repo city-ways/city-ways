@@ -38,7 +38,7 @@ export class ParkingService {
   }
 
   public getFreeParkings(): Observable<Parking[]> {
-    const param = new HttpParams().append('ocupado', false);
+    const param = new HttpParams().append('status ', false);
     return this.http
       .get<Parking[]>(this.url, { params: param })
       .pipe(catchError(ParkingService.handleError));
@@ -84,8 +84,8 @@ export class ParkingService {
       .pipe(catchError(ParkingService.handleError));
   }
   // todo refactor id
-  public getParkingsOfUser(idUser: string): Observable<Parking[]> {
-    const param = new HttpParams().append('user', idUser);
+  public getParkingsOfUser(idUser: number): Observable<Parking[]> {
+    const param = new HttpParams().append('user.id', idUser);
     return this.http.get<Parking[]>(this.url, { params: param });
   }
 }

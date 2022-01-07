@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Nuevo Parking</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-parking-data
+    type="crear"
+    [data]="null"
+    (submitEvent)="addNewParking($event)"
+  ></app-parking-data>
+</ion-content>

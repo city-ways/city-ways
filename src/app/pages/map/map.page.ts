@@ -21,10 +21,10 @@ export class MapPage implements OnInit {
   ngOnInit() {
     this.parkingService.getParkings().subscribe((data) => {
       data.map(({ cords: { longitude, latitude }, id }) => {
-        console.log(longitude);
+        // Add a marker for each car park and its corresponding event to show the booking mode
         const popup = new Popup();
         popup.on('open', () => {
-          this.presentModal(id);
+          this.showModal(id);
         });
         new Marker({ color: '#3880ff' })
           .setLngLat([longitude, latitude])
@@ -42,14 +42,14 @@ export class MapPage implements OnInit {
       this.map.resize();
     });
   }
-  async presentModal(id: number) {
+  async showModal(id: number) {
     const modal = await this.modalController.create({
       component: BookParkingPage,
       initialBreakpoint: 0.5,
       componentProps: {
         id,
       },
-      breakpoints: [0, 0.5, 1],
+      breakpoints: [0.2, 0.5, 1],
     });
     return await modal.present();
   }

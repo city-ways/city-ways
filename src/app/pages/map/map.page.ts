@@ -35,6 +35,7 @@ export class MapPage implements OnInit {
     this.map = new Map({
       container: 'map', //  containerID
       style: 'mapbox://styles/fgergfer/ckx2flh2d12km14pcyrf8mfqw',
+      attributionControl: false,
       center: [-1.685128, 42.781851],
       zoom: 17,
     });

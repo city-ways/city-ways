@@ -3,7 +3,8 @@ import { ParkingListModalComponent } from '../../shared/parking-list-modal/parki
 import { ParkingService } from '../../core/parking.service';
 import { UserIdService } from '../../core/user-id.service';
 import { Parking } from '../../shared/parking';
-import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+import { EditParkingPage } from 'src/app/pages/edit-parking/edit-parking.page';
 
 @Component({
   selector: 'app-quick-actions',
@@ -17,7 +18,7 @@ export class QuickActionsComponent implements OnInit {
   constructor(
     private parkingService: ParkingService,
     private idUserService: UserIdService,
-    private router: Router
+    public modalController: ModalController
   ) {}
 
   ngOnInit() {
@@ -30,10 +31,18 @@ export class QuickActionsComponent implements OnInit {
       .getParkingsOfUser(this.idUser)
       .subscribe((parkings) => (this.parkingsOfUser = parkings));
   }
-  showModal(route: string, parkings: Parking[]) {
+  showModal(parkings: Parking[]) {
     if (parkings.length === 1) {
-      this.router.navigate([route]);
+      console.log('');
     }
-    this.modalList.showModal(route, parkings);
+    this.modalList.showModal(parkings);
+  }
+
+  async showModalInfo(id: number) {
+    const modal = await this.modalController.create({
+      component: EditParkingPage,
+      componentProps: {},
+    });
+    return await modal.present();
   }
 }

@@ -13,12 +13,11 @@ export class ParkingListModalComponent implements OnInit {
 
   ngOnInit() {}
 
-  async showModal(route: string, parkings: Parking[]) {
+  async showModal(parkings: Parking[]) {
     const modal = await this.modalCtrl.create({
       component: ParkingListInfoPage,
       componentProps: {
         parkingList: parkings,
-        route,
       },
       initialBreakpoint: 0.5,
       breakpoints: [0, 0.5, 1],

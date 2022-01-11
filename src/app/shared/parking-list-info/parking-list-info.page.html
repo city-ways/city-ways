@@ -8,9 +8,9 @@
   <ion-list>
     <!--    <ion-searchbar showCancelButton="focus"></ion-searchbar>-->
     <ion-item
-      *ngFor="let parking of parkingList"
+      *ngFor="let parking of parkingList; let position = index"
       button="true"
-      [routerLink]="[ route, parking.id]"
+      (click)="parkingEmmiter(position)"
     >
       <ion-icon name="location-outline" class="ion-margin-end"></ion-icon>
       <ion-label>{{parking.direction}}</ion-label>

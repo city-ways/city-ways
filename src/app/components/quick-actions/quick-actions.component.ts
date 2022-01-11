@@ -5,6 +5,7 @@ import { UserIdService } from '../../core/user-id.service';
 import { Parking } from '../../shared/parking';
 import { ModalController } from '@ionic/angular';
 import { EditParkingPage } from 'src/app/pages/edit-parking/edit-parking.page';
+import { PageModalComponent } from 'src/app/shared/page-modal/page-modal.component';
 
 @Component({
   selector: 'app-quick-actions',
@@ -13,6 +14,7 @@ import { EditParkingPage } from 'src/app/pages/edit-parking/edit-parking.page';
 })
 export class QuickActionsComponent implements OnInit {
   @ViewChild('modalList') modalList: ParkingListModalComponent;
+  @ViewChild('pageModal') pageModal: PageModalComponent;
   idUser: number;
   parkingsOfUser: Parking[];
   constructor(

@@ -9,7 +9,6 @@ import { Parking } from '../parking';
 })
 export class ParkingDataComponent implements OnInit {
   @Input() type: string;
-  @Input() data: Parking;
   @Output() submitEvent: EventEmitter<any> = new EventEmitter<any>();
   parkingData: FormGroup;
   pageTitle: string;
@@ -23,10 +22,6 @@ export class ParkingDataComponent implements OnInit {
       pricePerHour: '',
       pricePerDay: '',
     });
-    if (this.data !== null) {
-      console.log(this.data);
-      this.loadData();
-    }
   }
 
   getHoursRangesInputs(): FormArray {
@@ -78,18 +73,18 @@ export class ParkingDataComponent implements OnInit {
     }
   }
 
-  loadData() {
+  loadData(data: Parking) {
     if (this.parkingData) {
       this.parkingData.reset();
     }
-    this.pageTitle = `Parking: ${this.data.direction}`;
+    this.pageTitle = `Parking: ${data.direction}`;
     this.parkingData.patchValue({
-      direction: this.data.direction,
-      longPeriod: this.data.type !== 'corta estancia',
-      timesAvailable: this.data.timesAvailable,
-      daysAvailable: this.data.daysAvailable,
-      pricePerHour: this.data.pricePerHour,
-      pricePerDay: this.data.pricePerDay,
+      direction: data.direction,
+      longPeriod: data.type !== 'corta estancia',
+      timesAvailable: data.timesAvailable,
+      daysAvailable: data.daysAvailable,
+      pricePerHour: data.pricePerHour,
+      pricePerDay: data.pricePerDay,
     });
   }
 }

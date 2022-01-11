@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ParkingService } from '../../core/parking.service';
 import { Parking } from '../../shared/parking';
 import { ActivatedRoute } from '@angular/router';
@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./edit-parking.page.scss'],
 })
 export class EditParkingPage implements OnInit {
-  parkingData: Parking;
+  @Input() parking: Parking;
   constructor(
     private parkingService: ParkingService,
     private activatedroute: ActivatedRoute

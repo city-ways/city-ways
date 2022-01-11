@@ -12,10 +12,10 @@ export class PageModalComponent implements OnInit {
 
   ngOnInit() {}
 
-  async showModal(parkings: Parking[]) {
+  async showModal(parking: Parking) {
     const modal = await this.modalController.create({
       component: EditParkingPage,
-      componentProps: {},
+      componentProps: { parking },
     });
     return await modal.present();
   }

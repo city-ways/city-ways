@@ -5,7 +5,6 @@
 </ion-header>
 
 <ion-content>
-  {{parkingData.type}}
   <form [formGroup]="formBook" (ngSubmit)="sendForm()">
     <ion-item>
       <ion-label>inicio</ion-label>
@@ -13,6 +12,14 @@
         [type]="typeParking()"
         placeholder="fecha"
         [formControlName]="periodsStrart"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>fin</ion-label>
+      <ion-input
+        [type]="typeParking()"
+        placeholder="fecha"
+        [formControlName]="periodsEnd"
       ></ion-input>
     </ion-item>
   </form>

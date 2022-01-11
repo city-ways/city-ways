@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ParkingService } from '../../core/parking.service';
 import { Parking } from '../../shared/parking';
 
@@ -12,17 +11,22 @@ import { Parking } from '../../shared/parking';
 export class BookParkingPage implements OnInit {
   @Input() id: number;
   parkingData: Parking;
-  direction: string;
+  formBook: FormGroup;
   constructor(
-    private fb: FormBuilder,
-    private activatedroute: ActivatedRoute,
-    private router: Router,
+    private formBuilder: FormBuilder,
     private parkingService: ParkingService
   ) {}
   ngOnInit(): void {
-    console.log(this.id);
     this.parkingService
       .getParkingById(this.id)
       .subscribe((data) => (this.parkingData = data));
+    this.formBook = this.formBuilder.group({
+      periodsStrart: ['', Validators.required],
+      periodsEnd: ['', Validators.required],
+    });
+  }
+  sendForm() {}
+  typeParking() {
+    return this.parkingData.type === 'larga estancia' ? 'Date' : 'time';
   }
 }

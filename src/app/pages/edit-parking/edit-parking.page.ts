@@ -15,10 +15,5 @@ export class EditParkingPage implements OnInit {
     private activatedroute: ActivatedRoute
   ) {}
 
-  ngOnInit() {
-    let id: number = parseInt(this.activatedroute.snapshot.params['id']);
-    this.parkingService
-      .getParkingById(id)
-      .subscribe((parking) => (this.parkingData = parking));
-  }
+  ngOnInit() {}
 }

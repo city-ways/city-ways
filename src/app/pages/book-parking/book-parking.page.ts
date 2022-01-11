@@ -10,19 +10,19 @@ import { Parking } from '../../shared/parking';
   styleUrls: ['./book-parking.page.scss'],
 })
 export class BookParkingPage implements OnInit {
+  @Input() id: number;
   parkingData: Parking;
   direction: string;
   constructor(
     private fb: FormBuilder,
     private activatedroute: ActivatedRoute,
     private router: Router,
-    private packService: ParkingService
+    private parkingService: ParkingService
   ) {}
-  @Input() id: number;
   ngOnInit(): void {
-    this.packService
+    console.log(this.id);
+    this.parkingService
       .getParkingById(this.id)
-      .subscribe((data: Parking) => (this.parkingData = data));
-    console.log(this.parkingData);
+      .subscribe((data) => (this.parkingData = data));
   }
 }

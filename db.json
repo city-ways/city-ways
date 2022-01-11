@@ -5,7 +5,7 @@
       "direction": "52026 Jenifer Alley",
       "cords": {
         "longitude": -1.686205,
-        "latitude":  42.782156
+        "latitude": 42.782156
       },
       "type": "larga estancia",
       "status": false,
@@ -83,7 +83,5 @@
       "pricePerDay": 17
     }
   ],
-  "users": [
-
-  ]
+  "users": []
 }

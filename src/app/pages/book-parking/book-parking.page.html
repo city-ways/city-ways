@@ -5,6 +5,9 @@
 </ion-header>
 
 <ion-content>
+  <ion-item>
+    <ion-label>Dirección: {{ parkingData.direction }}</ion-label>
+  </ion-item>
   <form [formGroup]="formBook" (ngSubmit)="sendForm()">
     <ion-item>
       <ion-label>inicio</ion-label>
@@ -13,8 +16,6 @@
         placeholder="fecha"
         [formControlName]="periodsStrart"
       ></ion-input>
-    </ion-item>
-    <ion-item>
       <ion-label>fin</ion-label>
       <ion-input
         [type]="typeParking()"
@@ -22,5 +23,6 @@
         [formControlName]="periodsEnd"
       ></ion-input>
     </ion-item>
+    <ion-button color="primary">Reservar</ion-button>
   </form>
 </ion-content>

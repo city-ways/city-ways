@@ -33,11 +33,12 @@ export class QuickActionsComponent implements OnInit {
       .getParkingsOfUser(this.idUser)
       .subscribe((parkings) => (this.parkingsOfUser = parkings));
   }
-  showModal(parkings: Parking[]) {
-    if (parkings.length === 1) {
-      console.log('');
+  showModal() {
+    if (this.parkingsOfUser.length === 1) {
+      this.pageModal.showModal(this.parkingsOfUser[0]);
+      return;
     }
-    this.modalList.showModal(parkings);
+    this.modalList.showModal(this.parkingsOfUser);
   }
 
   async showModalInfo(id: number) {

@@ -25,7 +25,9 @@ export class BookParkingPage implements OnInit {
       periodsEnd: ['', Validators.required],
     });
   }
-  sendForm() {}
+  sendForm() {
+    console.log(this.formBook.controls['periodsStrart'].value());
+  }
   typeParking() {
     return this.parkingData.type === 'larga estancia' ? 'Date' : 'time';
   }

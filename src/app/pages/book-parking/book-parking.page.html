@@ -14,15 +14,15 @@
       <ion-input
         [type]="typeParking()"
         placeholder="fecha"
-        [formControlName]="periodsStrart"
+        formControlName="periodsStrart"
       ></ion-input>
       <ion-label>fin</ion-label>
       <ion-input
         [type]="typeParking()"
         placeholder="fecha"
-        [formControlName]="periodsEnd"
+        formControlName="periodsEnd"
       ></ion-input>
     </ion-item>
-    <ion-button color="primary">Reservar</ion-button>
+    <ion-button color="primary" type="submit">Reservar</ion-button>
   </form>
 </ion-content>

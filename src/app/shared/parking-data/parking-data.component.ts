@@ -95,36 +95,39 @@ export class ParkingDataComponent implements OnInit {
     }
   }
 
-  loadData(data: Parking) {
+  loadData(parking: Parking) {
     if (this.parkingData) {
       this.parkingData.reset();
     }
-    console.log(data);
-    this.pageTitle = `Parking: ${data.direction}`;
+    this.pageTitle = `Parking: ${parking.direction}`;
+    // load static data of the parking
     this.parkingData.patchValue({
-      direction: data.direction,
-      longPeriod: data.type === 'larga estancia',
-      pricePerHour: data.pricePerHour,
-      pricePerDay: data.pricePerDay,
+      direction: parking.direction,
+      longPeriod: parking.type === 'larga estancia',
+      pricePerHour: parking.pricePerHour,
+      pricePerDay: parking.pricePerDay,
     });
     // generate the n number of ranges inputs
-    (data.daysAvailable ?? data.timesAvailable).map((range) =>
+    (parking.daysAvailable ?? parking.timesAvailable).map((range) =>
       this.addPriceInput()
     );
     // add the corresponded data to each range inputs
     (this.getDaysRangesInputs().controls.length === 0
       ? this.getHoursRangesInputs()
       : this.getDaysRangesInputs()
-    ).controls.forEach((range: FormGroup, index: number) => {
+    ).controls.forEach((rangeGroup: FormGroup, index: number) => {
       // take one control group { start: FormControl; end: FormControl } and set value
       const control: { start: FormControl; end: FormControl } =
-        range.controls as unknown as { start: FormControl; end: FormControl };
+        rangeGroup.controls as unknown as {
+          start: FormControl;
+          end: FormControl;
+        };
       // iterate throw the two FormControl (start and end) of the FormGroup
       Object.entries(control).forEach(([, input]) => {
         input.setValue(
-          (data.type === 'larga estancia'
-            ? data.daysAvailable
-            : data.timesAvailable)[index].start
+          (parking.type === 'larga estancia'
+            ? parking.daysAvailable
+            : parking.timesAvailable)[index].start
         );
       });
     });

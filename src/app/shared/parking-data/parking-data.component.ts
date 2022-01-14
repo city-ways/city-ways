@@ -52,15 +52,15 @@ export class ParkingDataComponent implements OnInit {
     return this.parkingData.get('longPeriod').value;
   }
   // dynamic controls
-  addPriceInput(start?: number | string, end?: number | string) {
+  addPriceInput() {
     console.log(this.getTypeParking());
     (this.getTypeParking()
       ? this.getDaysRangesInputs()
       : this.getHoursRangesInputs()
     ).push(
       this.formBuilder.group({
-        start: [(start ??= ''), Validators.required],
-        end: [(end ??= ''), Validators.required],
+        start: ['', Validators.required],
+        end: ['', Validators.required],
       })
     );
   }
@@ -107,16 +107,25 @@ export class ParkingDataComponent implements OnInit {
       pricePerHour: data.pricePerHour,
       pricePerDay: data.pricePerDay,
     });
-    (data.daysAvailable ??= data.timesAvailable).map((range) =>
+    // generate the n number of ranges inputs
+    (data.daysAvailable ?? data.timesAvailable).map((range) =>
       this.addPriceInput()
     );
-    console.warn(this.getHoursRangesInputs());
-    this.getDaysRangesInputs().controls.forEach((range: FormGroup) => {
-      (
-        range.controls as unknown as { start: FormControl; end: FormControl }[]
-      ).map(({ start, end }) => {
-        start.setValue(data.daysAvailable[0].start);
-        end.setValue(data.daysAvailable[0].end);
+    // add the corresponded data to each range inputs
+    (this.getDaysRangesInputs().controls.length === 0
+      ? this.getHoursRangesInputs()
+      : this.getDaysRangesInputs()
+    ).controls.forEach((range: FormGroup, index: number) => {
+      // take one control group { start: FormControl; end: FormControl } and set value
+      const control: { start: FormControl; end: FormControl } =
+        range.controls as unknown as { start: FormControl; end: FormControl };
+      // iterate throw the two FormControl (start and end) of the FormGroup
+      Object.entries(control).forEach(([, input]) => {
+        input.setValue(
+          (data.type === 'larga estancia'
+            ? data.daysAvailable
+            : data.timesAvailable)[index].start
+        );
       });
     });
     console.log(this.parkingData.value);

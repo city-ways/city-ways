@@ -17,9 +17,9 @@ export class BookParkingPage implements OnInit {
     private parkingService: ParkingService
   ) {}
   ngOnInit(): void {
-    this.parkingService
-      .getParkingById(this.id)
-      .subscribe((data) => (this.parkingData = data));
+    this.parkingService.getParkingById(this.id).subscribe((data) => {
+      this.parkingData = data;
+    });
     this.formBook = this.formBuilder.group({
       periodsStrart: ['', Validators.required],
       periodsEnd: ['', Validators.required],
@@ -30,5 +30,8 @@ export class BookParkingPage implements OnInit {
   }
   typeParking() {
     return this.parkingData.type === 'larga estancia' ? 'Date' : 'time';
+  }
+  reserva() {
+    console.log(this.formBook.controls['periodsStrart'].value());
   }
 }

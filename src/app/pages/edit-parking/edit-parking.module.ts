@@ -8,6 +8,7 @@ import { EditParkingPageRoutingModule } from './edit-parking-routing.module';
 
 import { EditParkingPage } from './edit-parking.page';
 import { SharedModule } from '../../shared/shared.module';
+import { ParkingDataComponent } from 'src/app/shared/parking-data/parking-data.component';
 
 @NgModule({
   imports: [

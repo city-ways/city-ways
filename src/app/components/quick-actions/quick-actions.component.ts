@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ParkingListModalComponent } from '../../shared/parking-list-modal/parking-list-modal.component';
 import { ParkingService } from '../../core/parking.service';
+import { ParkingDataService } from '../../core/parking-data.service';
 import { UserIdService } from '../../core/user-id.service';
 import { Parking } from '../../shared/parking';
 import { ModalController } from '@ionic/angular';
@@ -20,7 +21,8 @@ export class QuickActionsComponent implements OnInit {
   constructor(
     private parkingService: ParkingService,
     private idUserService: UserIdService,
-    public modalController: ModalController
+    public modalController: ModalController,
+    private parkingDataService: ParkingDataService
   ) {}
 
   ngOnInit() {
@@ -32,7 +34,7 @@ export class QuickActionsComponent implements OnInit {
     this.parkingService
       .getParkingsOfUser(this.idUser)
       .subscribe((parkings) => (this.parkingsOfUser = parkings));
-    this.idUserService.parking.subscribe((value) => {
+    this.parkingDataService.parking.subscribe((value) => {
       if (value != null) {
         this.pageModal.showModal(value);
       }

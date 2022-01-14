@@ -19,6 +19,6 @@ import { PageModalComponent } from '../../shared/page-modal/page-modal.component
     DashboardPageRoutingModule,
     SharedModule,
   ],
-  declarations: [DashboardPage, QuickActionsComponent, PageModalComponent],
+  declarations: [DashboardPage, QuickActionsComponent],
 })
 export class DashboardPageModule {}

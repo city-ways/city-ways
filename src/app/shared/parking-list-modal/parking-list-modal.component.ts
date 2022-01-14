@@ -9,6 +9,7 @@ import { Parking } from '../parking';
   styleUrls: ['./parking-list-modal.component.scss'],
 })
 export class ParkingListModalComponent implements OnInit {
+  @Input() actionType: string;
   constructor(private modalCtrl: ModalController) {}
 
   ngOnInit() {}

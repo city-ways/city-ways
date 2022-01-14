@@ -11,14 +11,12 @@ import { ParkingDataComponent } from 'src/app/shared/parking-data/parking-data.c
 })
 export class EditParkingPage implements OnInit {
   @Input() parking: Parking;
-  @ViewChild('parkingData') parkingData: ParkingDataComponent;
   constructor(
     private parkingService: ParkingService,
     private activatedroute: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    console.log(this.parkingData);
-    this.parkingData.loadData(this.parking);
+    // console.log(this.parking);
   }
 }

@@ -10,7 +10,7 @@
     <ion-item
       *ngFor="let parking of parkingList; let position = index"
       button="true"
-      (click)="parkingEmmiter(position)"
+      (click)="guardarParking(position)"
     >
       <ion-icon name="location-outline" class="ion-margin-end"></ion-icon>
       <ion-label>{{parking.direction}}</ion-label>

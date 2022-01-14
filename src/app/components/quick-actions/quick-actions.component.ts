@@ -32,6 +32,11 @@ export class QuickActionsComponent implements OnInit {
     this.parkingService
       .getParkingsOfUser(this.idUser)
       .subscribe((parkings) => (this.parkingsOfUser = parkings));
+    this.idUserService.parking.subscribe((value) => {
+      if (value != null) {
+        this.pageModal.showModal(value);
+      }
+    });
   }
   showModal() {
     if (this.parkingsOfUser.length === 1) {

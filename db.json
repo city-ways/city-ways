@@ -12,8 +12,12 @@
       "timesAvailable": [],
       "daysAvailable": [
         {
-          "start": 344,
-          "end": 4566
+          "start": "2021-01-14",
+          "end": "2021-01-20"
+        },
+        {
+          "start": "2021-01-14",
+          "end": "2021-01-20"
         }
       ],
       "user": {

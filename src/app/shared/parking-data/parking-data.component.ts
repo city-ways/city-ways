@@ -1,7 +1,15 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ParkingService } from 'src/app/core/parking.service';
 import { Parking } from '../parking';
+import { logging } from 'protractor';
+import { log } from 'util';
 
 @Component({
   selector: 'app-parking-data',
@@ -44,14 +52,15 @@ export class ParkingDataComponent implements OnInit {
     return this.parkingData.get('longPeriod').value;
   }
   // dynamic controls
-  addPriceInput() {
+  addPriceInput(start?: number | string, end?: number | string) {
+    console.log(this.getTypeParking());
     (this.getTypeParking()
       ? this.getDaysRangesInputs()
       : this.getHoursRangesInputs()
     ).push(
       this.formBuilder.group({
-        start: ['', Validators.required],
-        end: ['', Validators.required],
+        start: [(start ??= ''), Validators.required],
+        end: [(end ??= ''), Validators.required],
       })
     );
   }
@@ -79,6 +88,7 @@ export class ParkingDataComponent implements OnInit {
         if (this.type === 'editar') {
           this.parkingService.updateParking(this.parkingData.value);
         }
+        console.log(this.parkingData.value);
       }
     } else {
       // show errors
@@ -89,16 +99,27 @@ export class ParkingDataComponent implements OnInit {
     if (this.parkingData) {
       this.parkingData.reset();
     }
-    console.log(data.daysAvailable);
+    console.log(data);
     this.pageTitle = `Parking: ${data.direction}`;
     this.parkingData.patchValue({
       direction: data.direction,
-      longPeriod: data.type !== 'corta estancia',
-      timesAvailable: data.timesAvailable,
-      daysAvailable: data.daysAvailable,
+      longPeriod: data.type === 'larga estancia',
       pricePerHour: data.pricePerHour,
       pricePerDay: data.pricePerDay,
     });
+    (data.daysAvailable ??= data.timesAvailable).map((range) =>
+      this.addPriceInput()
+    );
+    console.warn(this.getHoursRangesInputs());
+    this.getDaysRangesInputs().controls.forEach((range: FormGroup) => {
+      (
+        range.controls as unknown as { start: FormControl; end: FormControl }[]
+      ).map(({ start, end }) => {
+        start.setValue(data.daysAvailable[0].start);
+        end.setValue(data.daysAvailable[0].end);
+      });
+    });
+    console.log(this.parkingData.value);
   }
 
   addNewParking(e: any) {

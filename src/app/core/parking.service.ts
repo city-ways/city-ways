@@ -80,7 +80,9 @@ export class ParkingService {
 
   public updateParking(parking: Parking) {
     return this.http
-      .put<Parking>(this.url, parking, { headers: this.headers })
+      .put<Parking>(`${this.url}/${parking.id}`, parking, {
+        headers: this.headers,
+      })
       .pipe(catchError(ParkingService.handleError));
   }
   // todo refactor id

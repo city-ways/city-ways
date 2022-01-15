@@ -2,13 +2,13 @@
   "parkings": [
     {
       "id": 1,
-      "direction": "52026 Jenifer Alley",
+      "direction": "52026 Jenifer AlleyV2",
       "cords": {
         "longitude": -1.686205,
         "latitude": 42.782156
       },
-      "type": "larga estancia",
       "status": false,
+      "type": "larga estancia",
       "timesAvailable": [],
       "daysAvailable": [
         {
@@ -20,24 +20,24 @@
           "end": "2021-01-30"
         }
       ],
+      "pricePerHour": 1.46,
+      "pricePerDay": 28,
       "user": {
         "id": 1,
         "mail": "fff@gmail.com",
         "name": "Petunia Corpe"
       },
-      "ranking": 5,
-      "pricePerHour": 1.46,
-      "pricePerDay": 28
+      "ranking": 5
     },
     {
       "id": 3,
-      "direction": "29550 Commercial Way",
+      "direction": "29550 Commercial Way3",
       "cords": {
         "longitude": -1.683978,
         "latitude": 42.782959
       },
-      "type": "corta estancia",
       "status": false,
+      "type": "corta estancia",
       "timesAvailable": [
         {
           "start": "12:34",
@@ -52,14 +52,15 @@
           "end": "13:00"
         }
       ],
+      "daysAvailable": [],
+      "pricePerHour": 1.58,
+      "pricePerDay": 24,
       "user": {
         "id": 1,
         "mail": "fff@gmail.com",
         "name": "Petunia Corpe"
       },
-      "ranking": 4,
-      "pricePerHour": 1.58,
-      "pricePerDay": 24
+      "ranking": 4
     },
     {
       "id": 4,

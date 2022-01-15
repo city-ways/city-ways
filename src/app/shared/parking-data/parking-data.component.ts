@@ -85,9 +85,23 @@ export class ParkingDataComponent implements OnInit {
   sendForm() {
     if (this.parkingData.valid) {
       if (this.parkingData.dirty) {
+        let parking: Parking = this.castToParking(this.parkingData.value);
+        console.warn(parking);
         if (this.type === 'editar') {
-          this.parkingService.updateParking(this.parkingData.value);
+          // update parking
+          this.parkingService
+            .updateParking(parking)
+            .subscribe((pk) => console.log('Parking update', pk));
+        } else {
+          // new parking
+          this.parkingService
+            .getMaxParkingId()
+            .subscribe((id) => (parking.id = ++id));
+          this.parkingService
+            .createParking(parking)
+            .subscribe((pk) => console.log('Parking creado', pk));
         }
+
         console.log(this.parkingData.value);
       }
     } else {
@@ -122,20 +136,26 @@ export class ParkingDataComponent implements OnInit {
           start: FormControl;
           end: FormControl;
         };
+      if (parking.type === 'larga estancia') {
+        control.start.setValue(parking.daysAvailable[index].start);
+        control.end.setValue(parking.daysAvailable[index].end);
+      } else {
+        control.start.setValue(parking.timesAvailable[index].start);
+        control.end.setValue(parking.timesAvailable[index].end);
+      }
       // iterate throw the two FormControl (start and end) of the FormGroup
-      Object.entries(control).forEach(([, input]) => {
-        input.setValue(
-          (parking.type === 'larga estancia'
-            ? parking.daysAvailable
-            : parking.timesAvailable)[index].start
-        );
-      });
+      // Object.entries(control).forEach(([, input]) => {
+      //   input.setValue(
+      //     (parking.type === 'larga estancia'
+      //       ? parking.daysAvailable
+      //       : parking.timesAvailable)[index].start
+      //   );
+      // });
     });
     console.log(this.parkingData.value);
   }
 
-  addNewParking(e: any) {
-    // todo create new Parking
+  castToParking(object: any): Parking {
     const {
       direction,
       longPeriod,
@@ -143,30 +163,20 @@ export class ParkingDataComponent implements OnInit {
       daysAvailable,
       pricePerHour,
       pricePerDay,
-    } = e;
+    } = object;
 
-    let parking: Parking = {
-      id: 0,
+    return {
+      id: this.data?.id,
       direction,
-      cords: null,
+      cords: this.data?.cords,
       status: false,
       type: longPeriod ? 'larga estancia' : 'corta estancia',
       timesAvailable,
       daysAvailable,
       pricePerHour,
       pricePerDay,
-      user: null,
-      ranking: 0,
-    };
-    this.parkingService
-      .getMaxParkingId()
-      .subscribe((id) => (parking.id = ++id));
-    this.parkingService
-      .createParking(parking)
-      .subscribe(() => console.log('fd'));
-    this.parkingService
-      .getParkingById(parking.id)
-      .subscribe((data) => console.log(data));
-    // console.log(e);
+      user: this.data?.user,
+      ranking: this.data?.ranking,
+    } as Parking;
   }
 }

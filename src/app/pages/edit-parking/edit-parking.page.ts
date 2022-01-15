@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ParkingService } from '../../core/parking.service';
 import { Parking } from '../../shared/parking';
 import { ActivatedRoute } from '@angular/router';
+import { ParkingDataComponent } from 'src/app/shared/parking-data/parking-data.component';
 
 @Component({
   selector: 'app-edit-parking',
@@ -9,16 +10,13 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./edit-parking.page.scss'],
 })
 export class EditParkingPage implements OnInit {
-  parkingData: Parking;
+  @Input() parking: Parking;
   constructor(
     private parkingService: ParkingService,
     private activatedroute: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    let id: number = parseInt(this.activatedroute.snapshot.params['id']);
-    this.parkingService
-      .getParkingById(id)
-      .subscribe((parking) => (this.parkingData = parking));
+    // console.log(this.parking);
   }
 }

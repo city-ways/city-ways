@@ -1,6 +1,15 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { ParkingService } from 'src/app/core/parking.service';
 import { Parking } from '../parking';
+import { logging } from 'protractor';
+import { log } from 'util';
 
 @Component({
   selector: 'app-parking-data',
@@ -10,10 +19,14 @@ import { Parking } from '../parking';
 export class ParkingDataComponent implements OnInit {
   @Input() type: string;
   @Input() data: Parking;
+  // todo: refactor output event, dont emit the event! make the api call on this page.
   @Output() submitEvent: EventEmitter<any> = new EventEmitter<any>();
   parkingData: FormGroup;
   pageTitle: string;
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private parkingService: ParkingService
+  ) {}
   ngOnInit() {
     this.parkingData = this.formBuilder.group({
       direction: ['', Validators.required],
@@ -23,9 +36,9 @@ export class ParkingDataComponent implements OnInit {
       pricePerHour: '',
       pricePerDay: '',
     });
-    if (this.data !== null) {
-      console.log(this.data);
-      this.loadData();
+
+    if (this.type === 'editar') {
+      this.loadData(this.data);
     }
   }
 
@@ -40,6 +53,7 @@ export class ParkingDataComponent implements OnInit {
   }
   // dynamic controls
   addPriceInput() {
+    console.log(this.getTypeParking());
     (this.getTypeParking()
       ? this.getDaysRangesInputs()
       : this.getHoursRangesInputs()
@@ -71,25 +85,98 @@ export class ParkingDataComponent implements OnInit {
   sendForm() {
     if (this.parkingData.valid) {
       if (this.parkingData.dirty) {
-        this.submitEvent.emit(this.parkingData.value);
+        let parking: Parking = this.castToParking(this.parkingData.value);
+        console.warn(parking);
+        if (this.type === 'editar') {
+          // update parking
+          this.parkingService
+            .updateParking(parking)
+            .subscribe((pk) => console.log('Parking update', pk));
+        } else {
+          // new parking
+          this.parkingService
+            .getMaxParkingId()
+            .subscribe((id) => (parking.id = ++id));
+          this.parkingService
+            .createParking(parking)
+            .subscribe((pk) => console.log('Parking creado', pk));
+        }
+
+        console.log(this.parkingData.value);
       }
     } else {
       // show errors
     }
   }
 
-  loadData() {
+  loadData(parking: Parking) {
     if (this.parkingData) {
       this.parkingData.reset();
     }
-    this.pageTitle = `Parking: ${this.data.direction}`;
+    this.pageTitle = `Parking: ${parking.direction}`;
+    // load static data of the parking
     this.parkingData.patchValue({
-      direction: this.data.direction,
-      longPeriod: this.data.type !== 'corta estancia',
-      timesAvailable: this.data.timesAvailable,
-      daysAvailable: this.data.daysAvailable,
-      pricePerHour: this.data.pricePerHour,
-      pricePerDay: this.data.pricePerDay,
+      direction: parking.direction,
+      longPeriod: parking.type === 'larga estancia',
+      pricePerHour: parking.pricePerHour,
+      pricePerDay: parking.pricePerDay,
     });
+    // generate the n number of ranges inputs
+    (parking.daysAvailable ?? parking.timesAvailable).map((range) =>
+      this.addPriceInput()
+    );
+    // add the corresponded data to each range inputs
+    (this.getDaysRangesInputs().controls.length === 0
+      ? this.getHoursRangesInputs()
+      : this.getDaysRangesInputs()
+    ).controls.forEach((rangeGroup: FormGroup, index: number) => {
+      // take one control group { start: FormControl; end: FormControl } and set value
+      const control: { start: FormControl; end: FormControl } =
+        rangeGroup.controls as unknown as {
+          start: FormControl;
+          end: FormControl;
+        };
+      if (parking.type === 'larga estancia') {
+        control.start.setValue(parking.daysAvailable[index].start);
+        control.end.setValue(parking.daysAvailable[index].end);
+      } else {
+        control.start.setValue(parking.timesAvailable[index].start);
+        control.end.setValue(parking.timesAvailable[index].end);
+      }
+      // iterate throw the two FormControl (start and end) of the FormGroup
+      // Object.entries(control).forEach(([, input]) => {
+      //   input.setValue(
+      //     (parking.type === 'larga estancia'
+      //       ? parking.daysAvailable
+      //       : parking.timesAvailable)[index].start
+      //   );
+      // });
+    });
+    console.log(this.parkingData.value);
+  }
+
+  castToParking(object: any): Parking {
+    const {
+      direction,
+      longPeriod,
+      timesAvailable,
+      daysAvailable,
+      pricePerHour,
+      pricePerDay,
+    } = object;
+
+    return {
+      id: this.data?.id,
+      direction,
+      cords: this.data?.cords,
+      status: false,
+      type: longPeriod ? 'larga estancia' : 'corta estancia',
+      timesAvailable,
+      daysAvailable,
+      pricePerHour,
+      pricePerDay,
+      user: this.data?.user,
+      ranking: this.data?.ranking,
+    } as Parking;
   }
 }

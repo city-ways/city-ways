@@ -1,9 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ParkingListModalComponent } from '../../shared/parking-list-modal/parking-list-modal.component';
 import { ParkingService } from '../../core/parking.service';
+import { ParkingDataService } from '../../core/parking-data.service';
 import { UserIdService } from '../../core/user-id.service';
 import { Parking } from '../../shared/parking';
-import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+import { EditParkingPage } from 'src/app/pages/edit-parking/edit-parking.page';
+import { PageModalComponent } from 'src/app/shared/page-modal/page-modal.component';
 
 @Component({
   selector: 'app-quick-actions',
@@ -12,12 +15,14 @@ import { Router } from '@angular/router';
 })
 export class QuickActionsComponent implements OnInit {
   @ViewChild('modalList') modalList: ParkingListModalComponent;
+  @ViewChild('pageModal') pageModal: PageModalComponent;
   idUser: number;
   parkingsOfUser: Parking[];
   constructor(
     private parkingService: ParkingService,
     private idUserService: UserIdService,
-    private router: Router
+    public modalController: ModalController,
+    private parkingDataService: ParkingDataService
   ) {}
 
   ngOnInit() {
@@ -29,11 +34,25 @@ export class QuickActionsComponent implements OnInit {
     this.parkingService
       .getParkingsOfUser(this.idUser)
       .subscribe((parkings) => (this.parkingsOfUser = parkings));
+    this.parkingDataService.parking.subscribe((value) => {
+      if (value != null) {
+        this.pageModal.showModal(value);
+      }
+    });
   }
-  showModal(route: string, parkings: Parking[]) {
-    if (parkings.length === 1) {
-      this.router.navigate([route]);
+  showModal() {
+    if (this.parkingsOfUser.length === 1) {
+      this.pageModal.showModal(this.parkingsOfUser[0]);
+      return;
     }
-    this.modalList.showModal(route, parkings);
+    this.modalList.showModal(this.parkingsOfUser);
+  }
+
+  async showModalInfo(id: number) {
+    const modal = await this.modalController.create({
+      component: EditParkingPage,
+      componentProps: {},
+    });
+    return await modal.present();
   }
 }

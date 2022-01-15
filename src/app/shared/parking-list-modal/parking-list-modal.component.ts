@@ -9,16 +9,16 @@ import { Parking } from '../parking';
   styleUrls: ['./parking-list-modal.component.scss'],
 })
 export class ParkingListModalComponent implements OnInit {
+  @Input() actionType: string;
   constructor(private modalCtrl: ModalController) {}
 
   ngOnInit() {}
 
-  async showModal(route: string, parkings: Parking[]) {
+  async showModal(parkings: Parking[]) {
     const modal = await this.modalCtrl.create({
       component: ParkingListInfoPage,
       componentProps: {
         parkingList: parkings,
-        route,
       },
       initialBreakpoint: 0.5,
       breakpoints: [0, 0.5, 1],

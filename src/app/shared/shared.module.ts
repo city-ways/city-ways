@@ -7,9 +7,14 @@ import { ParkingListModalComponent } from './parking-list-modal/parking-list-mod
 import { ParkingListInfoPage } from './parking-list-info/parking-list-info.page';
 import { RouterModule } from '@angular/router';
 import { ParkingListInfoPageModule } from './parking-list-info/parking-list-info.module';
+import { PageModalComponent } from './page-modal/page-modal.component';
 
 @NgModule({
-  declarations: [ParkingDataComponent, ParkingListModalComponent],
+  declarations: [
+    ParkingDataComponent,
+    ParkingListModalComponent,
+    PageModalComponent,
+  ],
   imports: [
     CommonModule,
     IonicModule,
@@ -17,6 +22,10 @@ import { ParkingListInfoPageModule } from './parking-list-info/parking-list-info
     RouterModule,
     ParkingListInfoPageModule,
   ],
-  exports: [ParkingDataComponent, ParkingListModalComponent],
+  exports: [
+    ParkingDataComponent,
+    ParkingListModalComponent,
+    PageModalComponent,
+  ],
 })
 export class SharedModule {}

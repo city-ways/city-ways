@@ -9,6 +9,7 @@ import { DashboardPageRoutingModule } from './dashboard-routing.module';
 import { DashboardPage } from './dashboard.page';
 import { QuickActionsComponent } from '../../components/quick-actions/quick-actions.component';
 import { SharedModule } from '../../shared/shared.module';
+import { PageModalComponent } from '../../shared/page-modal/page-modal.component';
 
 @NgModule({
   imports: [

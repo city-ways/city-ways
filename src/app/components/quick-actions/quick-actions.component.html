@@ -11,25 +11,17 @@
         [routerLink]="['new-parking']"
         >Agregar Parking</ion-button
       >
-      <ion-button
-        class="ion-padding-end"
-        shape="round"
-        (click)="showModal('edit', parkingsOfUser)"
+      <ion-button class="ion-padding-end" shape="round" (click)="showModal()"
         >Editar Parking</ion-button
       >
-      <ion-button
-        class="ion-padding-end"
-        shape="round"
-        (click)="showModal('e', parkingsOfUser)"
+      <ion-button class="ion-padding-end" shape="round" (click)="showModal()"
         >Deshabilitar Parking</ion-button
       >
-      <ion-button
-        class=""
-        shape="round"
-        (click)="showModal('f', parkingsOfUser)"
+      <ion-button class="" shape="round" (click)="showModal()"
         >Activar Parking</ion-button
       >
     </div>
   </ion-card-content>
   <app-parking-list-modal #modalList></app-parking-list-modal>
+  <app-page-modal #pageModal></app-page-modal>
 </ion-card>

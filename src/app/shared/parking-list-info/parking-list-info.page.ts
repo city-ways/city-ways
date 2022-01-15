@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Parking } from '../parking';
+import { ParkingDataService } from '../../core/parking-data.service';
 
 @Component({
   selector: 'app-parking-list-info',
@@ -9,9 +10,16 @@ import { Parking } from '../parking';
 export class ParkingListInfoPage implements OnInit {
   @Input() parkingList: Parking[];
   @Input() route: string;
-  constructor() {}
+  @Output() parkingEmmited: EventEmitter<Parking> = new EventEmitter();
+  constructor(private parkingDataService: ParkingDataService) {}
 
   ngOnInit() {
     console.log(this.parkingList);
+  }
+  parkingEmmiter(index) {
+    this.parkingEmmited.emit(this.parkingList[index]);
+  }
+  guardarParking(index: number) {
+    this.parkingDataService.updateParking(this.parkingList[index]);
   }
 }

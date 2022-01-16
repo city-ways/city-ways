@@ -82,16 +82,6 @@
       "ranking": 5,
       "pricePerHour": 1.81,
       "pricePerDay": 17
-    },
-    {
-      "direction": "prueba",
-      "status": false,
-      "type": "corta estancia",
-      "timesAvailable": [],
-      "daysAvailable": [],
-      "pricePerHour": 23,
-      "pricePerDay": "",
-      "id": 5
     }
   ],
   "users": []

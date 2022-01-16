@@ -8,8 +8,6 @@ import {
 } from '@angular/forms';
 import { ParkingService } from 'src/app/core/parking.service';
 import { Parking } from '../parking';
-import { logging } from 'protractor';
-import { log } from 'util';
 
 @Component({
   selector: 'app-parking-data',
@@ -19,8 +17,6 @@ import { log } from 'util';
 export class ParkingDataComponent implements OnInit {
   @Input() type: string;
   @Input() data: Parking;
-  // todo: refactor output event, dont emit the event! make the api call on this page.
-  @Output() submitEvent: EventEmitter<any> = new EventEmitter<any>();
   parkingData: FormGroup;
   pageTitle: string;
   constructor(
@@ -39,6 +35,7 @@ export class ParkingDataComponent implements OnInit {
 
     if (this.type === 'editar') {
       this.loadData(this.data);
+      console.log(' enter2', this.data);
     }
   }
 
@@ -53,7 +50,7 @@ export class ParkingDataComponent implements OnInit {
   }
   // dynamic controls
   addPriceInput() {
-    console.log(this.getTypeParking());
+    console.log('tipo:', this.getTypeParking());
     (this.getTypeParking()
       ? this.getDaysRangesInputs()
       : this.getHoursRangesInputs()
@@ -122,9 +119,10 @@ export class ParkingDataComponent implements OnInit {
       pricePerDay: parking.pricePerDay,
     });
     // generate the n number of ranges inputs
-    (parking.daysAvailable ?? parking.timesAvailable).map((range) =>
-      this.addPriceInput()
-    );
+    (!parking.daysAvailable.length
+      ? parking.timesAvailable
+      : parking.daysAvailable
+    ).map((range) => this.addPriceInput());
     // add the corresponded data to each range inputs
     (this.getDaysRangesInputs().controls.length === 0
       ? this.getHoursRangesInputs()

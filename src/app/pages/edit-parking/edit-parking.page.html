@@ -7,6 +7,6 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <app-parking-data type="editar" [data]="parking"></app-parking-data>
+<ion-content *ngIf="parkingApi">
+  <app-parking-data type="editar" [data]="parkingApi"></app-parking-data>
 </ion-content>

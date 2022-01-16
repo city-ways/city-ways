@@ -2,7 +2,7 @@
   "parkings": [
     {
       "id": 1,
-      "direction": "52026 Jenifer AlleyV2",
+      "direction": "52026 Jenifer Alley124",
       "cords": {
         "longitude": -1.686205,
         "latitude": 42.782156
@@ -12,12 +12,8 @@
       "timesAvailable": [],
       "daysAvailable": [
         {
-          "start": "2021-01-14",
-          "end": "2021-01-20"
-        },
-        {
-          "start": "2021-01-14",
-          "end": "2021-01-30"
+          "start": "2022-01-15",
+          "end": "2022-01-18"
         }
       ],
       "pricePerHour": 1.46,
@@ -31,7 +27,7 @@
     },
     {
       "id": 3,
-      "direction": "29550 Commercial Way3",
+      "direction": "29550 Commercial Way32",
       "cords": {
         "longitude": -1.683978,
         "latitude": 42.782959
@@ -86,6 +82,16 @@
       "ranking": 5,
       "pricePerHour": 1.81,
       "pricePerDay": 17
+    },
+    {
+      "direction": "prueba",
+      "status": false,
+      "type": "corta estancia",
+      "timesAvailable": [],
+      "daysAvailable": [],
+      "pricePerHour": 23,
+      "pricePerDay": "",
+      "id": 5
     }
   ],
   "users": []

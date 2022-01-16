@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Parking } from '../shared/parking';
-import { catchError, map, mapTo, reduce, tap } from 'rxjs/operators';
+import { catchError, map, mapTo, reduce, take, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -86,7 +86,7 @@ export class ParkingService {
       .pipe(catchError(ParkingService.handleError));
   }
   // todo refactor id
-  public getParkingsOfUser(idUser: number): Observable<Parking[]> {
+  public getParkingOfUser(idUser: number): Observable<Parking[]> {
     const param = new HttpParams().append('user.id', idUser);
     return this.http.get<Parking[]>(this.url, { params: param });
   }

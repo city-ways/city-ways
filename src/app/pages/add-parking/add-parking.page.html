@@ -1,16 +1,12 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+    <ion-buttons slot="end">
+      <ion-button size="big" (click)="exit()">Salir</ion-button>
     </ion-buttons>
     <ion-title>Nuevo Parking</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <app-parking-data
-    type="crear"
-    [data]="null"
-    (submitEvent)="addNewParking($event)"
-  ></app-parking-data>
+  <app-parking-data type="crear" [data]="null"></app-parking-data>
 </ion-content>

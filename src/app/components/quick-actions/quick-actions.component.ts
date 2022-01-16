@@ -6,6 +6,7 @@ import { UserIdService } from '../../core/user-id.service';
 import { Parking } from '../../shared/parking';
 import { ModalController } from '@ionic/angular';
 import { EditParkingPage } from 'src/app/pages/edit-parking/edit-parking.page';
+import { AddParkingPage } from '../../pages/add-parking/add-parking.page';
 import { PageModalComponent } from 'src/app/shared/page-modal/page-modal.component';
 import { ParkingListInfoPage } from '../../shared/parking-list-info/parking-list-info.page';
 
@@ -50,9 +51,9 @@ export class QuickActionsComponent implements OnInit {
     }
   }
 
-  async showModalPage(parking?: Parking | any) {
+  async showModalPage(parking?: Parking | any, create?: boolean) {
     const modal = await this.modalController.create({
-      component: EditParkingPage,
+      component: create ? AddParkingPage : EditParkingPage,
       componentProps: {
         user: this.idUser,
         parking,

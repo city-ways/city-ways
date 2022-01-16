@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ParkingService } from '../../core/parking.service';
 import { UserIdService } from '../../core/user-id.service';
 

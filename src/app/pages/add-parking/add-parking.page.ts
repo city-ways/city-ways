@@ -10,10 +10,10 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./add-parking.page.scss'],
 })
 export class AddParkingPage implements OnInit {
-  constructor(private modalcontrller: ModalController) {}
+  constructor(private modalContrller: ModalController) {}
 
   ngOnInit() {}
   exit() {
-    this.modalcontrller.dismiss();
+    this.modalContrller.dismiss();
   }
 }

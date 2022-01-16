@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Parking } from '../parking';
 import { ParkingDataService } from '../../core/parking-data.service';
+import { ParkingService } from '../../core/parking.service';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-parking-list-info',
@@ -8,18 +10,25 @@ import { ParkingDataService } from '../../core/parking-data.service';
   styleUrls: ['./parking-list-info.page.scss'],
 })
 export class ParkingListInfoPage implements OnInit {
-  @Input() parkingList: Parking[];
-  @Input() route: string;
-  @Output() parkingEmmited: EventEmitter<Parking> = new EventEmitter();
-  constructor(private parkingDataService: ParkingDataService) {}
+  @Input() user: number;
+  public parkingList: Parking[];
+  constructor(
+    private modalController: ModalController,
+    private parkingDataService: ParkingDataService,
+    private parkingService: ParkingService
+  ) {}
 
   ngOnInit() {
-    console.log(this.parkingList);
+    this.parkingService
+      .getParkingOfUser(this.user)
+      .subscribe((parkingsList) => (this.parkingList = parkingsList));
   }
-  parkingEmmiter(index) {
-    this.parkingEmmited.emit(this.parkingList[index]);
-  }
+
   guardarParking(index: number) {
     this.parkingDataService.updateParking(this.parkingList[index]);
+  }
+  clickParking(index: number) {
+    console.log('diss', this.parkingList[index]);
+    this.modalController.dismiss({ parking: this.parkingList[index] });
   }
 }

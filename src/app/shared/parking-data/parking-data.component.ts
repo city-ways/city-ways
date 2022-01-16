@@ -8,8 +8,6 @@ import {
 } from '@angular/forms';
 import { ParkingService } from 'src/app/core/parking.service';
 import { Parking } from '../parking';
-import { logging } from 'protractor';
-import { log } from 'util';
 
 @Component({
   selector: 'app-parking-data',
@@ -19,8 +17,7 @@ import { log } from 'util';
 export class ParkingDataComponent implements OnInit {
   @Input() type: string;
   @Input() data: Parking;
-  // todo: refactor output event, dont emit the event! make the api call on this page.
-  @Output() submitEvent: EventEmitter<any> = new EventEmitter<any>();
+  @Output() actionsFinish: EventEmitter<boolean> = new EventEmitter<boolean>();
   parkingData: FormGroup;
   pageTitle: string;
   constructor(
@@ -51,9 +48,10 @@ export class ParkingDataComponent implements OnInit {
   getTypeParking(): boolean {
     return this.parkingData.get('longPeriod').value;
   }
+
   // dynamic controls
   addPriceInput() {
-    console.log(this.getTypeParking());
+    console.log('tipo:', this.getTypeParking());
     (this.getTypeParking()
       ? this.getDaysRangesInputs()
       : this.getHoursRangesInputs()
@@ -101,7 +99,8 @@ export class ParkingDataComponent implements OnInit {
             .createParking(parking)
             .subscribe((pk) => console.log('Parking creado', pk));
         }
-
+        // close form
+        this.emitFinishEvent();
         console.log(this.parkingData.value);
       }
     } else {
@@ -122,9 +121,10 @@ export class ParkingDataComponent implements OnInit {
       pricePerDay: parking.pricePerDay,
     });
     // generate the n number of ranges inputs
-    (parking.daysAvailable ?? parking.timesAvailable).map((range) =>
-      this.addPriceInput()
-    );
+    (!parking.daysAvailable.length
+      ? parking.timesAvailable
+      : parking.daysAvailable
+    ).map((range) => this.addPriceInput());
     // add the corresponded data to each range inputs
     (this.getDaysRangesInputs().controls.length === 0
       ? this.getHoursRangesInputs()
@@ -153,6 +153,16 @@ export class ParkingDataComponent implements OnInit {
       // });
     });
     console.log(this.parkingData.value);
+  }
+
+  deleteCurrentParking() {
+    this.parkingService
+      .deleteParking(this.data.id)
+      .subscribe((data) => this.emitFinishEvent());
+  }
+
+  emitFinishEvent() {
+    this.actionsFinish.emit(true);
   }
 
   castToParking(object: any): Parking {

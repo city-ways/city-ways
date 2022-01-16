@@ -91,7 +91,13 @@
         </ion-item-group>
       </ng-container>
     </ng-template>
+
     <ion-button color="primary" type="submit">{{ type }}</ion-button>
-    <ion-button *ngIf="type === 'editar'" color="danger">Borrar</ion-button>
+    <ion-button
+      *ngIf="type === 'editar'"
+      color="danger"
+      (click)="deleteCurrentParking()"
+      >Borrar</ion-button
+    >
   </ion-list>
 </form>

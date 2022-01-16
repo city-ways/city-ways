@@ -17,6 +17,7 @@ import { Parking } from '../parking';
 export class ParkingDataComponent implements OnInit {
   @Input() type: string;
   @Input() data: Parking;
+  @Output() actionsFinish: EventEmitter<boolean> = new EventEmitter<boolean>();
   parkingData: FormGroup;
   pageTitle: string;
   constructor(
@@ -35,7 +36,6 @@ export class ParkingDataComponent implements OnInit {
 
     if (this.type === 'editar') {
       this.loadData(this.data);
-      console.log(' enter2', this.data);
     }
   }
 
@@ -48,6 +48,7 @@ export class ParkingDataComponent implements OnInit {
   getTypeParking(): boolean {
     return this.parkingData.get('longPeriod').value;
   }
+
   // dynamic controls
   addPriceInput() {
     console.log('tipo:', this.getTypeParking());
@@ -98,7 +99,8 @@ export class ParkingDataComponent implements OnInit {
             .createParking(parking)
             .subscribe((pk) => console.log('Parking creado', pk));
         }
-
+        // close form
+        this.emitFinishEvent();
         console.log(this.parkingData.value);
       }
     } else {
@@ -151,6 +153,16 @@ export class ParkingDataComponent implements OnInit {
       // });
     });
     console.log(this.parkingData.value);
+  }
+
+  deleteCurrentParking() {
+    this.parkingService
+      .deleteParking(this.data.id)
+      .subscribe((data) => this.emitFinishEvent());
+  }
+
+  emitFinishEvent() {
+    this.actionsFinish.emit(true);
   }
 
   castToParking(object: any): Parking {

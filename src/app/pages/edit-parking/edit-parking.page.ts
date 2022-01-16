@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ParkingService } from '../../core/parking.service';
 import { Parking } from '../../shared/parking';
-import { ViewWillEnter } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-edit-parking',
@@ -12,7 +12,10 @@ export class EditParkingPage implements OnInit {
   @Input() user: number;
   @Input() parking: Parking;
   public parkingApi: Parking;
-  constructor(private parkingService: ParkingService) {}
+  constructor(
+    private parkingService: ParkingService,
+    private modalContrller: ModalController
+  ) {}
 
   ngOnInit() {
     if (!this.parking) {
@@ -21,7 +24,9 @@ export class EditParkingPage implements OnInit {
         .subscribe((parkingsList) => (this.parkingApi = parkingsList[0]));
     } else {
       this.parkingApi = this.parking;
-      console.log(' enter1', this.parkingApi);
     }
+  }
+  exit() {
+    this.modalContrller.dismiss();
   }
 }

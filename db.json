@@ -2,7 +2,7 @@
   "parkings": [
     {
       "id": 1,
-      "direction": "52026 Jenifer Alley124",
+      "direction": "52026 Jenifer Alley",
       "cords": {
         "longitude": -1.686205,
         "latitude": 42.782156
@@ -27,7 +27,7 @@
     },
     {
       "id": 3,
-      "direction": "29550 Commercial Way32",
+      "direction": "29550 Commercial Way",
       "cords": {
         "longitude": -1.683978,
         "latitude": 42.782959
@@ -45,7 +45,7 @@
         },
         {
           "start": "12:34",
-          "end": "13:00"
+          "end": "14:00"
         }
       ],
       "daysAvailable": [],

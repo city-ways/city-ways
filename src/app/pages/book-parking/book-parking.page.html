@@ -9,7 +9,7 @@
     <ion-label>Dirección: {{ parkingData.direction }}</ion-label>
   </ion-item>
 
-  <form novalidate [formGroup]="formBook" (ngSubmit)="sendForm()">
+  <form [formGroup]="formBook" (ngSubmit)="sendForm()">
     <ion-item>
       <ion-label>inicio</ion-label>
       <ion-input
@@ -28,6 +28,6 @@
         name="periodsEnd"
       ></ion-input>
     </ion-item>
-    <ion-button color="primary" (click)="reserva()">Reservar</ion-button>
+    <ion-button color="primary" type="submit">Reservar</ion-button>
   </form>
 </ion-content>

@@ -26,12 +26,27 @@ export class BookParkingPage implements OnInit {
     });
   }
   sendForm() {
+    let valido: boolean = true;
     console.log(this.formBook.controls['periodsStrart'].value());
+    if (this.parkingData.type === 'larga estancia') {
+      valido = this.periodoValido(this.parkingData.daysAvailable);
+    } else {
+      valido = this.periodoValido(this.parkingData.timesAvailable);
+    }
+  }
+  periodoValido(data?: { start: number; end: number }[]) {
+    data.forEach((periodo: { start: number; end: number }, index: number) => {
+      if (
+        this.formBook.controls['periodsStrart'].value() >= periodo.start &&
+        this.formBook.controls['periodsEnd'].value() <= periodo.end
+      ) {
+        return true;
+      }
+    });
+    return false;
   }
   typeParking() {
     return this.parkingData.type === 'larga estancia' ? 'Date' : 'time';
   }
-  reserva() {
-    console.log(this.formBook.controls['periodsStrart'].value());
-  }
+  reserva() {}
 }

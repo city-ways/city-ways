@@ -6,26 +6,24 @@
 
 <ion-content>
   <ion-item>
-    <ion-label>Dirección: {{ parkingData.direction }}</ion-label>
+    <ion-label>Dirección: {{ (parkingData)?.direction }}</ion-label>
   </ion-item>
 
-  <form [formGroup]="formBook" (ngSubmit)="sendForm()">
+  <form [formGroup]="formBook" (ngSubmit)="sendForm($event)">
     <ion-item>
       <ion-label>inicio</ion-label>
       <ion-input
-        ngDefaultControl
-        [type]="typeParking()"
+        [type]="type"
         placeholder="fecha"
-        formControlName="periodsStrart"
-        name="periodsStrart"
+        formControlName="periodStart"
       ></ion-input>
+    </ion-item>
+    <ion-item>
       <ion-label>fin</ion-label>
       <ion-input
-        ngDefaultControl
-        [type]="typeParking()"
+        [type]="type"
         placeholder="fecha"
-        formControlName="periodsEnd"
-        name="periodsEnd"
+        formControlName="periodEnd"
       ></ion-input>
     </ion-item>
     <ion-button color="primary" type="submit">Reservar</ion-button>

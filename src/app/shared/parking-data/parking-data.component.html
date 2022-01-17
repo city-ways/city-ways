@@ -94,6 +94,7 @@
 
     <ion-button color="primary" type="submit">{{ type }}</ion-button>
     <ion-button
+      type="button"
       *ngIf="type === 'editar'"
       color="danger"
       (click)="deleteCurrentParking()"

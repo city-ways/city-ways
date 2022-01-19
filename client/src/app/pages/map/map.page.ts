@@ -4,8 +4,6 @@ import { ParkingService } from '../../core/parking.service';
 
 import { ModalController } from '@ionic/angular';
 
-import { BookParkingPage } from '../book-parking/book-parking.page';
-
 @Component({
   selector: 'app-map',
   templateUrl: './map.page.html',
@@ -45,7 +43,8 @@ export class MapPage implements OnInit {
   }
   async showModal(id: number) {
     const modal = await this.modalController.create({
-      component: BookParkingPage,
+      // todo: refactor!
+      component: null,
       initialBreakpoint: 0.5,
       componentProps: {
         id,

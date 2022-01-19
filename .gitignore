@@ -13,24 +13,38 @@ Thumbs.db
 UserInterfaceState.xcuserstate
 $RECYCLE.BIN/
 
-*.log
-log.txt
-npm-debug.log*
+/client/*.log
+/client/log.txt
+/client/npm-debug.log*
 
-/.idea
-/.ionic
-/.sass-cache
-/.sourcemaps
-/.versions
-/.vscode
-/coverage
-/dist
-/node_modules
-/platforms
-/plugins
-/www
-/.angular
-/.husky
-db.json
-src/environments/environment.ts
-src/environments/enviroment.prod.ts
+/client/.idea
+/client/.ionic
+/client/.sass-cache
+/client/.sourcemaps
+/client/.versions
+/client/.vscode
+/client/coverage
+/client/dist
+/client/node_modules
+/client/platforms
+/client/plugins
+/client/www
+/client/.angular
+/client/.husky
+/client/db.json
+/client/src/environments/environment.ts
+/client/src/environments/enviroment.prod.ts
+
+# api
+
+###> symfony/framework-bundle ###
+/api/.env.local
+/api/.env.local.php
+/api/.env.*.local
+/api/config/secrets/prod/prod.decrypt.private.php
+/api/public/bundles/
+/api/var/
+/api/vendor/
+###< symfony/framework-bundle ###
+/api/.env
+/api/.idea

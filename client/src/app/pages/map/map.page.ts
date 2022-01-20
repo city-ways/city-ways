@@ -3,6 +3,7 @@ import { Map, Marker, Popup } from 'mapbox-gl';
 import { ParkingService } from '../../core/parking.service';
 
 import { ModalController } from '@ionic/angular';
+import { BookingParkingPage } from '../booking-parking/booking-parking.page';
 
 @Component({
   selector: 'app-map',
@@ -43,8 +44,7 @@ export class MapPage implements OnInit {
   }
   async showModal(id: number) {
     const modal = await this.modalController.create({
-      // todo: refactor!
-      component: null,
+      component: BookingParkingPage,
       initialBreakpoint: 0.5,
       componentProps: {
         id,

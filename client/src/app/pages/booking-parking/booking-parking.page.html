@@ -8,12 +8,12 @@
   <form [formGroup]="formBook" (ngSubmit)="send()">
     <ion-item>
       <ion-label>Inicio</ion-label>
-      <ion-input type="number" formControlName="startPeriod"> </ion-input>
+      <ion-input [type]="inputType" formControlName="startPeriod"> </ion-input>
     </ion-item>
     <ion-item>
       <ion-label>Fin</ion-label>
-      <ion-input type="number" formControlName="endPeriod"> </ion-input>
+      <ion-input [type]="inputType" formControlName="endPeriod"> </ion-input>
     </ion-item>
-    <ion-button type="submit"> Reservar </ion-button>
+    <ion-button type="submit">Reservar</ion-button>
   </form>
 </ion-content>

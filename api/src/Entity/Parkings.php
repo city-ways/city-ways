@@ -60,10 +60,17 @@ class Parkings
      */
     private $Coordinates;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Users::class, inversedBy="UsesParking")
+     */
+    private $UserUses;
+
+
     public function __construct()
     {
         $this->TimesAvailable = new ArrayCollection();
         $this->DatesAvailable = new ArrayCollection();
+        $this->UserUses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -199,6 +206,30 @@ class Parkings
     public function setCoordinates(Coordinates $Coordinates): self
     {
         $this->Coordinates = $Coordinates;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Users[]
+     */
+    public function getUserUses(): Collection
+    {
+        return $this->UserUses;
+    }
+
+    public function addUserUse(Users $userUse): self
+    {
+        if (!$this->UserUses->contains($userUse)) {
+            $this->UserUses[] = $userUse;
+        }
+
+        return $this;
+    }
+
+    public function removeUserUse(Users $userUse): self
+    {
+        $this->UserUses->removeElement($userUse);
 
         return $this;
     }

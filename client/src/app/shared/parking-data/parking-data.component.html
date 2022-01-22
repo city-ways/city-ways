@@ -1,6 +1,6 @@
 <form [formGroup]="parkingData" (ngSubmit)="sendForm()">
   <ion-list class="ion-padding-horizontal">
-    <ion-list-header> {{ type }} Parking </ion-list-header>
+    <!--    <ion-list-header> {{ type }} Parking </ion-list-header>-->
     <ion-item>
       <ion-label>Dirección</ion-label>
       <ion-input
@@ -8,12 +8,14 @@
         placeholder="Dirección"
         formControlName="direction"
       ></ion-input>
-      <ion-button size="medium" (click)="mapModal()">
+      <ion-button
+        [ngClass]="{ 'ion-hide': data !== null }"
+        size="medium"
+        (click)="mapModal()"
+      >
         <ion-icon name="map-outline"></ion-icon>
       </ion-button>
     </ion-item>
-
-    <app-search-results></app-search-results>
     <ion-item>
       <ion-label>Larga Duración</ion-label>
       <ion-toggle formControlName="longPeriod"></ion-toggle>

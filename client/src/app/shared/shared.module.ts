@@ -8,12 +8,14 @@ import { ParkingListInfoPage } from './parking-list-info/parking-list-info.page'
 import { RouterModule } from '@angular/router';
 import { ParkingListInfoPageModule } from './parking-list-info/parking-list-info.module';
 import { PageModalComponent } from './page-modal/page-modal.component';
+import { SearchResultsComponent } from './search-results/search-results.component';
 
 @NgModule({
   declarations: [
     ParkingDataComponent,
     ParkingListModalComponent,
     PageModalComponent,
+    SearchResultsComponent,
   ],
   imports: [
     CommonModule,

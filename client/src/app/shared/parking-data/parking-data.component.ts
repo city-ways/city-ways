@@ -9,6 +9,9 @@ import {
 import { ParkingService } from 'src/app/core/parking.service';
 import { Parking } from '../parking';
 
+import { ModalController } from '@ionic/angular';
+import { SelectionMapPage } from '../../pages/selection-map/selection-map.page';
+
 @Component({
   selector: 'app-parking-data',
   templateUrl: './parking-data.component.html',
@@ -22,11 +25,14 @@ export class ParkingDataComponent implements OnInit {
   pageTitle: string;
   constructor(
     private formBuilder: FormBuilder,
-    private parkingService: ParkingService
+    private parkingService: ParkingService,
+    private modalController: ModalController
   ) {}
   ngOnInit() {
     this.parkingData = this.formBuilder.group({
       direction: ['', Validators.required],
+      lng: ['', Validators.required],
+      lat: ['', Validators.required],
       longPeriod: [false, Validators.required],
       timesAvailable: this.formBuilder.array([]),
       daysAvailable: this.formBuilder.array([]),
@@ -81,6 +87,7 @@ export class ParkingDataComponent implements OnInit {
   }
 
   sendForm() {
+    console.log(this.parkingData.get('lng').value);
     if (this.parkingData.valid) {
       if (this.parkingData.dirty) {
         let parking: Parking = this.castToParking(this.parkingData.value);
@@ -143,14 +150,6 @@ export class ParkingDataComponent implements OnInit {
         control.start.setValue(parking.timesAvailable[index].start);
         control.end.setValue(parking.timesAvailable[index].end);
       }
-      // iterate throw the two FormControl (start and end) of the FormGroup
-      // Object.entries(control).forEach(([, input]) => {
-      //   input.setValue(
-      //     (parking.type === 'larga estancia'
-      //       ? parking.daysAvailable
-      //       : parking.timesAvailable)[index].start
-      //   );
-      // });
     });
     console.log(this.parkingData.value);
   }
@@ -158,7 +157,7 @@ export class ParkingDataComponent implements OnInit {
   deleteCurrentParking() {
     this.parkingService
       .deleteParking(this.data.id)
-      .subscribe((data) => this.emitFinishEvent());
+      .subscribe((e) => this.emitFinishEvent());
   }
 
   emitFinishEvent() {
@@ -168,6 +167,8 @@ export class ParkingDataComponent implements OnInit {
   castToParking(object: any): Parking {
     const {
       direction,
+      lng,
+      lat,
       longPeriod,
       timesAvailable,
       daysAvailable,
@@ -178,7 +179,7 @@ export class ParkingDataComponent implements OnInit {
     return {
       id: this.data?.id,
       direction,
-      cords: this.data?.cords,
+      cords: !this.data ? { longitude: lng, latitude: lat } : this.data.cords,
       status: false,
       type: longPeriod ? 'larga estancia' : 'corta estancia',
       timesAvailable,
@@ -188,5 +189,21 @@ export class ParkingDataComponent implements OnInit {
       user: this.data?.user,
       ranking: this.data?.ranking,
     } as Parking;
+  }
+
+  async mapModal() {
+    const modal = await this.modalController.create({
+      component: SelectionMapPage,
+    });
+    await modal.present();
+
+    const {
+      data: [lng, lat],
+    } = await modal.onDidDismiss();
+    // assign the values to the form
+    this.parkingData.patchValue({
+      lng,
+      lat,
+    });
   }
 }

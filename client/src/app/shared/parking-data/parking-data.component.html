@@ -8,13 +8,15 @@
         placeholder="Dirección"
         formControlName="direction"
       ></ion-input>
+      <ion-button size="medium" (click)="mapModal()">
+        <ion-icon name="map-outline"></ion-icon>
+      </ion-button>
     </ion-item>
+
+    <app-search-results></app-search-results>
     <ion-item>
       <ion-label>Larga Duración</ion-label>
-      <ion-toggle
-        formControlName="longPeriod"
-        (ionChange)="clearInputs()"
-      ></ion-toggle>
+      <ion-toggle formControlName="longPeriod"></ion-toggle>
     </ion-item>
     <ion-button (click)="addPriceInput()" color="primary">Add</ion-button>
 

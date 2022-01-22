@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Map, Marker, Popup } from 'mapbox-gl';
 import { ParkingService } from '../../core/parking.service';
 
 import { ModalController } from '@ionic/angular';
 import { BookingParkingPage } from '../booking-parking/booking-parking.page';
+import { MapService } from '../../core/map.service';
 
 @Component({
   selector: 'app-map',
@@ -12,9 +13,11 @@ import { BookingParkingPage } from '../booking-parking/booking-parking.page';
 })
 export class MapPage implements OnInit {
   private map!: Map;
+
   constructor(
     private parkingService: ParkingService,
-    public modalController: ModalController
+    private modalController: ModalController,
+    private mapService: MapService
   ) {}
 
   ngOnInit() {
@@ -25,6 +28,7 @@ export class MapPage implements OnInit {
         popup.on('open', () => {
           this.showModal(id);
         });
+        console.log([[longitude, latitude]]);
         new Marker({ color: '#3880ff' })
           .setLngLat([longitude, latitude])
           .setPopup(popup)

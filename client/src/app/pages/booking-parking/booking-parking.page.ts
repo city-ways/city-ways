@@ -19,6 +19,7 @@ export class BookingParkingPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    // todo: check if the user is already using a parking
     this.formBook = this.formBuilder.group({
       startPeriod: ['', Validators.required],
       endPeriod: ['', Validators.required],

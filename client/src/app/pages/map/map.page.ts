@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Map, Marker, Popup } from 'mapbox-gl';
 import { ParkingService } from '../../core/parking.service';
 
@@ -49,11 +49,11 @@ export class MapPage implements OnInit {
   async showModal(id: number) {
     const modal = await this.modalController.create({
       component: BookingParkingPage,
-      initialBreakpoint: 0.5,
+      initialBreakpoint: 0.25,
       componentProps: {
         id,
       },
-      breakpoints: [0.2, 0.5, 1],
+      breakpoints: [0.25, 0.5, 1],
     });
     return await modal.present();
   }

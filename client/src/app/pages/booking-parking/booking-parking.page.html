@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>booking-parking</ion-title>
+    <ion-title>{{parking?.direction }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -14,6 +14,12 @@
       <ion-label>Fin</ion-label>
       <ion-input [type]="inputType" formControlName="endPeriod"> </ion-input>
     </ion-item>
-    <ion-button type="submit">Reservar</ion-button>
+    <ion-button
+      type="submit"
+      expand="full"
+      color="primary"
+      class="ion-margin-top"
+      >Reservar</ion-button
+    >
   </form>
 </ion-content>

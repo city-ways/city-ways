@@ -31,14 +31,17 @@ export class BookingParkingPage implements OnInit {
     });
   }
   send() {
-    if (this.formBook.valid) {
-      if (this.formBook.dirty) {
-        console.log('enviado');
-        // update the parking
-        const { startPeriod, endPeriod } = this.formBook.value;
-        console.log(startPeriod, endPeriod);
-        // todo: logic of booking a parking
-      }
-    }
+    console.log('enviado');
+    // e.preventDefault();
+    // console.log('f');
+    // if (this.formBook.valid) {
+    //   if (this.formBook.dirty) {
+    //     console.log('enviado');
+    //     // update the parking
+    //     const { startPeriod, endPeriod } = this.formBook.value;
+    //     console.log(startPeriod, endPeriod);
+    //     // todo: logic of booking a parking
+    //   }
+    // }
   }
 }

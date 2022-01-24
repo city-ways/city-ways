@@ -60,17 +60,11 @@ class Parkings
      */
     private $Coordinates;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Users::class, inversedBy="UsesParking")
-     */
-    private $UserUses;
-
 
     public function __construct()
     {
         $this->TimesAvailable = new ArrayCollection();
         $this->DatesAvailable = new ArrayCollection();
-        $this->UserUses = new ArrayCollection();
     }
 
     public function getId(): ?int

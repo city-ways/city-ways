@@ -44,16 +44,10 @@ class Users
      */
     private $UserOwns;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Parkings::class, mappedBy="UserUses")
-     */
-    private $UsesParking;
-
 
     public function __construct()
     {
         $this->UserOwns = new ArrayCollection();
-        $this->UsesParking = new ArrayCollection();
     }
 
     public function getId(): ?int

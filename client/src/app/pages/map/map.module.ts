@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { MapPageRoutingModule } from './map-routing.module';
 
 import { MapPage } from './map.page';
+import { BookingParkingPageModule } from '../booking-parking/booking-parking.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MapPageRoutingModule
+    MapPageRoutingModule,
+    BookingParkingPageModule,
   ],
-  declarations: [MapPage]
+  declarations: [MapPage],
 })
 export class MapPageModule {}

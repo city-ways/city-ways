@@ -11,7 +11,6 @@ import { BookingParkingPage } from './booking-parking.page';
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
     IonicModule,
     BookingParkingPageRoutingModule,
     ReactiveFormsModule,

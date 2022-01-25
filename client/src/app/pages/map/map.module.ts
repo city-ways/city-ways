@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
 import { MapPageRoutingModule } from './map-routing.module';
 
 import { MapPage } from './map.page';
+import { BookingParkingPageModule } from '../booking-parking/booking-parking.module';
 
 @NgModule({
   imports: [
@@ -14,7 +15,7 @@ import { MapPage } from './map.page';
     FormsModule,
     IonicModule,
     MapPageRoutingModule,
-    ReactiveFormsModule,
+    BookingParkingPageModule,
   ],
   declarations: [MapPage],
 })

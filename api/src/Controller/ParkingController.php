@@ -4,11 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Coordinates;
 use App\Entity\Parkings;
+use App\Entity\TimesAvailable;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ParkingController extends AbstractController
@@ -25,6 +25,7 @@ class ParkingController extends AbstractController
         $data = [];
         $timesAvailableData = [];
         foreach ($parkings as $parking){
+           $timesAvailable = $entityManager->getRepository(TimesAvailable::class)->findBy($parking->getId());
             foreach ($parking->getTimesAvailable() as $timeRange){
                 $tmpTimes = [
                     "start" => $timeRange->getTimeRanges()[0],

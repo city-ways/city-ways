@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Coordinates;
 use App\Entity\Parkings;
 use App\Entity\TimesAvailable;
+use App\Util\EncodeJSON;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,27 +26,7 @@ class ParkingController extends AbstractController
         $data = [];
         $timesAvailableData = [];
         foreach ($parkings as $parking){
-
-            foreach ($parking->getTimesAvailable() as $timeRange){
-                $tmpTimes = [
-                    "start" => $timeRange->getTimeRanges()[0],
-                    "end" => $timeRange->getTimeRanges()[1]
-                ];
-                $timesAvailableData[] = $tmpTimes;
-            }
-
-            $tmp = [
-                "id" => $parking->getId(),
-                "coordinates" => ["latitude"=>$parking->getCoordinates()->getLatitude(), "longitude"=>$parking->getCoordinates()->getLongitude()],
-                "direction" => $parking->getDirection(),
-                "type" => $parking->getType(),
-                "staus" => $parking->getStatus(),
-                "timesAvailable" => $timesAvailableData,
-                "daysAvailable" => $parking->getDatesAvailable(),
-                "price_per_hour" => (float) $parking->getPricePerHour(),
-                "price_per_day" => (float) $parking->getPricePerDay()
-            ];
-            $data[] = $tmp;
+            $data[] = EncodeJSON::EncodeParking($parking);
         }
 
         return $this->json([

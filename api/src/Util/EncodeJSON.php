@@ -27,14 +27,14 @@ class EncodeJSON
 
         return [
             "id" => $parking->getId(),
-            "coordinates" => ["latitude" => $parking->getCoordinates()->getLatitude(), "longitude" => $parking->getCoordinates()->getLongitude()],
             "direction" => $parking->getDirection(),
-            "type" => $parking->getType(),
+            "cords" => ["longitude" => (float)$parking->getCoordinates()->getLongitude(), "latitude" => (float)$parking->getCoordinates()->getLatitude()],
             "status" => $parking->getStatus(),
-            "timesAvailable" => $parking->getTimesAvailable(),
+            "type" => $parking->getType(),
+            "timesAvailable" => $timesAvailableData,
             "daysAvailable" => $datesAvailableData,
-            "price_per_hour" => (float)$parking->getPricePerHour(),
-            "price_per_day" => (float)$parking->getPricePerDay()
+            "pricePerHour" => (float)$parking->getPricePerHour(),
+            "pricePerDay" => (float)$parking->getPricePerDay()
         ];
 
 

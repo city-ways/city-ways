@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+
 use App\Entity\Coordinates;
 use App\Entity\Parkings;
 use App\Entity\TimesAvailable;
@@ -11,20 +12,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class ParkingController extends AbstractController
 {
-    // todo: refactorizar con Querying for Objects: The Repository en
-    // https://symfony.com/doc/current/doctrine.html#querying-for-objects-the-repository
     /**
-     * @Route("/parkings", name="parking", methods={"GET"})
+     * @Route("/parkings", name="parking", methods="GET")
      */
     public function getParkings(ManagerRegistry $doctrine): Response
     {
         $entityManager = $doctrine->getManager();
         $parkings = $entityManager->getRepository(Parkings::class)->findAll();
+
         $data = [];
-        $timesAvailableData = [];
         foreach ($parkings as $parking){
             $data[] = EncodeJSON::EncodeParking($parking);
         }
@@ -34,18 +34,29 @@ class ParkingController extends AbstractController
         ]);
     }
     /**
-     * @Route("/parkings", name="setParking", methods={"POST"})
+     * @Route("/parkings", name="setParking", methods="POST")
      */
-    public function setParking(Request $request, ManagerRegistry $doctrine): Response
+    public function setParking(Request $request, ManagerRegistry $doctrine, SerializerInterface $serializer): Response
     {
         $data = $request->getContent();
-        $content = json_decode($data);
-        $parking_stdClass = $content->parking;
 
+        $content = json_decode($data);
+        $parking_stdClass = $content;
         $entityManager = $doctrine->getManager();
-        return $this->json([
-            'parkings' => "create"
-        ]);
+
+        $parking = new Parkings();
+        $parking->setDirection($parking_stdClass->direction);
+
+        $cords = new Coordinates();
+        $cords->setLongitude($parking_stdClass->cords->longitude);
+        $cords->setLatitude($parking_stdClass->cords->latitude);
+
+        $parking->setCoordinates($cords);
+
+        $timesAvailable = new TimesAvailable();
+        $timesAvailable->setTimeRanges(array($parking_stdClass->timesAvailable->start, $parking_stdClass->timesAvailable->end));
+
+        return new Response('Saved new parking with id '. $parking->getId());
     }
 
     /**
@@ -68,7 +79,7 @@ class ParkingController extends AbstractController
         ]);
     }
     /**
-     * @Route("/parkings/{id}", name="setParking", methods={"GET"})
+     * @Route("/parkings/{id}", name="getParkingById", methods={"GET"})
      */
     public function getParking($id): Response
     {

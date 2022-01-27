@@ -77,4 +77,27 @@ class ParkingController extends AbstractController
             'parkings' => "create"
         ]);
     }
+    /**
+     * @Route("/parkings/{id}", name="setParking", methods={"GET"})
+     */
+    public function getParking($id): Response
+    {
+        $parking = $this->getDoctrine()->getRepository(Parkings::class)->find($id);
+        $cords = [
+            "latitude"=>$parking->getCoordinates()->getLatitude(),
+            "longitude"=>$parking->getCoordinates()->getLongitude()
+        ];
+        $date = [
+            "id" => $parking->getId(),
+            "coordinates" => $cords,
+            "direction" => $parking->getDirection(),
+            "type" => $parking->getType(),
+            "staus" => $parking->getStatus(),
+            "price_per_hour" => $parking->getPricePerHour(),
+            "price_per_day" => $parking->getPricePerDay()
+        ];
+        return $this->json([
+            'parking' => $date
+        ]);
+    }
 }

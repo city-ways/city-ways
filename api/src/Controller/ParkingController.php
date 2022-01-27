@@ -43,25 +43,26 @@ class ParkingController extends AbstractController
      */
     public function setParking(): Response
     {
-//        $parkings = $this->getDoctrine()->getRepository(Parkings::class)->findAll();
-//        $data = [];
-//        foreach ($parkings as $parking){
-//            $cords = [
-//                "latitude"=>$parking->getCoordinates()->getLatitude(),
-//                "longitude"=>$parking->getCoordinates()->getLongitude()
-//            ];
-//            $tmp = [
-//                "id" => $parking->getId(),
-//                "coordinates" => $cords,
-//                "direction" => $parking->getDirection(),
-//                "type" => $parking->getType(),
-//                "staus" => $parking->getStatus(),
-//                "price_per_hour" => $parking->getPricePerHour(),
-//                "price_per_day" => $parking->getPricePerDay()
-//            ];
-//            $data[] = $tmp;
-//        }
-//
+        return $this->json([
+            'parkings' => "create"
+        ]);
+    }
+
+    /**
+     * @Route("/parkings", name="updateParking", methods={"PUT"})
+     */
+    public function updateParking(): Response
+    {
+        return $this->json([
+            'parkings' => "create"
+        ]);
+    }
+
+    /**
+     * @Route("/parkings", name="deleteParking", methods={"DELETE"})
+     */
+    public function deleteParking(): Response
+    {
         return $this->json([
             'parkings' => "create"
         ]);

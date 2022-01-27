@@ -4,18 +4,23 @@ namespace App\Controller;
 
 use App\Entity\Coordinates;
 use App\Entity\Parkings;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ParkingController extends AbstractController
 {
+    // todo: refactorizar con Querying for Objects: The Repository en
+    // https://symfony.com/doc/current/doctrine.html#querying-for-objects-the-repository
     /**
      * @Route("/parkings", name="parking", methods={"GET"})
      */
-    public function getParkings(): Response
+    public function getParkings(ManagerRegistry $doctrine): Response
     {
-        $parkings = $this->getDoctrine()->getRepository(Parkings::class)->findAll();
+        $entityManager = $doctrine->getManager();
+        $parkings = $entityManager->getRepository(Parkings::class)->findAll();
         $data = [];
         foreach ($parkings as $parking){
             $cords = [
@@ -41,8 +46,13 @@ class ParkingController extends AbstractController
     /**
      * @Route("/parkings", name="setParking", methods={"POST"})
      */
-    public function setParking(): Response
+    public function setParking(Request $request, ManagerRegistry $doctrine): Response
     {
+        $data = $request->getContent();
+        $content = json_decode($data);
+        $parking_stdClass = $content->parking;
+
+        $entityManager = $doctrine->getManager();
         return $this->json([
             'parkings' => "create"
         ]);

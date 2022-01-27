@@ -17,32 +17,23 @@ class TimesAvailable
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="array")
-     */
-    private $TimeRanges = [];
+
 
     /**
      * @ORM\ManyToOne(targetEntity=Parkings::class, inversedBy="TimesAvailable")
      */
     private $Parking;
 
+    /**
+     * @ORM\Column(type="simple_array", nullable=true)
+     */
+    private $TimeRanges = [];
+
     public function getId(): ?int
     {
         return $this->id;
     }
-
-    public function getTimeRanges(): ?array
-    {
-        return $this->TimeRanges;
-    }
-
-    public function setTimeRanges(array $TimeRanges): self
-    {
-        $this->TimeRanges = $TimeRanges;
-
-        return $this;
-    }
+    
 
     public function getParking(): ?Parkings
     {
@@ -52,6 +43,18 @@ class TimesAvailable
     public function setParking(?Parkings $Parking): self
     {
         $this->Parking = $Parking;
+
+        return $this;
+    }
+
+    public function getTimeRanges(): ?array
+    {
+        return $this->TimeRanges;
+    }
+
+    public function setTimeRanges(?array $TimeRanges): self
+    {
+        $this->TimeRanges = $TimeRanges;
 
         return $this;
     }

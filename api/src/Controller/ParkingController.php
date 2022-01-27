@@ -25,7 +25,7 @@ class ParkingController extends AbstractController
         $data = [];
         $timesAvailableData = [];
         foreach ($parkings as $parking){
-           $timesAvailable = $entityManager->getRepository(TimesAvailable::class)->findBy($parking->getId());
+
             foreach ($parking->getTimesAvailable() as $timeRange){
                 $tmpTimes = [
                     "start" => $timeRange->getTimeRanges()[0],
@@ -33,6 +33,7 @@ class ParkingController extends AbstractController
                 ];
                 $timesAvailableData[] = $tmpTimes;
             }
+
             $tmp = [
                 "id" => $parking->getId(),
                 "coordinates" => ["latitude"=>$parking->getCoordinates()->getLatitude(), "longitude"=>$parking->getCoordinates()->getLongitude()],
@@ -41,8 +42,8 @@ class ParkingController extends AbstractController
                 "staus" => $parking->getStatus(),
                 "timesAvailable" => $timesAvailableData,
                 "daysAvailable" => $parking->getDatesAvailable(),
-                "price_per_hour" => $parking->getPricePerHour(),
-                "price_per_day" => $parking->getPricePerDay()
+                "price_per_hour" => (float) $parking->getPricePerHour(),
+                "price_per_day" => (float) $parking->getPricePerDay()
             ];
             $data[] = $tmp;
         }

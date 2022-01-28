@@ -28,9 +28,11 @@ class ParkingController extends AbstractController
         $data = [];
         foreach ($parkings as $parking) {
             $data[] = EncodeJSON::EncodeParking($parking);
+//            $parking->
         }
 
         // filter parkings by status
+        // Ex: /parkings?status=false
         $status = $request->query->get('status');
         if ($status) {
             $status = $status === 'true';

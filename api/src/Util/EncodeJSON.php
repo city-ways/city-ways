@@ -6,6 +6,7 @@ use App\Entity\Coordinates;
 use App\Entity\DatesAvailable;
 use App\Entity\Parkings;
 use App\Entity\TimesAvailable;
+use App\Entity\Users;
 
 class EncodeJSON
 {
@@ -37,7 +38,7 @@ class EncodeJSON
             "timesAvailable" => $timesAvailableData,
             "daysAvailable" => $datesAvailableData,
             "pricePerHour" => (float)$parking->getPricePerHour(),
-            "pricePerDay" => (float)$parking->getPricePerDay()
+            "pricePerDay" => (float)$parking->getPricePerDay(),
         ];
 
 
@@ -78,5 +79,30 @@ class EncodeJSON
         return $parking;
     }
 
+    public static function EncodeUser (Users $user, bool $withParkings = true, bool $basicUser = false): array {
+        $userEncode = [
+            "id" => $user->getId(),
+            "mail" => $user->getMail(),
+            "username" => $user->getName(),
+        ];
+
+        if (!$basicUser) {
+            array_push($userEncode, ["dni" => $user->getDni()]);
+        }
+
+        if ($withParkings) {
+            $parkings = [];
+            foreach ($user->getUserOwns() as $parkingOwner) {
+                $parkings = self::EncodeParking($parkingOwner);
+            }
+            array_push($userEncode, ["owns" => $parkings]);
+        }
+
+        return $userEncode;
+    }
+
+    public static function DecodeUser (string $userJSON) {
+
+    }
 
 }

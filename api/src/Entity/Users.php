@@ -36,7 +36,7 @@ class Users
 
     /**
      * @ORM\Column(type="string", length=9)
-     * @Assert\Regex("/^[0-9]{8,8}[A-Za-z]$")
+     * @Assert\Regex("/^[0-9]{8,8}[A-Za-z]$/g")
      *
      */
     private $Dni;

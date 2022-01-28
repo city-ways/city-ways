@@ -27,7 +27,10 @@ class Parkings
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Assert\Choice({"larga estancia", "corta estancia"})
+     * @Assert\Choice(
+     *     choices = {"larga estancia", "corta estancia"}
+     *     message = "Choose a valid type."
+     * )
      */
     private $Type;
 

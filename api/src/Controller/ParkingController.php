@@ -40,39 +40,9 @@ class ParkingController extends AbstractController
     public function setParking(Request $request, ManagerRegistry $doctrine, ValidatorInterface $validator): Response
     {
         $data = $request->getContent();
-
-        $content = json_decode($data);
-        $parking_stdClass = $content;
         $entityManager = $doctrine->getManager();
 
-        $parking = new Parkings();
-        $parking->setDirection($parking_stdClass->direction);
-
-        $cords = new Coordinates();
-        $cords->setLongitude($parking_stdClass->cords->longitude);
-        $cords->setLatitude($parking_stdClass->cords->latitude);
-
-        $parking->setCoordinates($cords);
-
-        $parking->setStatus((bool) $parking_stdClass->status);
-        $parking->setType($parking_stdClass->type);
-
-
-        foreach ($parking_stdClass->timesAvailable as $timeRange) {
-            $timesAvailable = new TimesAvailable();
-            $timesAvailable->setTimeRanges(array($parking_stdClass->timesAvailable[0], $parking_stdClass->timesAvailable[1]));
-            $parking->addTimesAvailable($timesAvailable);
-        }
-        foreach ($parking_stdClass->daysAvailable as $DayRange) {
-            $datesAvailable = new DatesAvailable();
-            $datesAvailable->setDates(array($DayRange->start, $DayRange->end));
-            $parking->addDatesAvailable($datesAvailable);
-        }
-
-        $parking->setPricePerHour($parking_stdClass->pricePerHour);
-        $parking->setPricePerDay($parking_stdClass->pricePerDay);
-
-        // todo: add user info
+        $parking = EncodeJSON::DecodeParking($data);
 
         $errors = $validator->validate($parking);
         if (count($errors) > 0) {
@@ -86,12 +56,24 @@ class ParkingController extends AbstractController
     }
 
     /**
-     * @Route("/parkings", name="updateParking", methods={"PUT"})
+     * @Route("/parkings/{id}", name="updateParking", methods={"PUT"}, requirements={"id": "\d+"})
      */
-    public function updateParking(): Response
+    public function updateParking($id, Request $request, ManagerRegistry $doctrine, ValidatorInterface $validator): Response
     {
+        $data = $request->getContent();
+        $entityManager = $doctrine->getManager();
+        $parking = $entityManager->getRepository(Parkings::class)->find($id);
+
+        $updateParking = EncodeJSON::DecodeParking($data, $parking, true);
+
+        $errors = $validator->validate($updateParking);
+        if (count($errors) > 0) {
+            return new Response((string) $errors, 400);
+        }
+        
+        $entityManager->flush();
         return $this->json([
-            'parkings' => "create"
+            'result' => "parking " .$updateParking->getId() . " updated"
         ]);
     }
 

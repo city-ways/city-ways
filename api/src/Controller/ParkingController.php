@@ -64,13 +64,17 @@ class ParkingController extends AbstractController
         $entityManager = $doctrine->getManager();
         $parking = $entityManager->getRepository(Parkings::class)->find($id);
 
+        if (!$parking) {
+            return $this->json("No parking found for id: $id", 404);
+        }
+
         $updateParking = EncodeJSON::DecodeParking($data, $parking, true);
 
         $errors = $validator->validate($updateParking);
         if (count($errors) > 0) {
-            return new Response((string) $errors, 400);
+            return $this->json((string) $errors, 400);
         }
-        
+
         $entityManager->flush();
         return $this->json([
             'result' => "parking " .$updateParking->getId() . " updated"
@@ -78,35 +82,38 @@ class ParkingController extends AbstractController
     }
 
     /**
-     * @Route("/parkings", name="deleteParking", methods={"DELETE"})
+     * @Route("/parkings/{id}", name="deleteParking", methods={"DELETE"}, requirements={"id": "\d+"})
      */
-    public function deleteParking(): Response
+    public function deleteParking(int $id, ManagerRegistry $doctrine): Response
     {
+        $entityManager = $doctrine->getManager();
+        $parking = $entityManager->getRepository(Parkings::class)->find($id);
+
+        if (!$parking) {
+            return $this->json("No parking found for id: $id", 404);
+        }
+
+        $entityManager->remove($parking);
+        $entityManager->flush();
+
         return $this->json([
-            'parkings' => "create"
+            'result' => "parking " .$parking->getId() . " updated"
         ]);
     }
     /**
      * @Route("/parkings/{id}", name="getParkingById", methods={"GET"})
      */
-    public function getParking($id): Response
+    public function getParking(int $id, ManagerRegistry $doctrine): Response
     {
-        $parking = $this->getDoctrine()->getRepository(Parkings::class)->find($id);
-        $cords = [
-            "latitude"=>$parking->getCoordinates()->getLatitude(),
-            "longitude"=>$parking->getCoordinates()->getLongitude()
-        ];
-        $date = [
-            "id" => $parking->getId(),
-            "coordinates" => $cords,
-            "direction" => $parking->getDirection(),
-            "type" => $parking->getType(),
-            "staus" => $parking->getStatus(),
-            "price_per_hour" => $parking->getPricePerHour(),
-            "price_per_day" => $parking->getPricePerDay()
-        ];
-        return $this->json([
-            'parking' => $date
-        ]);
+        $entityManager = $doctrine->getManager();
+        $parking = $entityManager->getRepository(Parkings::class)->find($id);
+
+        if (!$parking) {
+           return $this->json("No parking found for id: $id", 404);
+        }
+
+        $parking = EncodeJSON::EncodeParking($parking);
+
+        return $this->json($parking);
     }
 }

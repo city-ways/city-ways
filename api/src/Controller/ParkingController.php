@@ -20,15 +20,29 @@ class ParkingController extends AbstractController
     /**
      * @Route("/parkings", name="parking", methods="GET")
      */
-    public function getParkings(ManagerRegistry $doctrine): Response
+    public function getParkings(ManagerRegistry $doctrine, Request $request): Response
     {
         $entityManager = $doctrine->getManager();
         $parkings = $entityManager->getRepository(Parkings::class)->findAll();
 
         $data = [];
-        foreach ($parkings as $parking){
+        foreach ($parkings as $parking) {
             $data[] = EncodeJSON::EncodeParking($parking);
         }
+        // filter parkings by status,
+        $status = $request->query->get('status');
+        if ($status) {
+            $status = $status === 'true';
+            $data = array_values(array_filter($data, function ($parking) use ($status) {
+                $filterParking = null;
+                if ($parking['status'] === $status) {
+                    $filterParking = $parking;
+                }
+                return $filterParking;
+            }));
+        }
+
+
 
         return $this->json([
             'parkings' => $data

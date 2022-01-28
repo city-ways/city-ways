@@ -4,6 +4,7 @@ namespace App\Controller;
 
 
 use App\Entity\Coordinates;
+use App\Entity\DatesAvailable;
 use App\Entity\Parkings;
 use App\Entity\TimesAvailable;
 use App\Util\EncodeJSON;
@@ -12,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ParkingController extends AbstractController
 {
@@ -36,7 +37,7 @@ class ParkingController extends AbstractController
     /**
      * @Route("/parkings", name="setParking", methods="POST")
      */
-    public function setParking(Request $request, ManagerRegistry $doctrine, SerializerInterface $serializer): Response
+    public function setParking(Request $request, ManagerRegistry $doctrine, ValidatorInterface $validator): Response
     {
         $data = $request->getContent();
 
@@ -53,8 +54,33 @@ class ParkingController extends AbstractController
 
         $parking->setCoordinates($cords);
 
-        $timesAvailable = new TimesAvailable();
-        $timesAvailable->setTimeRanges(array($parking_stdClass->timesAvailable->start, $parking_stdClass->timesAvailable->end));
+        $parking->setStatus((bool) $parking_stdClass->status);
+        $parking->setType($parking_stdClass->type);
+
+
+        foreach ($parking_stdClass->timesAvailable as $timeRange) {
+            $timesAvailable = new TimesAvailable();
+            $timesAvailable->setTimeRanges(array($parking_stdClass->timesAvailable[0], $parking_stdClass->timesAvailable[1]));
+            $parking->addTimesAvailable($timesAvailable);
+        }
+        foreach ($parking_stdClass->daysAvailable as $DayRange) {
+            $datesAvailable = new DatesAvailable();
+            $datesAvailable->setDates(array($DayRange->start, $DayRange->end));
+            $parking->addDatesAvailable($datesAvailable);
+        }
+
+        $parking->setPricePerHour($parking_stdClass->pricePerHour);
+        $parking->setPricePerDay($parking_stdClass->pricePerDay);
+
+        // todo: add user info
+
+        $errors = $validator->validate($parking);
+        if (count($errors) > 0) {
+            return new Response((string) $errors, 400);
+        }
+
+        $entityManager->persist($parking);
+        $entityManager->flush();
 
         return new Response('Saved new parking with id '. $parking->getId());
     }

@@ -7,6 +7,8 @@
         "php": ">=7.2.5",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "ext-json": "*",
+        "doctrine/annotations": "^1.13",
         "doctrine/doctrine-bundle": "^2.5",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.11",
@@ -18,8 +20,8 @@
         "symfony/framework-bundle": "5.4.*",
         "symfony/proxy-manager-bridge": "5.4.*",
         "symfony/runtime": "5.4.*",
-        "symfony/yaml": "5.4.*",
-      "ext-json": "*"
+        "symfony/validator": "5.4.*",
+        "symfony/yaml": "5.4.*"
     },
     "config": {
         "allow-plugins": {

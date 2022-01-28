@@ -6,7 +6,7 @@ use App\Repository\ParkingsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=ParkingsRepository::class)
  */
@@ -21,11 +21,13 @@ class Parkings
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $Direction;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\Choice({"larga estancia", "corta estancia"})
      */
     private $Type;
 
@@ -45,12 +47,12 @@ class Parkings
     private $PricePerDay;
 
     /**
-     * @ORM\OneToMany(targetEntity=TimesAvailable::class, mappedBy="Parking")
+     * @ORM\OneToMany(targetEntity=TimesAvailable::class, mappedBy="Parking", cascade={"persist"})
      */
     private $TimesAvailable;
 
     /**
-     * @ORM\OneToMany(targetEntity=DatesAvailable::class, mappedBy="Parking")
+     * @ORM\OneToMany(targetEntity=DatesAvailable::class, mappedBy="Parking", cascade={"persist"})
      */
     private $DatesAvailable;
 

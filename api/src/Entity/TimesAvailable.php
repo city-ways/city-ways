@@ -20,7 +20,7 @@ class TimesAvailable
 
 
     /**
-     * @ORM\ManyToOne(targetEntity=Parkings::class, inversedBy="TimesAvailable")
+     * @ORM\ManyToOne(targetEntity=Parkings::class, inversedBy="TimesAvailable", cascade={"persist"})
      */
     private $Parking;
 

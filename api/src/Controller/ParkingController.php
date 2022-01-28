@@ -29,7 +29,8 @@ class ParkingController extends AbstractController
         foreach ($parkings as $parking) {
             $data[] = EncodeJSON::EncodeParking($parking);
         }
-        // filter parkings by status,
+
+        // filter parkings by status
         $status = $request->query->get('status');
         if ($status) {
             $status = $status === 'true';
@@ -41,8 +42,6 @@ class ParkingController extends AbstractController
                 return $filterParking;
             }));
         }
-
-
 
         return $this->json([
             'parkings' => $data
@@ -60,7 +59,7 @@ class ParkingController extends AbstractController
 
         $errors = $validator->validate($parking);
         if (count($errors) > 0) {
-            return new Response((string) $errors, 400);
+            return $this->json((string) $errors, 400);
         }
 
         $entityManager->persist($parking);

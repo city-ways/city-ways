@@ -36,7 +36,7 @@ class Users
 
     /**
      * @ORM\Column(type="string", length=9)
-     * @Assert\Regex("/^[0-9]{8,8}[A-Za-z]$/g")
+     * @Assert\Regex("/^[0-9]{8,8}[A-Za-z]$")
      *
      */
     private $Dni;
@@ -47,12 +47,12 @@ class Users
     private $Password;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Parkings::class, inversedBy="Owner")
+     * @ORM\ManyToMany(targetEntity=Parkings::class, inversedBy="Owner", cascade={"remove"})
      */
     private $Owns;
 
     /**
-     * @ORM\OneToMany(targetEntity=History::class, mappedBy="ClientUser")
+     * @ORM\OneToMany(targetEntity=History::class, mappedBy="ClientUser", cascade={"remove"})
      */
     private $History;
 
@@ -117,33 +117,6 @@ class Users
         return $this;
     }
 
-
-    /**
-     * @return Collection|Parkings[]
-     */
-    public function getUsesParking(): Collection
-    {
-        return $this->UsesParking;
-    }
-
-    public function addUsesParking(Parkings $usesParking): self
-    {
-        if (!$this->UsesParking->contains($usesParking)) {
-            $this->UsesParking[] = $usesParking;
-            $usesParking->addUserUse($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUsesParking(Parkings $usesParking): self
-    {
-        if ($this->UsesParking->removeElement($usesParking)) {
-            $usesParking->removeUserUse($this);
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|Parkings[]

@@ -7,6 +7,7 @@ use App\Entity\Coordinates;
 use App\Entity\DatesAvailable;
 use App\Entity\Parkings;
 use App\Entity\TimesAvailable;
+use App\Entity\Users;
 use App\Util\EncodeJSON;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,8 +28,8 @@ class ParkingController extends AbstractController
 
         $data = [];
         foreach ($parkings as $parking) {
-            $data[] = EncodeJSON::EncodeParking($parking);
-//            $parking->
+            $tempParking = EncodeJSON::EncodeParking($parking);
+            $data[] = array_push($tempParking, ["owner", EncodeJSON::EncodeUser($parking->getOwner(), false)]);
         }
 
         // filter parkings by status
@@ -56,9 +57,13 @@ class ParkingController extends AbstractController
     {
         $data = $request->getContent();
         $entityManager = $doctrine->getManager();
+        $parkingDecode = json_decode($data);
+        $parking = EncodeJSON::DecodeParking($parkingDecode);
 
-        $parking = EncodeJSON::DecodeParking($data);
-
+        $ownerMail = $parkingDecode->owner->mail;
+        $owner = $entityManager->getRepository(Users::class)->findBy(["Mail" => $ownerMail]);
+        $parking->addOwner($owner["0"]);
+//        $parking->addOwner(EncodeJSON::DecodeUser($data->owner));
         $errors = $validator->validate($parking);
         if (count($errors) > 0) {
             return $this->json((string) $errors, 400);

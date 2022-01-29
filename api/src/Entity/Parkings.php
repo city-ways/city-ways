@@ -28,7 +28,7 @@ class Parkings
     /**
      * @ORM\Column(type="string", length=50)
      * @Assert\Choice(
-     *     choices = {"larga estancia", "corta estancia"}
+     *     choices = {"larga estancia", "corta estancia"},
      *     message = "Choose a valid type."
      * )
      */
@@ -65,11 +65,23 @@ class Parkings
      */
     private $Coordinates;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Users::class, mappedBy="Owns")
+     */
+    private $Owner;
+
+    /**
+     * @ORM\OneToMany(targetEntity=History::class, mappedBy="Parking")
+     */
+    private $History;
+
 
     public function __construct()
     {
         $this->TimesAvailable = new ArrayCollection();
         $this->DatesAvailable = new ArrayCollection();
+        $this->Owner = new ArrayCollection();
+        $this->History = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -229,6 +241,63 @@ class Parkings
     public function removeUserUse(Users $userUse): self
     {
         $this->UserUses->removeElement($userUse);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Users[]
+     */
+    public function getOwner(): Collection
+    {
+        return $this->Owner;
+    }
+
+    public function addOwner(Users $owner): self
+    {
+        if (!$this->Owner->contains($owner)) {
+            $this->Owner[] = $owner;
+            $owner->addOwn($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOwner(Users $owner): self
+    {
+        if ($this->Owner->removeElement($owner)) {
+            $owner->removeOwn($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|History[]
+     */
+    public function getHistory(): Collection
+    {
+        return $this->History;
+    }
+
+    public function addHistory(History $history): self
+    {
+        if (!$this->History->contains($history)) {
+            $this->History[] = $history;
+            $history->setParking($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHistory(History $history): self
+    {
+        if ($this->History->removeElement($history)) {
+            // set the owning side to null (unless already changed)
+            if ($history->getParking() === $this) {
+                $history->setParking(null);
+            }
+        }
 
         return $this;
     }

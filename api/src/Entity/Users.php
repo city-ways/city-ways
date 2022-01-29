@@ -47,14 +47,21 @@ class Users
     private $Password;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Parkings::class)
+     * @ORM\ManyToMany(targetEntity=Parkings::class, inversedBy="Owner")
      */
-    private $UserOwns;
+    private $Owns;
+
+    /**
+     * @ORM\OneToMany(targetEntity=History::class, mappedBy="ClientUser")
+     */
+    private $History;
+
 
 
     public function __construct()
     {
-        $this->UserOwns = new ArrayCollection();
+        $this->Owns = new ArrayCollection();
+        $this->History = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -110,29 +117,6 @@ class Users
         return $this;
     }
 
-    /**
-     * @return Collection|Parkings[]
-     */
-    public function getUserOwns(): Collection
-    {
-        return $this->UserOwns;
-    }
-
-    public function addUserOwn(Parkings $userOwn): self
-    {
-        if (!$this->UserOwns->contains($userOwn)) {
-            $this->UserOwns[] = $userOwn;
-        }
-
-        return $this;
-    }
-
-    public function removeUserOwn(Parkings $userOwn): self
-    {
-        $this->UserOwns->removeElement($userOwn);
-
-        return $this;
-    }
 
     /**
      * @return Collection|Parkings[]
@@ -156,6 +140,60 @@ class Users
     {
         if ($this->UsesParking->removeElement($usesParking)) {
             $usesParking->removeUserUse($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Parkings[]
+     */
+    public function getOwns(): Collection
+    {
+        return $this->Owns;
+    }
+
+    public function addOwn(Parkings $own): self
+    {
+        if (!$this->Owns->contains($own)) {
+            $this->Owns[] = $own;
+        }
+
+        return $this;
+    }
+
+    public function removeOwn(Parkings $own): self
+    {
+        $this->Owns->removeElement($own);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|History[]
+     */
+    public function getHistory(): Collection
+    {
+        return $this->History;
+    }
+
+    public function addHistory(History $history): self
+    {
+        if (!$this->History->contains($history)) {
+            $this->History[] = $history;
+            $history->setClientUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHistory(History $history): self
+    {
+        if ($this->History->removeElement($history)) {
+            // set the owning side to null (unless already changed)
+            if ($history->getClientUser() === $this) {
+                $history->setClientUser(null);
+            }
         }
 
         return $this;

@@ -221,29 +221,6 @@ class Parkings
         return $this;
     }
 
-    /**
-     * @return Collection|Users[]
-     */
-    public function getUserUses(): Collection
-    {
-        return $this->UserUses;
-    }
-
-    public function addUserUse(Users $userUse): self
-    {
-        if (!$this->UserUses->contains($userUse)) {
-            $this->UserUses[] = $userUse;
-        }
-
-        return $this;
-    }
-
-    public function removeUserUse(Users $userUse): self
-    {
-        $this->UserUses->removeElement($userUse);
-
-        return $this;
-    }
 
     /**
      * @return Collection|Users[]

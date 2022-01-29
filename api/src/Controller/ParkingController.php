@@ -29,7 +29,7 @@ class ParkingController extends AbstractController
         $data = [];
         foreach ($parkings as $parking) {
             $tempParking = EncodeJSON::EncodeParking($parking);
-            $data[] = array_push($tempParking, ["owner", EncodeJSON::EncodeUser($parking->getOwner(), false)]);
+            $data[] = array_merge($tempParking, ["owner" => EncodeJSON::EncodeUser(($parking->getOwner()->first()), false, true)]);
         }
 
         // filter parkings by status
@@ -46,9 +46,7 @@ class ParkingController extends AbstractController
             }));
         }
 
-        return $this->json([
-            'parkings' => $data
-        ]);
+        return $this->json($data);
     }
     /**
      * @Route("/parkings", name="setParking", methods="POST")
@@ -61,9 +59,9 @@ class ParkingController extends AbstractController
         $parking = EncodeJSON::DecodeParking($parkingDecode);
 
         $ownerMail = $parkingDecode->owner->mail;
-        $owner = $entityManager->getRepository(Users::class)->findBy(["Mail" => $ownerMail]);
-        $parking->addOwner($owner["0"]);
-//        $parking->addOwner(EncodeJSON::DecodeUser($data->owner));
+        $owner = $entityManager->getRepository(Users::class)->findBy(["Mail" => $ownerMail], null, 1);
+        $parking->addOwner(reset($owner));
+
         $errors = $validator->validate($parking);
         if (count($errors) > 0) {
             return $this->json((string) $errors, 400);

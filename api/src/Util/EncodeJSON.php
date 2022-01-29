@@ -87,7 +87,7 @@ class EncodeJSON
         ];
 
         if (!$basicUser) {
-            array_push($userEncode, ["dni" => $user->getDni()]);
+           $userEncode = array_merge($userEncode, ["dni" => $user->getDni()]);
         }
 
         if ($withParkings) {

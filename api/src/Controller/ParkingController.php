@@ -60,6 +60,9 @@ class ParkingController extends AbstractController
 
         $ownerMail = $parkingDecode->owner->mail;
         $owner = $entityManager->getRepository(Users::class)->findBy(["Mail" => $ownerMail], null, 1);
+        if (!$owner) {
+            return $this->json("No user found for mail: " . $parkingDecode->owner->mail, 404);
+        }
         $parking->addOwner(reset($owner));
 
         $errors = $validator->validate($parking);
@@ -85,8 +88,8 @@ class ParkingController extends AbstractController
         if (!$parking) {
             return $this->json("No parking found for id: $id", 404);
         }
-
-        $updateParking = EncodeJSON::DecodeParking($data, $parking, true);
+        $parkingDecode = json_decode($data);
+        $updateParking = EncodeJSON::DecodeParking($parkingDecode, $parking, true);
 
         $errors = $validator->validate($updateParking);
         if (count($errors) > 0) {

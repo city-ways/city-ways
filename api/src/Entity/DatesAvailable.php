@@ -18,12 +18,12 @@ class DatesAvailable
     private $id;
 
     /**
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="simple_array")
      */
     private $Dates = [];
 
     /**
-     * @ORM\ManyToOne(targetEntity=Parkings::class, inversedBy="DatesAvailable")
+     * @ORM\ManyToOne(targetEntity=Parkings::class, inversedBy="DatesAvailable", cascade={"persist"})
      */
     private $Parking;
 

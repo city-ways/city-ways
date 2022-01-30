@@ -11,6 +11,9 @@ import { Parking } from '../parking';
 
 import { ModalController } from '@ionic/angular';
 import { SelectionMapPage } from '../../pages/selection-map/selection-map.page';
+import { UserService } from '../../core/user.service';
+import { UserIdService } from '../../core/user-id.service';
+import { User } from '../User';
 
 @Component({
   selector: 'app-parking-data',
@@ -23,10 +26,12 @@ export class ParkingDataComponent implements OnInit {
   @Output() actionsFinish: EventEmitter<boolean> = new EventEmitter<boolean>();
   parkingData: FormGroup;
   pageTitle: string;
+  private user: User;
   constructor(
     private formBuilder: FormBuilder,
     private parkingService: ParkingService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private userService: UserIdService
   ) {}
   ngOnInit() {
     this.parkingData = this.formBuilder.group({
@@ -36,9 +41,12 @@ export class ParkingDataComponent implements OnInit {
       longPeriod: [false, Validators.required],
       timesAvailable: this.formBuilder.array([]),
       daysAvailable: this.formBuilder.array([]),
-      pricePerHour: '',
-      pricePerDay: '',
+      pricePerHour: 0,
+      pricePerDay: 0,
     });
+    let id: number;
+    this.userService.id.subscribe((idUser) => (id = idUser));
+    this.userService.getUser(id).subscribe((user) => (this.user = user));
 
     if (this.type === 'editar') {
       this.loadData(this.data);
@@ -91,7 +99,6 @@ export class ParkingDataComponent implements OnInit {
     if (this.parkingData.valid) {
       if (this.parkingData.dirty) {
         let parking: Parking = this.castToParking(this.parkingData.value);
-        console.warn(parking);
         if (this.type === 'editar') {
           // update parking
           this.parkingService
@@ -102,6 +109,7 @@ export class ParkingDataComponent implements OnInit {
           this.parkingService
             .getMaxParkingId()
             .subscribe((id) => (parking.id = ++id));
+          console.log('parking--->', parking);
           this.parkingService
             .createParking(parking)
             .subscribe((pk) => console.log('Parking creado', pk));
@@ -188,8 +196,7 @@ export class ParkingDataComponent implements OnInit {
       daysAvailable,
       pricePerHour,
       pricePerDay,
-      user: this.data?.user,
-      ranking: this.data?.ranking,
+      owner: !this.data ? this.user : this.data.owner,
     } as Parking;
   }
 

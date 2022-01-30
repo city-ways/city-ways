@@ -9,6 +9,9 @@ import { EditParkingPage } from 'src/app/pages/edit-parking/edit-parking.page';
 import { AddParkingPage } from '../../pages/add-parking/add-parking.page';
 import { PageModalComponent } from 'src/app/shared/page-modal/page-modal.component';
 import { ParkingListInfoPage } from '../../shared/parking-list-info/parking-list-info.page';
+import { UserService } from '../../core/user.service';
+import { data } from 'autoprefixer';
+import { User } from '../../shared/User';
 
 @Component({
   selector: 'app-quick-actions',
@@ -20,8 +23,9 @@ export class QuickActionsComponent implements OnInit {
   @ViewChild('pageModal') pageModal: PageModalComponent;
   idUser: number;
   parkingsOfUser: Parking[];
+  user: User;
   constructor(
-    private parkingService: ParkingService,
+    private userService: UserService,
     private idUserService: UserIdService,
     public modalController: ModalController,
     private parkingDataService: ParkingDataService
@@ -33,9 +37,10 @@ export class QuickActionsComponent implements OnInit {
       this.idUser = id;
     });
     //get all parkings of the user
-    this.parkingService
-      .getParkingOfUser(this.idUser)
-      .subscribe((parkings) => (this.parkingsOfUser = parkings));
+    this.userService.getUser(this.idUser).subscribe((user) => {
+      this.parkingsOfUser = user.owns;
+      this.user = user;
+    });
 
     this.parkingDataService.parking.subscribe((value) => {
       if (value != null) {
@@ -44,6 +49,7 @@ export class QuickActionsComponent implements OnInit {
     });
   }
   showModal() {
+    console.log('owns-->', this.parkingsOfUser);
     if (this.parkingsOfUser.length !== 1) {
       this.showModalList();
     } else {

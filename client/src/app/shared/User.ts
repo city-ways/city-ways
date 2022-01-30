@@ -4,5 +4,6 @@ export interface User {
   id: number;
   mail: string;
   name: string;
-  parkings?: Parking[];
+  dni?: string;
+  owns?: Parking[];
 }

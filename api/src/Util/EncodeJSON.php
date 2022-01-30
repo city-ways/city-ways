@@ -59,11 +59,20 @@ class EncodeJSON
         $parking->setStatus((bool) $parking_stdClass->status);
         $parking->setType($parking_stdClass->type);
 
-
+        // todo: se duplican los rangos
+        $times = $parking->getTimesAvailable();
+        foreach ($times as $time) {
+            $parking->getTimesAvailable()->removeElement($time);
+        }
         foreach ($parking_stdClass->timesAvailable as $timeRange) {
             $timesAvailable = new TimesAvailable();
             $timesAvailable->setTimeRanges(array($timeRange->start, $timeRange->end));
             $parking->addTimesAvailable($timesAvailable);
+        }
+
+        $dates = $parking->getDatesAvailable();
+        foreach ($dates as $date) {
+            $parking->getTimesAvailable()->removeElement($date);
         }
         foreach ($parking_stdClass->daysAvailable as $DayRange) {
             $datesAvailable = new DatesAvailable();
@@ -93,9 +102,9 @@ class EncodeJSON
         if ($withParkings) {
             $parkings = [];
             foreach ($user->getOwns() as $parkingOwner) {
-                $parkings = self::EncodeParking($parkingOwner);
+                $parkings[] = self::EncodeParking($parkingOwner);
             }
-            array_push($userEncode, ["owns" => $parkings]);
+            $userEncode = array_merge($userEncode, ["owns" => $parkings]);
         }
 
         return $userEncode;

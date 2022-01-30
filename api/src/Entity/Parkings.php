@@ -50,12 +50,12 @@ class Parkings
     private $PricePerDay;
 
     /**
-     * @ORM\OneToMany(targetEntity=TimesAvailable::class, mappedBy="Parking", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=TimesAvailable::class, mappedBy="Parking", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $TimesAvailable;
 
     /**
-     * @ORM\OneToMany(targetEntity=DatesAvailable::class, mappedBy="Parking", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=DatesAvailable::class, mappedBy="Parking", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $DatesAvailable;
 
@@ -66,7 +66,7 @@ class Parkings
     private $Coordinates;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Users::class, mappedBy="Owns", cascade={"persist", "remove"})
+     * @ORM\ManyToMany(targetEntity=Users::class, mappedBy="Owns", cascade={"persist"})
      */
     private $Owner;
 

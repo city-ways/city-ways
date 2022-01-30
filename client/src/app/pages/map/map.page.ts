@@ -27,6 +27,19 @@ export class MapPage implements OnInit {
       attributionControl: false,
       zoom: 17,
     });
+    window
+      .matchMedia('(prefers-color-scheme: dark)')
+      .addEventListener('change', (e) => {
+        if (e.matches) {
+          this.map.setStyle(
+            'mapbox://styles/fgergfer/ckx2flh2d12km14pcyrf8mfqw'
+          );
+        } else {
+          this.map.setStyle(
+            'mapbox://styles/fgergfer/ckx2fkq0344le15mtc7owbizj'
+          );
+        }
+      });
     this.mapService.getUserLocation().then((data) => {
       const {
         coords: { latitude, longitude },

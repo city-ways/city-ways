@@ -32,6 +32,10 @@ export class MapPage implements OnInit {
         coords: { latitude, longitude },
       } = data;
       this.map.setCenter([longitude, latitude]);
+
+      new Marker({ color: 'red' })
+        .setLngLat([longitude, latitude])
+        .addTo(this.map);
     });
 
     this.map.on('load', () => {

@@ -11,7 +11,6 @@ import { Parking } from '../parking';
 
 import { ModalController } from '@ionic/angular';
 import { SelectionMapPage } from '../../pages/selection-map/selection-map.page';
-import { UserService } from '../../core/user.service';
 import { UserIdService } from '../../core/user-id.service';
 import { User } from '../User';
 

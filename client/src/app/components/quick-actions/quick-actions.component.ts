@@ -1,17 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ParkingListModalComponent } from '../../shared/parking-list-modal/parking-list-modal.component';
-import { ParkingService } from '../../core/parking.service';
 import { ParkingDataService } from '../../core/parking-data.service';
 import { UserIdService } from '../../core/user-id.service';
 import { Parking } from '../../shared/parking';
 import { ModalController } from '@ionic/angular';
 import { EditParkingPage } from 'src/app/pages/edit-parking/edit-parking.page';
 import { AddParkingPage } from '../../pages/add-parking/add-parking.page';
-import { PageModalComponent } from 'src/app/shared/page-modal/page-modal.component';
 import { ParkingListInfoPage } from '../../shared/parking-list-info/parking-list-info.page';
-import { UserService } from '../../core/user.service';
-import { data } from 'autoprefixer';
-import { User } from '../../shared/User';
 
 @Component({
   selector: 'app-quick-actions',
@@ -22,15 +16,14 @@ export class QuickActionsComponent implements OnInit {
   idUser: number;
   parkingsOfUser: Parking[];
   constructor(
-    private userService: UserService,
-    private idUserService: UserIdService,
+    private userService: UserIdService,
     public modalController: ModalController,
     private parkingDataService: ParkingDataService
   ) {}
 
   ngOnInit() {
     // get the id of the user
-    this.idUserService.id.subscribe((id) => {
+    this.userService.id.subscribe((id) => {
       this.idUser = id;
     });
     //get all parkings of the user
@@ -38,11 +31,11 @@ export class QuickActionsComponent implements OnInit {
       this.parkingsOfUser = user.owns;
     });
 
-    this.parkingDataService.parking.subscribe((value) => {
-      if (value != null) {
-        this.showModalPage();
-      }
-    });
+    // this.parkingDataService.parking.subscribe((value) => {
+    //   if (value != null) {
+    //     this.showModalPage();
+    //   }
+    // });
   }
   showModal() {
     console.log('owns-->', this.parkingsOfUser);
@@ -73,6 +66,7 @@ export class QuickActionsComponent implements OnInit {
       breakpoints: [0, 0.5, 1],
     });
     await modal.present();
+    // return the parking the user clicked on the list
     const { data } = await modal.onDidDismiss();
     if (data) {
       console.log('enter', data.parking);

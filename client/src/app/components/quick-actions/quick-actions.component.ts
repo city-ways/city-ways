@@ -19,11 +19,8 @@ import { User } from '../../shared/User';
   styleUrls: ['./quick-actions.component.scss'],
 })
 export class QuickActionsComponent implements OnInit {
-  @ViewChild('modalList') modalList: ParkingListModalComponent;
-  @ViewChild('pageModal') pageModal: PageModalComponent;
   idUser: number;
   parkingsOfUser: Parking[];
-  user: User;
   constructor(
     private userService: UserService,
     private idUserService: UserIdService,
@@ -39,7 +36,6 @@ export class QuickActionsComponent implements OnInit {
     //get all parkings of the user
     this.userService.getUser(this.idUser).subscribe((user) => {
       this.parkingsOfUser = user.owns;
-      this.user = user;
     });
 
     this.parkingDataService.parking.subscribe((value) => {
@@ -53,7 +49,7 @@ export class QuickActionsComponent implements OnInit {
     if (this.parkingsOfUser.length !== 1) {
       this.showModalList();
     } else {
-      this.showModalPage();
+      this.showModalPage(this.parkingsOfUser[0], false);
     }
   }
 

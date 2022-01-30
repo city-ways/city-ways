@@ -1,7 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ParkingDataComponent } from '../../shared/parking-data/parking-data.component';
-import { ParkingService } from '../../core/parking.service';
-import { Parking } from '../../shared/parking';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
 @Component({

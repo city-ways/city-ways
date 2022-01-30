@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { BookParkingPageRoutingModule } from './book-parking-routing.module';
+import { SelectionMapPageRoutingModule } from './selection-map-routing.module';
 
-import { BookParkingPage } from './book-parking.page';
+import { SelectionMapPage } from './selection-map.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    BookParkingPageRoutingModule
+    SelectionMapPageRoutingModule
   ],
-  declarations: [BookParkingPage]
+  declarations: [SelectionMapPage]
 })
-export class BookParkingPageModule {}
+export class SelectionMapPageModule {}

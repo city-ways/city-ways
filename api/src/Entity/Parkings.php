@@ -28,7 +28,7 @@ class Parkings
     /**
      * @ORM\Column(type="string", length=50)
      * @Assert\Choice(
-     *     choices = {"larga estancia", "corta estancia"}
+     *     choices = {"larga estancia", "corta estancia"},
      *     message = "Choose a valid type."
      * )
      */
@@ -50,12 +50,12 @@ class Parkings
     private $PricePerDay;
 
     /**
-     * @ORM\OneToMany(targetEntity=TimesAvailable::class, mappedBy="Parking", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=TimesAvailable::class, mappedBy="Parking", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $TimesAvailable;
 
     /**
-     * @ORM\OneToMany(targetEntity=DatesAvailable::class, mappedBy="Parking", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=DatesAvailable::class, mappedBy="Parking", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $DatesAvailable;
 
@@ -65,11 +65,23 @@ class Parkings
      */
     private $Coordinates;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Users::class, mappedBy="Owns", cascade={"persist"})
+     */
+    private $Owner;
+
+    /**
+     * @ORM\OneToMany(targetEntity=History::class, mappedBy="Parking")
+     */
+    private $History;
+
 
     public function __construct()
     {
         $this->TimesAvailable = new ArrayCollection();
         $this->DatesAvailable = new ArrayCollection();
+        $this->Owner = new ArrayCollection();
+        $this->History = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -209,26 +221,60 @@ class Parkings
         return $this;
     }
 
+
     /**
      * @return Collection|Users[]
      */
-    public function getUserUses(): Collection
+    public function getOwner(): Collection
     {
-        return $this->UserUses;
+        return $this->Owner;
     }
 
-    public function addUserUse(Users $userUse): self
+    public function addOwner(Users $owner): self
     {
-        if (!$this->UserUses->contains($userUse)) {
-            $this->UserUses[] = $userUse;
+        if (!$this->Owner->contains($owner)) {
+            $this->Owner[] = $owner;
+            $owner->addOwn($this);
         }
 
         return $this;
     }
 
-    public function removeUserUse(Users $userUse): self
+    public function removeOwner(Users $owner): self
     {
-        $this->UserUses->removeElement($userUse);
+        if ($this->Owner->removeElement($owner)) {
+            $owner->removeOwn($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|History[]
+     */
+    public function getHistory(): Collection
+    {
+        return $this->History;
+    }
+
+    public function addHistory(History $history): self
+    {
+        if (!$this->History->contains($history)) {
+            $this->History[] = $history;
+            $history->setParking($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHistory(History $history): self
+    {
+        if ($this->History->removeElement($history)) {
+            // set the owning side to null (unless already changed)
+            if ($history->getParking() === $this) {
+                $history->setParking(null);
+            }
+        }
 
         return $this;
     }

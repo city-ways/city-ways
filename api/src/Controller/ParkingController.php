@@ -7,6 +7,7 @@ use App\Entity\Coordinates;
 use App\Entity\DatesAvailable;
 use App\Entity\Parkings;
 use App\Entity\TimesAvailable;
+use App\Entity\Users;
 use App\Util\EncodeJSON;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,8 +28,8 @@ class ParkingController extends AbstractController
 
         $data = [];
         foreach ($parkings as $parking) {
-            $data[] = EncodeJSON::EncodeParking($parking);
-//            $parking->
+            $tempParking = EncodeJSON::EncodeParking($parking);
+            $data[] = array_merge($tempParking, ["owner" => EncodeJSON::EncodeUser(($parking->getOwner()->first()), false, true)]);
         }
 
         // filter parkings by status
@@ -45,9 +46,7 @@ class ParkingController extends AbstractController
             }));
         }
 
-        return $this->json([
-            'parkings' => $data
-        ]);
+        return $this->json($data);
     }
     /**
      * @Route("/parkings", name="setParking", methods="POST")
@@ -56,8 +55,15 @@ class ParkingController extends AbstractController
     {
         $data = $request->getContent();
         $entityManager = $doctrine->getManager();
+        $parkingDecode = json_decode($data);
+        $parking = EncodeJSON::DecodeParking($parkingDecode);
 
-        $parking = EncodeJSON::DecodeParking($data);
+        $ownerMail = $parkingDecode->owner->mail;
+        $owner = $entityManager->getRepository(Users::class)->findBy(["Mail" => $ownerMail], null, 1);
+        if (!$owner) {
+            return $this->json("No user found for mail: " . $parkingDecode->owner->mail, 404);
+        }
+        $parking->addOwner(reset($owner));
 
         $errors = $validator->validate($parking);
         if (count($errors) > 0) {
@@ -82,8 +88,8 @@ class ParkingController extends AbstractController
         if (!$parking) {
             return $this->json("No parking found for id: $id", 404);
         }
-
-        $updateParking = EncodeJSON::DecodeParking($data, $parking, true);
+        $parkingDecode = json_decode($data);
+        $updateParking = EncodeJSON::DecodeParking($parkingDecode, $parking, true);
 
         $errors = $validator->validate($updateParking);
         if (count($errors) > 0) {

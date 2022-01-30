@@ -36,7 +36,7 @@ class Users
 
     /**
      * @ORM\Column(type="string", length=9)
-     * @Assert\Regex("/^[0-9]{8,8}[A-Za-z]$/g")
+     * @Assert\Regex("/^[0-9]{8,8}[A-Za-z]$")
      *
      */
     private $Dni;
@@ -47,14 +47,21 @@ class Users
     private $Password;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Parkings::class)
+     * @ORM\ManyToMany(targetEntity=Parkings::class, inversedBy="Owner", cascade={"remove"})
      */
-    private $UserOwns;
+    private $Owns;
+
+    /**
+     * @ORM\OneToMany(targetEntity=History::class, mappedBy="ClientUser", cascade={"remove"})
+     */
+    private $History;
+
 
 
     public function __construct()
     {
-        $this->UserOwns = new ArrayCollection();
+        $this->Owns = new ArrayCollection();
+        $this->History = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -110,52 +117,56 @@ class Users
         return $this;
     }
 
+
     /**
      * @return Collection|Parkings[]
      */
-    public function getUserOwns(): Collection
+    public function getOwns(): Collection
     {
-        return $this->UserOwns;
+        return $this->Owns;
     }
 
-    public function addUserOwn(Parkings $userOwn): self
+    public function addOwn(Parkings $own): self
     {
-        if (!$this->UserOwns->contains($userOwn)) {
-            $this->UserOwns[] = $userOwn;
+        if (!$this->Owns->contains($own)) {
+            $this->Owns[] = $own;
         }
 
         return $this;
     }
 
-    public function removeUserOwn(Parkings $userOwn): self
+    public function removeOwn(Parkings $own): self
     {
-        $this->UserOwns->removeElement($userOwn);
+        $this->Owns->removeElement($own);
 
         return $this;
     }
 
     /**
-     * @return Collection|Parkings[]
+     * @return Collection|History[]
      */
-    public function getUsesParking(): Collection
+    public function getHistory(): Collection
     {
-        return $this->UsesParking;
+        return $this->History;
     }
 
-    public function addUsesParking(Parkings $usesParking): self
+    public function addHistory(History $history): self
     {
-        if (!$this->UsesParking->contains($usesParking)) {
-            $this->UsesParking[] = $usesParking;
-            $usesParking->addUserUse($this);
+        if (!$this->History->contains($history)) {
+            $this->History[] = $history;
+            $history->setClientUser($this);
         }
 
         return $this;
     }
 
-    public function removeUsesParking(Parkings $usesParking): self
+    public function removeHistory(History $history): self
     {
-        if ($this->UsesParking->removeElement($usesParking)) {
-            $usesParking->removeUserUse($this);
+        if ($this->History->removeElement($history)) {
+            // set the owning side to null (unless already changed)
+            if ($history->getClientUser() === $this) {
+                $history->setClientUser(null);
+            }
         }
 
         return $this;

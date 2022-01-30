@@ -3,8 +3,8 @@ import { Map, Marker, Popup } from 'mapbox-gl';
 import { ParkingService } from '../../core/parking.service';
 
 import { ModalController } from '@ionic/angular';
-
-import { BookParkingPage } from '../book-parking/book-parking.page';
+import { BookingParkingPage } from '../booking-parking/booking-parking.page';
+import { MapService } from '../../core/map.service';
 
 @Component({
   selector: 'app-map',
@@ -13,9 +13,11 @@ import { BookParkingPage } from '../book-parking/book-parking.page';
 })
 export class MapPage implements OnInit {
   private map!: Map;
+
   constructor(
     private parkingService: ParkingService,
-    public modalController: ModalController
+    private modalController: ModalController,
+    private mapService: MapService
   ) {}
 
   ngOnInit() {
@@ -26,6 +28,7 @@ export class MapPage implements OnInit {
         popup.on('open', () => {
           this.showModal(id);
         });
+        console.log([[longitude, latitude]]);
         new Marker({ color: '#3880ff' })
           .setLngLat([longitude, latitude])
           .setPopup(popup)
@@ -45,12 +48,12 @@ export class MapPage implements OnInit {
   }
   async showModal(id: number) {
     const modal = await this.modalController.create({
-      component: BookParkingPage,
-      initialBreakpoint: 0.5,
+      component: BookingParkingPage,
+      initialBreakpoint: 0.25,
       componentProps: {
         id,
       },
-      breakpoints: [0.2, 0.5, 1],
+      breakpoints: [0.25, 0.5, 1],
     });
     return await modal.present();
   }

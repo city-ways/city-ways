@@ -44,9 +44,8 @@ class EncodeJSON
 
     }
 
-    public static function DecodeParking (string $parkingJSON, Parkings $updateParking = null, bool $updateMode = false): Parkings {
-        $content = json_decode($parkingJSON);
-        $parking_stdClass = $content;
+    public static function DecodeParking (object $parkingJSON, Parkings $updateParking = null, bool $updateMode = false): Parkings {
+        $parking_stdClass = $parkingJSON;
 
         $parking = $updateMode ? $updateParking : new Parkings();
         $parking->setDirection($parking_stdClass->direction);
@@ -60,11 +59,20 @@ class EncodeJSON
         $parking->setStatus((bool) $parking_stdClass->status);
         $parking->setType($parking_stdClass->type);
 
-
+        // todo: se duplican los rangos
+        $times = $parking->getTimesAvailable();
+        foreach ($times as $time) {
+            $parking->getTimesAvailable()->removeElement($time);
+        }
         foreach ($parking_stdClass->timesAvailable as $timeRange) {
             $timesAvailable = new TimesAvailable();
             $timesAvailable->setTimeRanges(array($timeRange->start, $timeRange->end));
             $parking->addTimesAvailable($timesAvailable);
+        }
+
+        $dates = $parking->getDatesAvailable();
+        foreach ($dates as $date) {
+            $parking->getTimesAvailable()->removeElement($date);
         }
         foreach ($parking_stdClass->daysAvailable as $DayRange) {
             $datesAvailable = new DatesAvailable();
@@ -74,6 +82,7 @@ class EncodeJSON
 
         $parking->setPricePerHour($parking_stdClass->pricePerHour);
         $parking->setPricePerDay($parking_stdClass->pricePerDay);
+
 
         // todo: add user info
         return $parking;
@@ -87,22 +96,34 @@ class EncodeJSON
         ];
 
         if (!$basicUser) {
-            array_push($userEncode, ["dni" => $user->getDni()]);
+           $userEncode = array_merge($userEncode, ["dni" => $user->getDni()]);
         }
 
         if ($withParkings) {
             $parkings = [];
-            foreach ($user->getUserOwns() as $parkingOwner) {
-                $parkings = self::EncodeParking($parkingOwner);
+            foreach ($user->getOwns() as $parkingOwner) {
+                $parkings[] = self::EncodeParking($parkingOwner);
             }
-            array_push($userEncode, ["owns" => $parkings]);
+            $userEncode = array_merge($userEncode, ["owns" => $parkings]);
         }
 
         return $userEncode;
     }
 
-    public static function DecodeUser (string $userJSON) {
+    public static function DecodeUser ($userJSON): Users {
+        $content = $userJSON;
+        if (!is_object($userJSON)) {
+            $content = json_decode($userJSON);
+        }
+        $user_stdClass = $content;
 
+        $user = new Users();
+        $user->setName($user_stdClass->name);
+        $user->setDni($user_stdClass->dni ?? "");
+        $user->setPassword($user_stdClass->password ?? "");
+        $user->setMail($user_stdClass->mail);
+
+        return $user;
     }
 
 }

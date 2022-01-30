@@ -9,6 +9,11 @@ import {
 import { ParkingService } from 'src/app/core/parking.service';
 import { Parking } from '../parking';
 
+import { ModalController } from '@ionic/angular';
+import { SelectionMapPage } from '../../pages/selection-map/selection-map.page';
+import { UserIdService } from '../../core/user-id.service';
+import { User } from '../User';
+
 @Component({
   selector: 'app-parking-data',
   templateUrl: './parking-data.component.html',
@@ -20,19 +25,27 @@ export class ParkingDataComponent implements OnInit {
   @Output() actionsFinish: EventEmitter<boolean> = new EventEmitter<boolean>();
   parkingData: FormGroup;
   pageTitle: string;
+  private user: User;
   constructor(
     private formBuilder: FormBuilder,
-    private parkingService: ParkingService
+    private parkingService: ParkingService,
+    private modalController: ModalController,
+    private userService: UserIdService
   ) {}
   ngOnInit() {
     this.parkingData = this.formBuilder.group({
       direction: ['', Validators.required],
+      lng: ['', Validators.required],
+      lat: ['', Validators.required],
       longPeriod: [false, Validators.required],
       timesAvailable: this.formBuilder.array([]),
       daysAvailable: this.formBuilder.array([]),
-      pricePerHour: '',
-      pricePerDay: '',
+      pricePerHour: 0,
+      pricePerDay: 0,
     });
+    let id: number;
+    this.userService.id.subscribe((idUser) => (id = idUser));
+    this.userService.getUser(id).subscribe((user) => (this.user = user));
 
     if (this.type === 'editar') {
       this.loadData(this.data);
@@ -81,10 +94,10 @@ export class ParkingDataComponent implements OnInit {
   }
 
   sendForm() {
+    console.log(this.parkingData.get('lng').value);
     if (this.parkingData.valid) {
       if (this.parkingData.dirty) {
         let parking: Parking = this.castToParking(this.parkingData.value);
-        console.warn(parking);
         if (this.type === 'editar') {
           // update parking
           this.parkingService
@@ -95,6 +108,7 @@ export class ParkingDataComponent implements OnInit {
           this.parkingService
             .getMaxParkingId()
             .subscribe((id) => (parking.id = ++id));
+          console.log('parking--->', parking);
           this.parkingService
             .createParking(parking)
             .subscribe((pk) => console.log('Parking creado', pk));
@@ -116,6 +130,8 @@ export class ParkingDataComponent implements OnInit {
     // load static data of the parking
     this.parkingData.patchValue({
       direction: parking.direction,
+      lng: parking.cords.longitude,
+      lat: parking.cords.latitude,
       longPeriod: parking.type === 'larga estancia',
       pricePerHour: parking.pricePerHour,
       pricePerDay: parking.pricePerDay,
@@ -143,14 +159,6 @@ export class ParkingDataComponent implements OnInit {
         control.start.setValue(parking.timesAvailable[index].start);
         control.end.setValue(parking.timesAvailable[index].end);
       }
-      // iterate throw the two FormControl (start and end) of the FormGroup
-      // Object.entries(control).forEach(([, input]) => {
-      //   input.setValue(
-      //     (parking.type === 'larga estancia'
-      //       ? parking.daysAvailable
-      //       : parking.timesAvailable)[index].start
-      //   );
-      // });
     });
     console.log(this.parkingData.value);
   }
@@ -158,7 +166,7 @@ export class ParkingDataComponent implements OnInit {
   deleteCurrentParking() {
     this.parkingService
       .deleteParking(this.data.id)
-      .subscribe((data) => this.emitFinishEvent());
+      .subscribe((e) => this.emitFinishEvent());
   }
 
   emitFinishEvent() {
@@ -168,6 +176,8 @@ export class ParkingDataComponent implements OnInit {
   castToParking(object: any): Parking {
     const {
       direction,
+      lng,
+      lat,
       longPeriod,
       timesAvailable,
       daysAvailable,
@@ -178,15 +188,30 @@ export class ParkingDataComponent implements OnInit {
     return {
       id: this.data?.id,
       direction,
-      cords: this.data?.cords,
+      cords: !this.data ? { longitude: lng, latitude: lat } : this.data.cords,
       status: false,
       type: longPeriod ? 'larga estancia' : 'corta estancia',
       timesAvailable,
       daysAvailable,
       pricePerHour,
       pricePerDay,
-      user: this.data?.user,
-      ranking: this.data?.ranking,
+      owner: !this.data ? this.user : this.data.owner,
     } as Parking;
+  }
+
+  async mapModal() {
+    const modal = await this.modalController.create({
+      component: SelectionMapPage,
+    });
+    await modal.present();
+
+    const {
+      data: [lng, lat],
+    } = await modal.onDidDismiss();
+    // assign the values to the form
+    this.parkingData.patchValue({
+      lng,
+      lat,
+    });
   }
 }

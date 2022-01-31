@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Map, Marker, Popup } from 'mapbox-gl';
 import { ParkingService } from '../../core/parking.service';
 
-import { ModalController } from '@ionic/angular';
+import { ModalController, ViewWillEnter } from '@ionic/angular';
 import { BookingParkingPage } from '../booking-parking/booking-parking.page';
 import { MapService } from '../../core/map.service';
 
@@ -13,7 +13,7 @@ import { MapService } from '../../core/map.service';
 })
 export class MapPage implements OnInit {
   private map!: Map;
-
+  private locationUser: [number, number];
   constructor(
     private parkingService: ParkingService,
     private modalController: ModalController,
@@ -21,6 +21,39 @@ export class MapPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.map = new Map({
+      container: 'map', //  containerID
+      style: 'mapbox://styles/fgergfer/ckx2flh2d12km14pcyrf8mfqw',
+      attributionControl: false,
+      zoom: 17,
+    });
+    window
+      .matchMedia('(prefers-color-scheme: dark)')
+      .addEventListener('change', (e) => {
+        if (e.matches) {
+          this.map.setStyle(
+            'mapbox://styles/fgergfer/ckx2flh2d12km14pcyrf8mfqw'
+          );
+        } else {
+          this.map.setStyle(
+            'mapbox://styles/fgergfer/ckx2fkq0344le15mtc7owbizj'
+          );
+        }
+      });
+    this.mapService.getUserLocation().then((data) => {
+      const {
+        coords: { latitude, longitude },
+      } = data;
+      this.map.setCenter([longitude, latitude]);
+
+      new Marker({ color: 'red' })
+        .setLngLat([longitude, latitude])
+        .addTo(this.map);
+    });
+
+    this.map.on('load', () => {
+      this.map.resize();
+    });
     this.parkingService.getParkings().subscribe((data) => {
       data.map(({ cords: { longitude, latitude }, id }) => {
         // Add a marker for each car park and its corresponding event to show the booking mode
@@ -35,16 +68,7 @@ export class MapPage implements OnInit {
           .addTo(this.map);
       });
     });
-    this.map = new Map({
-      container: 'map', //  containerID
-      style: 'mapbox://styles/fgergfer/ckx2flh2d12km14pcyrf8mfqw',
-      attributionControl: false,
-      center: [-1.685128, 42.781851],
-      zoom: 17,
-    });
-    this.map.on('load', () => {
-      this.map.resize();
-    });
+    console.log(this.locationUser);
   }
   async showModal(id: number) {
     const modal = await this.modalController.create({

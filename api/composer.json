@@ -15,7 +15,6 @@
         "nelmio/cors-bundle": "^2.2",
         "sensio/framework-extra-bundle": "^6.2",
         "symfony/console": "5.4.*",
-        "symfony/dotenv": "5.4.*",
         "symfony/flex": "^1.17|^2",
         "symfony/framework-bundle": "5.4.*",
         "symfony/proxy-manager-bridge": "5.4.*",
@@ -52,6 +51,7 @@
     },
     "scripts": {
         "auto-scripts": {
+            "vendor/bin/requirements-checker": "php-script",
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
@@ -72,6 +72,7 @@
         }
     },
     "require-dev": {
-        "symfony/maker-bundle": "^1.36"
+        "symfony/maker-bundle": "^1.36",
+        "symfony/dotenv": "5.4.*"
     }
 }

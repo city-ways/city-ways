@@ -72,7 +72,7 @@ class EncodeJSON
 
         $dates = $parking->getDatesAvailable();
         foreach ($dates as $date) {
-            $parking->getTimesAvailable()->removeElement($date);
+            $parking->getDatesAvailable()->removeElement($date);
         }
         foreach ($parking_stdClass->daysAvailable as $DayRange) {
             $datesAvailable = new DatesAvailable();

@@ -51,7 +51,6 @@
     },
     "scripts": {
         "auto-scripts": {
-            "vendor/bin/requirements-checker": "php-script",
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },

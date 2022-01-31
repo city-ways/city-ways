@@ -6,7 +6,9 @@ use App\Entity\Users;
 use App\Util\EncodeJSON;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
@@ -52,12 +54,31 @@ class UserController extends AbstractController
     /**
      * @Route("/user", name="addUser", methods={"POST"})
      */
-    public function addUser(): Response
+    public function addUser(Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher): Response
     {
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/UserController.php',
-        ]);
+        $entityManager = $doctrine->getManager();
+        $data = $request->getContent();
+        $content = json_decode($data);
+
+        $mail = $content->mail;
+        $name = $content->name;
+        $dni = $content->dni;
+        $password = $content->password;
+
+        $user = new Users();
+        $user->setMail($mail);
+        $user->setName($name);
+        $user->setDni($dni);
+        $hashedPassword = $passwordHasher->hashPassword(
+            $user,
+            $password
+        );
+        $user->setPassword($hashedPassword);
+
+
+        $entityManager->persist($user);
+        $entityManager->flush();
+        return new Response(sprintf('User %s successfully created', $user->getUsername()));
     }
 }
 

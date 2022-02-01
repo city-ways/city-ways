@@ -7,17 +7,13 @@ use App\Entity\DatesAvailable;
 use App\Entity\Parkings;
 use App\Entity\TimesAvailable;
 use App\Entity\Users;
-use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
 class EncodeJSON
 {
-    private static $hasher;
-    public function __construct(PasswordHasherInterface $hash)
-    {
-        self::$hasher = $hash;
-    }
+
     public static function EncodeParking (Parkings $parking): array
     {
+
         $timesAvailableData = [];
         $datesAvailableData = [];
         foreach ($parking->getTimesAvailable() as $timeRange) {
@@ -127,10 +123,11 @@ class EncodeJSON
         $user = new Users();
         $user->setName($user_stdClass->name);
         $user->setDni($user_stdClass->dni ?? "");
-        if ($withPassword) {
-            $user->setPassword(self::$hasher->hash($user_stdClass->password));
-        }
+//        if ($withPassword) {
+//            $user->setPassword($hasher->hash($user_stdClass->password));
+//        }
         $user->setMail($user_stdClass->mail);
+        $user->setPassword($user_stdClass->password);
 
         return $user;
     }

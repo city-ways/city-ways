@@ -18,12 +18,20 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ParkingController extends AbstractController
 {
+    private $doctrine;
+    private $validator;
+    public function __construct(ManagerRegistry $doctrine, ValidatorInterface $validator)
+    {
+        $this->doctrine = $doctrine;
+        $this->validator = $validator;
+    }
+
     /**
      * @Route("/parkings", name="parking", methods="GET")
      */
-    public function getParkings(ManagerRegistry $doctrine, Request $request): Response
+    public function getParkings(Request $request): Response
     {
-        $entityManager = $doctrine->getManager();
+        $entityManager = $this->doctrine->getManager();
         $parkings = $entityManager->getRepository(Parkings::class)->findAll();
 
         $data = [];
@@ -51,10 +59,10 @@ class ParkingController extends AbstractController
     /**
      * @Route("/parkings", name="setParking", methods="POST")
      */
-    public function setParking(Request $request, ManagerRegistry $doctrine, ValidatorInterface $validator): Response
+    public function setParking(Request $request): Response
     {
         $data = $request->getContent();
-        $entityManager = $doctrine->getManager();
+        $entityManager = $this->doctrine->getManager();
         $parkingDecode = json_decode($data);
         $parking = EncodeJSON::DecodeParking($parkingDecode);
 
@@ -65,7 +73,7 @@ class ParkingController extends AbstractController
         }
         $parking->addOwner(reset($owner));
 
-        $errors = $validator->validate($parking);
+        $errors = $this->validator->validate($parking);
         if (count($errors) > 0) {
             return $this->json((string) $errors, 400);
         }
@@ -79,10 +87,10 @@ class ParkingController extends AbstractController
     /**
      * @Route("/parkings/{id}", name="updateParking", methods={"PUT"}, requirements={"id": "\d+"})
      */
-    public function updateParking($id, Request $request, ManagerRegistry $doctrine, ValidatorInterface $validator): Response
+    public function updateParking($id, Request $request): Response
     {
         $data = $request->getContent();
-        $entityManager = $doctrine->getManager();
+        $entityManager = $this->doctrine->getManager();
         $parking = $entityManager->getRepository(Parkings::class)->find($id);
 
         if (!$parking) {
@@ -91,7 +99,7 @@ class ParkingController extends AbstractController
         $parkingDecode = json_decode($data);
         $updateParking = EncodeJSON::DecodeParking($parkingDecode, $parking, true);
 
-        $errors = $validator->validate($updateParking);
+        $errors = $this->validator->validate($updateParking);
         if (count($errors) > 0) {
             return $this->json((string) $errors, 400);
         }
@@ -105,9 +113,9 @@ class ParkingController extends AbstractController
     /**
      * @Route("/parkings/{id}", name="deleteParking", methods={"DELETE"}, requirements={"id": "\d+"})
      */
-    public function deleteParking(int $id, ManagerRegistry $doctrine): Response
+    public function deleteParking(int $id): Response
     {
-        $entityManager = $doctrine->getManager();
+        $entityManager = $this->doctrine->getManager();
         $parking = $entityManager->getRepository(Parkings::class)->find($id);
 
         if (!$parking) {
@@ -124,9 +132,9 @@ class ParkingController extends AbstractController
     /**
      * @Route("/parkings/{id}", name="getParkingById", methods={"GET"})
      */
-    public function getParking(int $id, ManagerRegistry $doctrine): Response
+    public function getParking(int $id): Response
     {
-        $entityManager = $doctrine->getManager();
+        $entityManager = $this->doctrine->getManager();
         $parking = $entityManager->getRepository(Parkings::class)->find($id);
 
         if (!$parking) {

@@ -51,34 +51,5 @@ class UserController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/user", name="addUser", methods={"POST"})
-     */
-    public function addUser(Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher): Response
-    {
-        $entityManager = $doctrine->getManager();
-        $data = $request->getContent();
-        $content = json_decode($data);
-
-        $mail = $content->mail;
-        $name = $content->name;
-        $dni = $content->dni;
-        $password = $content->password;
-
-        $user = new Users();
-        $user->setMail($mail);
-        $user->setName($name);
-        $user->setDni($dni);
-        $hashedPassword = $passwordHasher->hashPassword(
-            $user,
-            $password
-        );
-        $user->setPassword($hashedPassword);
-
-
-        $entityManager->persist($user);
-        $entityManager->flush();
-        return new Response(sprintf('User %s successfully created', $user->getUsername()));
-    }
 }
 

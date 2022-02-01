@@ -10,36 +10,31 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Core\User\User;
+
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class SecurityController extends AbstractController
 {
     /**
      * @Route("/register", name="register", methods="post")
      */
-    public function register(Request $request, PasswordHasherInterface $encoder, ManagerRegistry $doctrine)
+    public function register(Request $request, ManagerRegistry $doctrine, ValidatorInterface $validator)
     {
         $entityManager = $doctrine->getManager();
-        // IMP! To get JSON format from POST method
+
         $data = $request->getContent();
         $content = json_decode($data);
-        $user = EncodeJSON::DecodeUser($content);
-        $mail = $content->mail;
-        $name = $content->name;
-        $dni = $content->dni;
-        $password = $content->password;
 
-        $user = new Users();
-        $user->setMail($mail);
-        $user->setName($name);
-        $user->setDni($dni);
-        $user->setPassword($encoder->encodePassword($user, $password));
+        $newUser = EncodeJSON::DecodeUser($content);
+        $errors = $validator->validate($newUser);
+        if (count($errors) > 0) {
+            return $this->json((string) $errors, 400);
+        }
 
-        $entityManager->persist($user);
+        $entityManager->persist($newUser);
         $entityManager->flush();
 
-        return new Response(sprintf('User %s successfully created', $user->getUsername()));
+        return new Response(sprintf('User %s successfully created', $newUser->getUsername()));
     }
 
 }

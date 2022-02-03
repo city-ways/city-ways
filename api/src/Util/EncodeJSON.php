@@ -124,14 +124,32 @@ class EncodeJSON
         return $user;
     }
 
-    public static function EncodeUserHistory(History $history){
-        $userHistoryEncode = [
-            "id" => $history->getId(),
-            "price" => $history->getPrice(),
-            "date" => $history->getDate(),
-            "parking" => self::EncodeParking($history->getParking())
-        ];
+    public static function EncodeUserHistory(History $history): array {
+        $userHistoryEncode = [];
+        foreach ($history as $historyItem){
+            $tmpHistoryItem = [
+                "id" => $historyItem->getId(),
+                "price" => $historyItem->getPrice(),
+                "date" => $historyItem->getDate(),
+                "parking" => self::EncodeParking($historyItem->getParking())
+            ];
+            $userHistoryEncode[] = $tmpHistoryItem;
+        }
         return $userHistoryEncode;
+    }
+
+    public static function EncodeParkingHistory(History $history) : array {
+        $parkingHistoryEncode = [];
+        foreach ($history as $historyItem){
+            $tmpHistoryItem = [
+                "id" => $historyItem->getId(),
+                "price" => $historyItem->getPrice(),
+                "date" => $historyItem->getDate(),
+                "user" => self::EncodeUser($historyItem->getClientUser())
+            ];
+            $parkingHistoryEncode[] = $tmpHistoryItem;
+        }
+        return $parkingHistoryEncode;
     }
 
 }

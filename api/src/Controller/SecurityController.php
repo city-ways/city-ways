@@ -32,8 +32,9 @@ class SecurityController extends AbstractController
         if (count($errors) > 0) {
             return $this->json((string) $errors, 400);
         }
+        $entityManager->persist($newUser);
+        // it's correct?
         try {
-            $entityManager->persist($newUser);
             $entityManager->flush();
         } catch (UniqueConstraintViolationException $exception) {
             return $this->json($newUser->getMail() . " is already in use", 409);

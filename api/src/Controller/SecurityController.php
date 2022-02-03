@@ -2,12 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Users;
 use App\Util\EncodeJSON;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -24,7 +22,7 @@ class SecurityController extends AbstractController
         $data = $request->getContent();
         $content = json_decode($data);
 
-        $newUser = EncodeJSON::DecodeUser($content, null);
+        $newUser = EncodeJSON::DecodeUser($content);
         // todo: think a better way to do it the same, ($passwordHasher)
         $hashedPassword = $passwordHasher->hashPassword($newUser, $newUser->getPassword());
         $newUser->setPassword($hashedPassword);
@@ -36,7 +34,7 @@ class SecurityController extends AbstractController
         $entityManager->persist($newUser);
         $entityManager->flush();
 
-        return new Response(sprintf('User %s successfully created', $newUser->getUsername()));
+        return $this->json('User %s successfully created', $newUser->getUsername());
     }
 
 }

@@ -3,10 +3,7 @@
 namespace App\Controller;
 
 
-use App\Entity\Coordinates;
-use App\Entity\DatesAvailable;
 use App\Entity\Parkings;
-use App\Entity\TimesAvailable;
 use App\Entity\Users;
 use App\Util\EncodeJSON;
 use Doctrine\Persistence\ManagerRegistry;
@@ -20,6 +17,7 @@ class ParkingController extends AbstractController
 {
     private $doctrine;
     private $validator;
+    // todo: refactor
     public function __construct(ManagerRegistry $doctrine, ValidatorInterface $validator)
     {
         $this->doctrine = $doctrine;

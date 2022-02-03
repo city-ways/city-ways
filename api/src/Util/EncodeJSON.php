@@ -112,22 +112,21 @@ class EncodeJSON
         return $userEncode;
     }
 
-    public static function DecodeUser ($userJSON, $withPassword = true): Users {
+    public static function DecodeUser ($userJSON, $withPassword = true, bool $updateMode = false, Users $updateUser = null): Users {
 //        $content = $userJSON;
 //        if (!is_object($userJSON)) {
 //            $content = json_decode($userJSON);
 //        }
 
+        $user = $updateMode ? $updateUser : new Users();
         $user_stdClass = $userJSON;
 
-        $user = new Users();
         $user->setName($user_stdClass->name);
         $user->setDni($user_stdClass->dni ?? "");
-//        if ($withPassword) {
-//            $user->setPassword($hasher->hash($user_stdClass->password));
-//        }
+        if ($withPassword) {
+            $user->setPassword($user_stdClass->password);
+        }
         $user->setMail($user_stdClass->mail);
-        $user->setPassword($user_stdClass->password);
 
         return $user;
     }

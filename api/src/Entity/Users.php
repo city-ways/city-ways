@@ -61,8 +61,9 @@ class Users implements UserInterface
 
 
 
-    public function __construct()
+    public function __construct($Mail)
     {
+        $this->Mail = $Mail;
         $this->Owns = new ArrayCollection();
         $this->History = new ArrayCollection();
     }
@@ -175,19 +176,19 @@ class Users implements UserInterface
         return $this;
     }
 
-    public function getRoles()
+    public function getRoles(): array
     {
         return array('ROLE_USER');
     }
 
     public function getSalt()
     {
-        // TODO: Implement getSalt() method.
+        return null;
     }
 
     public function eraseCredentials()
     {
-        // TODO: Implement eraseCredentials() method.
+        return null;
     }
 
     public function getUsername()

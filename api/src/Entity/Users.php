@@ -24,7 +24,7 @@ class Users implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\Email(
      *     message = "The email '{{ value }}' is not a valid email."
      * )
@@ -61,9 +61,8 @@ class Users implements UserInterface
 
 
 
-    public function __construct($Mail)
+    public function __construct()
     {
-        $this->Mail = $Mail;
         $this->Owns = new ArrayCollection();
         $this->History = new ArrayCollection();
     }

@@ -4,6 +4,7 @@ namespace App\Util;
 
 use App\Entity\Coordinates;
 use App\Entity\DatesAvailable;
+use App\Entity\History;
 use App\Entity\Parkings;
 use App\Entity\TimesAvailable;
 use App\Entity\Users;
@@ -121,6 +122,16 @@ class EncodeJSON
         $user->setMail($user_stdClass->mail);
 
         return $user;
+    }
+
+    public static function EncodeUserHistory(History $history){
+        $userHistoryEncode = [
+            "id" => $history->getId(),
+            "price" => $history->getPrice(),
+            "date" => $history->getDate(),
+            "parking" => self::EncodeParking($history->getParking())
+        ];
+        return $userHistoryEncode;
     }
 
 }

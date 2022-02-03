@@ -17,7 +17,6 @@ class ParkingController extends AbstractController
 {
     private $doctrine;
     private $validator;
-    // todo: refactor
     public function __construct(ManagerRegistry $doctrine, ValidatorInterface $validator)
     {
         $this->doctrine = $doctrine;

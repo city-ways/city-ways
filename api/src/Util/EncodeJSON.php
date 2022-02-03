@@ -61,7 +61,6 @@ class EncodeJSON
         $parking->setStatus((bool) $parking_stdClass->status);
         $parking->setType($parking_stdClass->type);
 
-        // todo: se duplican los rangos
         $times = $parking->getTimesAvailable();
         foreach ($times as $time) {
             $parking->getTimesAvailable()->removeElement($time);
@@ -85,8 +84,6 @@ class EncodeJSON
         $parking->setPricePerHour($parking_stdClass->pricePerHour);
         $parking->setPricePerDay($parking_stdClass->pricePerDay);
 
-
-        // todo: add user info
         return $parking;
     }
 
@@ -113,11 +110,6 @@ class EncodeJSON
     }
 
     public static function DecodeUser ($userJSON, $withPassword = true, bool $updateMode = false, Users $updateUser = null): Users {
-//        $content = $userJSON;
-//        if (!is_object($userJSON)) {
-//            $content = json_decode($userJSON);
-//        }
-
         $user = $updateMode ? $updateUser : new Users();
         $user_stdClass = $userJSON;
 

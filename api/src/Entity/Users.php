@@ -6,12 +6,15 @@ use App\Repository\UsersRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UsersRepository::class)
+ * @method string getUserIdentifier()
  */
-class Users
+class Users implements UserInterface
 {
     /**
      * @ORM\Id
@@ -36,7 +39,7 @@ class Users
 
     /**
      * @ORM\Column(type="string", length=9)
-     * @Assert\Regex("/^[0-9]{8,8}[A-Za-z]$")
+     * @Assert\Regex("/^[0-9]{8,8}[A-Za-z]$/")
      *
      */
     private $Dni;
@@ -58,8 +61,9 @@ class Users
 
 
 
-    public function __construct()
+    public function __construct($Mail)
     {
+        $this->Mail = $Mail;
         $this->Owns = new ArrayCollection();
         $this->History = new ArrayCollection();
     }
@@ -170,5 +174,30 @@ class Users
         }
 
         return $this;
+    }
+
+    public function getRoles(): array
+    {
+        return array('ROLE_USER');
+    }
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+    public function eraseCredentials()
+    {
+        return null;
+    }
+
+    public function getUsername()
+    {
+        return $this->Mail;
+    }
+
+    public function __call($name, $arguments)
+    {
+        // TODO: Implement @method string getUserIdentifier()
     }
 }

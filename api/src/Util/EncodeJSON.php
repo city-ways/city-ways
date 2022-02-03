@@ -10,8 +10,10 @@ use App\Entity\Users;
 
 class EncodeJSON
 {
+
     public static function EncodeParking (Parkings $parking): array
     {
+
         $timesAvailableData = [];
         $datesAvailableData = [];
         foreach ($parking->getTimesAvailable() as $timeRange) {
@@ -59,7 +61,6 @@ class EncodeJSON
         $parking->setStatus((bool) $parking_stdClass->status);
         $parking->setType($parking_stdClass->type);
 
-        // todo: se duplican los rangos
         $times = $parking->getTimesAvailable();
         foreach ($times as $time) {
             $parking->getTimesAvailable()->removeElement($time);
@@ -83,8 +84,6 @@ class EncodeJSON
         $parking->setPricePerHour($parking_stdClass->pricePerHour);
         $parking->setPricePerDay($parking_stdClass->pricePerDay);
 
-
-        // todo: add user info
         return $parking;
     }
 
@@ -110,17 +109,15 @@ class EncodeJSON
         return $userEncode;
     }
 
-    public static function DecodeUser ($userJSON): Users {
-        $content = $userJSON;
-        if (!is_object($userJSON)) {
-            $content = json_decode($userJSON);
-        }
-        $user_stdClass = $content;
+    public static function DecodeUser ($userJSON, $withPassword = true, bool $updateMode = false, Users $updateUser = null): Users {
+        $user = $updateMode ? $updateUser : new Users();
+        $user_stdClass = $userJSON;
 
-        $user = new Users();
         $user->setName($user_stdClass->name);
         $user->setDni($user_stdClass->dni ?? "");
-        $user->setPassword($user_stdClass->password ?? "");
+        if ($withPassword) {
+            $user->setPassword($user_stdClass->password);
+        }
         $user->setMail($user_stdClass->mail);
 
         return $user;

@@ -48,3 +48,4 @@ $RECYCLE.BIN/
 ###< symfony/framework-bundle ###
 /api/.env
 /api/.idea
+/api/nbproject

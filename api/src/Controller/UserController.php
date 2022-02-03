@@ -6,58 +6,83 @@ use App\Entity\Users;
 use App\Util\EncodeJSON;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserController extends AbstractController
 {
-    /**
-     * @Route("/user/{id}", name="user", methods={"GET"}, requirements={"id": "\d+"})
-     */
-    public function index(int $id, ManagerRegistry $doctrine): Response
+    private $doctrine;
+    private $validator;
+    public function __construct(ManagerRegistry $doctrine, ValidatorInterface $validator)
     {
-        $entityManager = $doctrine->getManager();
+        $this->doctrine = $doctrine;
+        $this->validator = $validator;
+    }
+    /**
+     * @Route("/api/user/{id}", name="user", methods={"GET"}, requirements={"id": "\d+"})
+     */
+    public function index(int $id): Response
+    {
+        $entityManager = $this->doctrine->getManager();
         $user = $entityManager->getRepository(Users::class)->find($id);
         if (!$user) {
             return $this->json("No user found for id: $id", 404);
         }
-
+        // return the full information of the user
         $data = EncodeJSON::EncodeUser($user);
 
         return $this->json($data);
     }
 
     /**
-     * @Route("/user/{id}", name="updateUser", methods={"PUT"}, requirements={"id": "\d+"})
+     * @Route("/api/user/{id}", name="updateUser", methods={"PUT"}, requirements={"id": "\d+"})
      */
-    public function updateUser(): Response
+    public function updateUser(int $id, Request $request): Response
     {
+        $data = $request->getContent();
+        // update user info, no password change
+        $entityManager = $this->doctrine->getManager();
+        $user = $entityManager->getRepository(Users::class)->find($id);
+        if (!$user) {
+            return $this->json("No user found for id: $id", 404);
+        }
+        $userDecode = json_decode($data);
+        $updateUser = EncodeJSON::DecodeUser($userDecode, false, true, $user);
+        $errors = $this->validator->validate($updateUser);
+
+        if (count($errors) > 0) {
+            return $this->json((string) $errors, 400);
+        }
+
+        $entityManager->flush();
         return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/UserController.php',
+            'result' => "User " .$updateUser->getId() . " updated"
         ]);
+
     }
 
     /**
-     * @Route("/user/{id}", name="deleteUser", methods={"DELETE"}, requirements={"id": "\d+"})
+     * @Route("/api/user/{id}", name="deleteUser", methods={"DELETE"}, requirements={"id": "\d+"})
      */
-    public function deleteUser(): Response
+    public function deleteUser(int $id): Response
     {
+        $entityManager = $this->doctrine->getManager();
+        $user = $entityManager->getRepository(Users::class)->find($id);
+
+        if (!$user) {
+            return $this->json("No user found for id: $id", 404);
+        }
+
+        $entityManager->remove($user);
+        $entityManager->flush();
+
         return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/UserController.php',
+            'result' => "User " .$user->getId() . " updated"
         ]);
     }
 
-    /**
-     * @Route("/user", name="addUser", methods={"POST"})
-     */
-    public function addUser(): Response
-    {
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/UserController.php',
-        ]);
-    }
 }
 

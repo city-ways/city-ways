@@ -2,16 +2,12 @@ security:
     encoders:
         App\Entity\Users:
             algorithm: auto
-    enable_authenticator_manager: true
-    # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
-    password_hashers:
-        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
-    # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
+
     providers:
         entity_provider:
             entity:
                 class: App\Entity\Users
-                property: username
+                property: Mail
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -19,6 +15,7 @@ security:
         login:
             pattern: ^/login
             stateless: true
+            anonymous: true
             json_login:
                 check_path: /login_check
                 success_handler: lexik_jwt_authentication.handler.authentication_success
@@ -27,6 +24,7 @@ security:
         register:
             pattern: ^/register
             stateless: true
+            anonymous: true
 
         api:
             pattern: ^/api
@@ -37,9 +35,6 @@ security:
                 authenticators:
                     - lexik_jwt_authentication.jwt_token_authenticator
 
-        # Easy way to control access for large sections of your site
-        # Note: Only the *first* access control that matches will be used
-                #access_control:
-                #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-                #- { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-            #- { path: ^/offers, roles: IS_AUTHENTICATED_FULLY }
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }

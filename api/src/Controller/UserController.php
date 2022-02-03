@@ -22,7 +22,7 @@ class UserController extends AbstractController
         $this->validator = $validator;
     }
     /**
-     * @Route("/user/{id}", name="user", methods={"GET"}, requirements={"id": "\d+"})
+     * @Route("/api/user/{id}", name="user", methods={"GET"}, requirements={"id": "\d+"})
      */
     public function index(int $id): Response
     {
@@ -38,7 +38,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/user/{id}", name="updateUser", methods={"PUT"}, requirements={"id": "\d+"})
+     * @Route("/api/user/{id}", name="updateUser", methods={"PUT"}, requirements={"id": "\d+"})
      */
     public function updateUser(int $id, Request $request): Response
     {
@@ -65,7 +65,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/user/{id}", name="deleteUser", methods={"DELETE"}, requirements={"id": "\d+"})
+     * @Route("/api/user/{id}", name="deleteUser", methods={"DELETE"}, requirements={"id": "\d+"})
      */
     public function deleteUser(int $id): Response
     {

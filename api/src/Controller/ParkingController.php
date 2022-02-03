@@ -24,7 +24,7 @@ class ParkingController extends AbstractController
     }
 
     /**
-     * @Route("/parkings", name="parking", methods="GET")
+     * @Route("/api/parkings", name="parking", methods="GET")
      */
     public function getParkings(Request $request): Response
     {
@@ -54,7 +54,7 @@ class ParkingController extends AbstractController
         return $this->json($data);
     }
     /**
-     * @Route("/parkings", name="setParking", methods="POST")
+     * @Route("/api/parkings", name="setParking", methods="POST")
      */
     public function setParking(Request $request): Response
     {
@@ -82,7 +82,7 @@ class ParkingController extends AbstractController
     }
 
     /**
-     * @Route("/parkings/{id}", name="updateParking", methods={"PUT"}, requirements={"id": "\d+"})
+     * @Route("/api/parkings/{id}", name="updateParking", methods={"PUT"}, requirements={"id": "\d+"})
      */
     public function updateParking($id, Request $request): Response
     {
@@ -108,7 +108,7 @@ class ParkingController extends AbstractController
     }
 
     /**
-     * @Route("/parkings/{id}", name="deleteParking", methods={"DELETE"}, requirements={"id": "\d+"})
+     * @Route("/api/parkings/{id}", name="deleteParking", methods={"DELETE"}, requirements={"id": "\d+"})
      */
     public function deleteParking(int $id): Response
     {
@@ -127,7 +127,7 @@ class ParkingController extends AbstractController
         ]);
     }
     /**
-     * @Route("/parkings/{id}", name="getParkingById", methods={"GET"})
+     * @Route("/api/parkings/{id}", name="getParkingById", methods={"GET"})
      */
     public function getParking(int $id): Response
     {

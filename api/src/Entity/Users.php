@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass=UsersRepository::class)
  * @method string getUserIdentifier()
  */
-class Users implements UserInterface, PasswordAuthenticatedUserInterface
+class Users implements UserInterface
 {
     /**
      * @ORM\Id
@@ -177,7 +177,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getRoles()
     {
-        // TODO: Implement getRoles() method.
+        return array('ROLE_USER');
     }
 
     public function getSalt()
@@ -192,7 +192,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getUsername()
     {
-        return $this->getMail();
+        return $this->Mail;
     }
 
     public function __call($name, $arguments)

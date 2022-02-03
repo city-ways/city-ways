@@ -35,7 +35,7 @@ class SecurityController extends AbstractController
         $entityManager->persist($newUser);
         $entityManager->flush();
 
-        return $this->json('User %s successfully created', $newUser->getUsername());
+        return $this->json("User " . $newUser->getUsername() . " successfully created" );
     }
 
 }

@@ -41,8 +41,9 @@ class UserController extends AbstractController
     /**
      * @Route("/user/{id}", name="updateUser", methods={"PUT"}, requirements={"id": "\d+"})
      */
-    public function updateUser(int $id, Request $data): Response
+    public function updateUser(int $id, Request $request): Response
     {
+        $data = $request->getContent();
         // update user info, no password change
         $entityManager = $this->doctrine->getManager();
         $user = $entityManager->getRepository(Users::class)->find($id);
@@ -51,6 +52,11 @@ class UserController extends AbstractController
         }
         $userDecode = json_decode($data);
         $updateUser = EncodeJSON::DecodeUser($userDecode, false, true, $user);
+        $errors = $this->validator->validate($updateUser);
+
+        if (count($errors) > 0) {
+            return $this->json((string) $errors, 400);
+        }
 
         $entityManager->flush();
         return $this->json([

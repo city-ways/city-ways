@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { RouteReuseStrategy } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -8,8 +8,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { BrowserModule } from '@angular/platform-browser';
-import { BookingParkingPageModule } from './pages/booking-parking/booking-parking.module';
+import { JwtTokenProviderService } from './core/jwt-token-provider.service';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthInterceptorInterceptor } from './core/auth-interceptor.interceptor';
 
+export const jwtCheckOnRun = (token: JwtTokenProviderService) => () =>
+  token.load();
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -19,8 +23,22 @@ import { BookingParkingPageModule } from './pages/booking-parking/booking-parkin
     AppRoutingModule,
     CoreModule,
     SharedModule,
+    HttpClientModule,
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    {
+      // docs about APP_INITIALIZER: https://angular.io/api/core/APP_INITIALIZER
+      provide: APP_INITIALIZER,
+      useFactory: () => jwtCheckOnRun,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

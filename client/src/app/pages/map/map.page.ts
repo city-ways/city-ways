@@ -5,6 +5,7 @@ import { ParkingService } from '../../core/parking.service';
 import { ModalController, ViewWillEnter } from '@ionic/angular';
 import { BookingParkingPage } from '../booking-parking/booking-parking.page';
 import { MapService } from '../../core/map.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-map',

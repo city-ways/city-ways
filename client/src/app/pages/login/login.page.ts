@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthServiceService } from '../../core/auth-service.service';
+import { AuthService } from '../../core/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -7,7 +7,7 @@ import { AuthServiceService } from '../../core/auth-service.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  constructor(private authService: AuthServiceService) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {}
   sendForm(formData) {

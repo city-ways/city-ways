@@ -14,6 +14,8 @@ export class SelectionMapPage implements OnInit {
   >();
   private map!: Map;
   private marker: Marker;
+  private mapDark = 'mapbox://styles/fgergfer/ckx2flh2d12km14pcyrf8mfqw';
+  private mapLight = 'mapbox://styles/fgergfer/ckx2fkq0344le15mtc7owbizj';
   constructor(
     private modalContreller: ModalController,
     private mapService: MapService
@@ -22,10 +24,21 @@ export class SelectionMapPage implements OnInit {
   ngOnInit() {
     this.map = new Map({
       container: 'selectMap', //  containerID
-      style: 'mapbox://styles/fgergfer/ckx2flh2d12km14pcyrf8mfqw',
+      style: window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? this.mapDark
+        : this.mapLight,
       attributionControl: false,
       zoom: 17,
     });
+    window
+      .matchMedia('(prefers-color-scheme: dark)')
+      .addEventListener('change', (e) => {
+        if (e.matches) {
+          this.map.setStyle(this.mapDark);
+        } else {
+          this.map.setStyle(this.mapLight);
+        }
+      });
     this.marker = new Marker({
       draggable: true,
       color: '#3880ff',

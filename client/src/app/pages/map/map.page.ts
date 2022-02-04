@@ -14,6 +14,9 @@ import { MapService } from '../../core/map.service';
 export class MapPage implements OnInit {
   private map!: Map;
   private locationUser: [number, number];
+  private mapDark = 'mapbox://styles/fgergfer/ckx2flh2d12km14pcyrf8mfqw';
+  private mapLight = 'mapbox://styles/fgergfer/ckx2fkq0344le15mtc7owbizj';
+
   constructor(
     private parkingService: ParkingService,
     private modalController: ModalController,
@@ -23,21 +26,20 @@ export class MapPage implements OnInit {
   ngOnInit() {
     this.map = new Map({
       container: 'map', //  containerID
-      style: 'mapbox://styles/fgergfer/ckx2flh2d12km14pcyrf8mfqw',
+      style: window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? this.mapDark
+        : this.mapLight,
       attributionControl: false,
       zoom: 17,
     });
+    // change the map style if the user change the colors when the app is running
     window
       .matchMedia('(prefers-color-scheme: dark)')
       .addEventListener('change', (e) => {
         if (e.matches) {
-          this.map.setStyle(
-            'mapbox://styles/fgergfer/ckx2flh2d12km14pcyrf8mfqw'
-          );
+          this.map.setStyle(this.mapDark);
         } else {
-          this.map.setStyle(
-            'mapbox://styles/fgergfer/ckx2fkq0344le15mtc7owbizj'
-          );
+          this.map.setStyle(this.mapLight);
         }
       });
     this.mapService.getUserLocation().then((data) => {

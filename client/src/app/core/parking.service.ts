@@ -11,13 +11,12 @@ import { catchError, map, mapTo, reduce, take, tap } from 'rxjs/operators';
 export class ParkingService {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  private url = `${environment.apiUrlBase}/parkings`;
+  private url = `${environment.apiUrlBase}/api/parkings`;
 
   constructor(private http: HttpClient) {}
 
   private static handleError(err: any) {
-    // in a real world app, we may send the server to some remote logging infrastructure
-    // instead of just logging it to the console
+    //just logging it to the console
     let errorMessage: string;
     if (err.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.

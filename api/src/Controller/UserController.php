@@ -38,6 +38,24 @@ class UserController extends AbstractController
     }
 
     /**
+     * @Route("/api/user", name="userid", methods={"GET"})
+     */
+    public function getIdOfUser(Request $request): Response
+    {
+        $data = $request->getContent();
+        $mail = json_decode($data)->mail;
+        $entityManager = $this->doctrine->getManager();
+        $user = $entityManager->getRepository(Users::class)->findOneByMail($mail);
+        if (!$user) {
+            return $this->json("No user found for mail: $mail", 404);
+        }
+        // return the full information of the user
+        $data = EncodeJSON::EncodeUser($user, true, true);
+
+        return $this->json($data);
+    }
+
+    /**
      * @Route("/api/user/{id}", name="updateUser", methods={"PUT"}, requirements={"id": "\d+"})
      */
     public function updateUser(int $id, Request $request): Response

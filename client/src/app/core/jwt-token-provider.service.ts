@@ -11,6 +11,7 @@ export class JwtTokenProviderService {
   // checks if the stored token is valid and has not expired
   load(): Promise<boolean> {
     return new Promise((resolve, reject) => {
+      console.log('kkk');
       const token =
         localStorage.getItem('auth_token') === null
           ? false

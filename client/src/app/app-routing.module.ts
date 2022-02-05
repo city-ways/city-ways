@@ -6,7 +6,7 @@ import { AuthGuard } from './core/auth.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/login',
+    redirectTo: '/home',
     pathMatch: 'full',
   },
   {
@@ -14,6 +14,11 @@ const routes: Routes = [
     canLoad: [AuthGuard],
     loadChildren: () =>
       import('./pages/tabs/tabs.module').then((m) => m.TabsPageModule),
+  },
+  {
+    path: 'home',
+    loadChildren: () =>
+      import('./pages/home/home.module').then((m) => m.HomePageModule),
   },
   // {
   //   path: 'dashboard',
@@ -34,7 +39,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/login/login.module').then((m) => m.LoginPageModule),
   },
-  { path: '**', redirectTo: '/login', pathMatch: 'full' },
+  { path: '**', redirectTo: '/app/mapa', pathMatch: 'full' },
 ];
 
 @NgModule({

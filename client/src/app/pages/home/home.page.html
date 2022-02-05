@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center" size="large">City Ways</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="auth-form">
+  <ion-grid>
+    <ion-row>
+      <ion-col class="ion-align-self-center">
+        <ion-button [routerLink]="['/register']" expand="block" color="primary"
+          >Registrarse</ion-button
+        >
+        <span class="divider line one-line">o</span>
+        <span class="already">¿Ya tienes un usuario?</span>
+        <ion-button [routerLink]="['/login']" expand="block" color="tertiary"
+          >Iniciar sesión</ion-button
+        >
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -10,30 +10,31 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'home',
+    path: 'app',
     canLoad: [AuthGuard],
     loadChildren: () =>
       import('./pages/tabs/tabs.module').then((m) => m.TabsPageModule),
   },
-  {
-    path: 'dashboard',
-    canLoad: [AuthGuard],
-    loadChildren: () =>
-      import('./pages/dashboard/dashboard.module').then(
-        (m) => m.DashboardPageModule
-      ),
-  },
-  {
-    path: 'map',
-    canLoad: [AuthGuard],
-    loadChildren: () =>
-      import('./pages/map/map.module').then((m) => m.MapPageModule),
-  },
+  // {
+  //   path: 'dashboard',
+  //   canLoad: [AuthGuard],
+  //   loadChildren: () =>
+  //     import('./pages/dashboard/dashboard.module').then(
+  //       (m) => m.DashboardPageModule
+  //     ),
+  // },
+  // {
+  //   path: 'map',
+  //   canLoad: [AuthGuard],
+  //   loadChildren: () =>
+  //     import('./pages/map/map.module').then((m) => m.MapPageModule),
+  // },
   {
     path: 'login',
     loadChildren: () =>
       import('./pages/login/login.module').then((m) => m.LoginPageModule),
   },
+  { path: '**', redirectTo: '/login', pathMatch: 'full' },
 ];
 
 @NgModule({

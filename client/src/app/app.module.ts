@@ -14,6 +14,7 @@ import { AuthInterceptorInterceptor } from './core/auth-interceptor.interceptor'
 
 export const jwtCheckOnRun = (token: JwtTokenProviderService) => () =>
   token.load();
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -26,12 +27,13 @@ export const jwtCheckOnRun = (token: JwtTokenProviderService) => () =>
     HttpClientModule,
   ],
   providers: [
+    JwtTokenProviderService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
-      // docs about APP_INITIALIZER: https://angular.io/api/core/APP_INITIALIZER
       provide: APP_INITIALIZER,
-      useFactory: () => jwtCheckOnRun,
+      useFactory: jwtCheckOnRun,
       multi: true,
+      deps: [JwtTokenProviderService],
     },
     {
       provide: HTTP_INTERCEPTORS,

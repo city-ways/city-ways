@@ -154,4 +154,14 @@ class EncodeJSON
         }
         return $parkingHistoryEncode;
     }
+
+    public static function DecodeHistory($historyJSON): History{
+        $history = new History();
+        $history_stdClass = $historyJSON;
+
+        $history->setDate($history_stdClass->date);
+        $history->setPrice($history_stdClass->price);
+
+        return $history;
+    }
 }

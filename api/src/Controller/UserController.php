@@ -42,8 +42,7 @@ class UserController extends AbstractController
      */
     public function getIdOfUser(Request $request): Response
     {
-        $data = $request->getContent();
-        $mail = json_decode($data)->mail;
+        $mail = $request->query->get('mail');
         $entityManager = $this->doctrine->getManager();
         $user = $entityManager->getRepository(Users::class)->findOneByMail($mail);
         if (!$user) {

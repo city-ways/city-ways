@@ -11,6 +11,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { JwtTokenProviderService } from './core/jwt-token-provider.service';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptorInterceptor } from './core/auth-interceptor.interceptor';
+import { UserService } from './core/user.service';
 
 export const jwtCheckOnRun = (token: JwtTokenProviderService) => () =>
   token.load();
@@ -22,18 +23,19 @@ export const jwtCheckOnRun = (token: JwtTokenProviderService) => () =>
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
+    HttpClientModule,
     CoreModule,
     SharedModule,
-    HttpClientModule,
   ],
   providers: [
     JwtTokenProviderService,
+    UserService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: APP_INITIALIZER,
       useFactory: jwtCheckOnRun,
       multi: true,
-      deps: [JwtTokenProviderService],
+      deps: [JwtTokenProviderService, UserService],
     },
     {
       provide: HTTP_INTERCEPTORS,

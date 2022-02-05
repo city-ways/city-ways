@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ParkingDataService } from '../../core/parking-data.service';
-import { UserIdService } from '../../core/user-id.service';
+import { UserService } from '../../core/user.service';
 import { Parking } from '../../shared/parking';
 import { ModalController } from '@ionic/angular';
 import { EditParkingPage } from 'src/app/pages/edit-parking/edit-parking.page';
@@ -16,15 +16,16 @@ export class QuickActionsComponent implements OnInit {
   idUser: number;
   parkingsOfUser: Parking[];
   constructor(
-    private userService: UserIdService,
+    private userService: UserService,
     public modalController: ModalController,
     private parkingDataService: ParkingDataService
   ) {}
 
   ngOnInit() {
     // get the id of the user
-    this.userService.id.subscribe((id) => {
-      this.idUser = id;
+    this.userService.user.subscribe((user) => {
+      this.idUser = user.id;
+      console.log(user);
     });
     //get all parkings of the user
     this.userService.getUser(this.idUser).subscribe((user) => {
@@ -46,7 +47,7 @@ export class QuickActionsComponent implements OnInit {
     }
   }
 
-  async showModalPage(parking?: Parking | any, create?: boolean) {
+  async showModalPage(parking?: Parking | null, create?: boolean) {
     const modal = await this.modalController.create({
       component: create ? AddParkingPage : EditParkingPage,
       componentProps: {

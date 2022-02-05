@@ -3,17 +3,11 @@ import { CommonModule } from '@angular/common';
 import { ParkingDataComponent } from './parking-data/parking-data.component';
 import { IonicModule } from '@ionic/angular';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ParkingListModalComponent } from './parking-list-modal/parking-list-modal.component';
 import { RouterModule } from '@angular/router';
 import { ParkingListInfoPageModule } from './parking-list-info/parking-list-info.module';
-import { PageModalComponent } from './page-modal/page-modal.component';
 
 @NgModule({
-  declarations: [
-    ParkingDataComponent,
-    ParkingListModalComponent,
-    PageModalComponent,
-  ],
+  declarations: [ParkingDataComponent],
   imports: [
     CommonModule,
     IonicModule,
@@ -21,10 +15,6 @@ import { PageModalComponent } from './page-modal/page-modal.component';
     RouterModule,
     ParkingListInfoPageModule,
   ],
-  exports: [
-    ParkingDataComponent,
-    ParkingListModalComponent,
-    PageModalComponent,
-  ],
+  exports: [ParkingDataComponent],
 })
 export class SharedModule {}

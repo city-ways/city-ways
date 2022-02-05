@@ -2,19 +2,18 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { User } from '../shared/User';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { share } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 /*
 Para no agregar una libreria para implementar el patron Redux (NgRx) usamos BehaviorSubject de rxjs
  */
-export class UserIdService {
-  private url = `${environment.apiUrlBase}/user`;
-  private idSource: BehaviorSubject<number> = new BehaviorSubject<number>(null);
+export class UserService {
+  private url = `${environment.apiUrlBase}/api/user`;
+  private idSource: BehaviorSubject<User> = new BehaviorSubject<User>(null);
   // eslint-disable-next-line @typescript-eslint/member-ordering
-  id = this.idSource.asObservable();
+  user = this.idSource.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -22,8 +21,10 @@ export class UserIdService {
     return this.http.get<User>(`${this.url}/${id}`);
   }
 
-  //todo: cambiar cuando este el sistema de usuarios
-  public updateId(id: number) {
-    this.idSource.next(id);
+  public updateUser(mail: string) {
+    const param = new HttpParams().append('mail', mail);
+    this.http
+      .get<User>(this.url, { params: param })
+      .subscribe((data) => this.idSource.next(data));
   }
 }

@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Parking } from '../parking';
 import { ParkingDataService } from '../../core/parking-data.service';
 import { ModalController } from '@ionic/angular';
-import { UserIdService } from '../../core/user-id.service';
+import { UserService } from '../../core/user.service';
 
 @Component({
   selector: 'app-parking-list-info',
@@ -15,7 +15,7 @@ export class ParkingListInfoPage implements OnInit {
   constructor(
     private modalController: ModalController,
     private parkingDataService: ParkingDataService,
-    private userService: UserIdService
+    private userService: UserService
   ) {}
 
   ngOnInit() {

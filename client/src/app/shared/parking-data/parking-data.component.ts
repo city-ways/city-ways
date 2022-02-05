@@ -11,7 +11,7 @@ import { Parking } from '../parking';
 
 import { ModalController } from '@ionic/angular';
 import { SelectionMapPage } from '../../pages/selection-map/selection-map.page';
-import { UserIdService } from '../../core/user-id.service';
+import { UserService } from '../../core/user.service';
 import { User } from '../User';
 
 @Component({
@@ -30,9 +30,10 @@ export class ParkingDataComponent implements OnInit {
     private formBuilder: FormBuilder,
     private parkingService: ParkingService,
     private modalController: ModalController,
-    private userService: UserIdService
+    private userService: UserService
   ) {}
   ngOnInit() {
+    console.log('pizza');
     this.parkingData = this.formBuilder.group({
       direction: ['', Validators.required],
       lng: ['', Validators.required],
@@ -44,7 +45,7 @@ export class ParkingDataComponent implements OnInit {
       pricePerDay: 0,
     });
     let id: number;
-    this.userService.id.subscribe((idUser) => (id = idUser));
+    this.userService.user.subscribe((idUser) => (id = idUser.id));
     this.userService.getUser(id).subscribe((user) => (this.user = user));
 
     if (this.type === 'editar') {

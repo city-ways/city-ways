@@ -24,6 +24,15 @@ export class ParkingFormPage implements OnInit {
   // @Output() actionsFinish: EventEmitter<boolean> = new EventEmitter<boolean>();
   parkingData: FormGroup;
   pageTitle: string;
+  daysOfWeek = [
+    'Lunes',
+    'Martes',
+    'Miércoles',
+    'Jueves',
+    'Viernes',
+    'Sábado',
+    'Domingo',
+  ];
   private user: User;
   constructor(
     private formBuilder: FormBuilder,

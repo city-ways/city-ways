@@ -44,7 +44,7 @@
         >
           <div [formGroup]="inputData">
             <ion-item>
-              <ion-label>Parking disponible</ion-label>
+              <ion-label>Dias disponible:</ion-label>
               <ion-button color="danger" (click)="deleteInput(i)">
                 <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
               </ion-button>
@@ -79,7 +79,7 @@
           >
             <div [formGroup]="ranges">
               <ion-item>
-                <ion-label>Parking disponible</ion-label>
+                <ion-label>{{daysOfWeek[i]}}:</ion-label>
                 <ion-button color="danger" (click)="deleteInput(i)">
                   <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
                 </ion-button>

@@ -21,7 +21,7 @@ import { SelectionMapPage } from '../../pages/selection-map/selection-map.page';
 export class ParkingFormPage implements OnInit {
   @Input() type: string;
   @Input() data: Parking;
-  @Output() actionsFinish: EventEmitter<boolean> = new EventEmitter<boolean>();
+  // @Output() actionsFinish: EventEmitter<boolean> = new EventEmitter<boolean>();
   parkingData: FormGroup;
   pageTitle: string;
   private user: User;
@@ -64,16 +64,22 @@ export class ParkingFormPage implements OnInit {
 
   // dynamic controls
   addPriceInput() {
-    console.log('tipo:', this.getTypeParking());
-    (this.getTypeParking()
-      ? this.getDaysRangesInputs()
-      : this.getHoursRangesInputs()
-    ).push(
-      this.formBuilder.group({
-        start: ['', Validators.required],
-        end: ['', Validators.required],
-      })
-    );
+    const hrInputs = this.getHoursRangesInputs();
+    const dayInputs = this.getDaysRangesInputs();
+    const inputGroup = this.formBuilder.group({
+      start: ['', Validators.required],
+      end: ['', Validators.required],
+    });
+    if (!this.getTypeParking()) {
+      //parking type: short time
+      if (hrInputs.length < 7) {
+        hrInputs.push(inputGroup);
+      }
+    } else {
+      if (dayInputs.length < 1) {
+        dayInputs.push(inputGroup);
+      }
+    }
   }
   deleteInput(i: number) {
     (this.getTypeParking()
@@ -114,7 +120,7 @@ export class ParkingFormPage implements OnInit {
             .subscribe((pk) => console.log('Parking creado', pk));
         }
         // close form
-        this.emitFinishEvent();
+        this.exit();
         console.log(this.parkingData.value);
       }
     } else {
@@ -166,12 +172,12 @@ export class ParkingFormPage implements OnInit {
   deleteCurrentParking() {
     this.parkingService
       .deleteParking(this.data.id)
-      .subscribe((e) => this.emitFinishEvent());
+      .subscribe((e) => this.exit());
   }
 
-  emitFinishEvent() {
-    this.actionsFinish.emit(true);
-  }
+  // emitFinishEvent() {
+  //   this.actionsFinish.emit(true);
+  // }
   exit() {
     this.modalController.dismiss();
   }

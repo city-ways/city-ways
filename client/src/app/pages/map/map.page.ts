@@ -6,6 +6,10 @@ import { ModalController, ViewWillEnter } from '@ionic/angular';
 import { BookingParkingPage } from '../booking-parking/booking-parking.page';
 import { MapService } from '../../core/map.service';
 import { Router } from '@angular/router';
+import { UserService } from '../../core/user.service';
+import { filter, mergeMap, switchMap } from 'rxjs/operators';
+import { data } from 'autoprefixer';
+import { SplashScreen } from '@capacitor/splash-screen';
 
 @Component({
   selector: 'app-map',
@@ -21,7 +25,8 @@ export class MapPage implements OnInit {
   constructor(
     private parkingService: ParkingService,
     private modalController: ModalController,
-    private mapService: MapService
+    private mapService: MapService,
+    private userService: UserService
   ) {}
 
   ngOnInit() {
@@ -73,6 +78,7 @@ export class MapPage implements OnInit {
     });
     console.log(this.locationUser);
   }
+
   async showModal(id: number) {
     const modal = await this.modalController.create({
       component: BookingParkingPage,

@@ -8,11 +8,6 @@ import { AuthGuard } from './auth.guard';
 @NgModule({
   declarations: [],
   imports: [CommonModule],
-  providers: [
-    ParkingService,
-    UserService,
-    AuthInterceptorInterceptor,
-    AuthGuard,
-  ],
+  providers: [ParkingService, AuthInterceptorInterceptor, AuthGuard],
 })
 export class CoreModule {}

@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { UserService } from './user.service';
 import { User } from '../shared/User';
+import { filter } from 'rxjs/operators';
+import { data } from 'autoprefixer';
+import { SplashScreen } from '@capacitor/splash-screen';
 
 @Injectable()
 export class JwtTokenProviderService {
@@ -32,7 +35,12 @@ export class JwtTokenProviderService {
           localStorage.removeItem('auth_token');
         }
       }
-      resolve(true);
+      this.userService.user
+        .pipe(filter((value) => value !== null))
+        .subscribe((data) => {
+          resolve(true);
+        });
+
       // reject('Invalid Token');
     });
   }

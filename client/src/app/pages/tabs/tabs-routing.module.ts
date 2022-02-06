@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { TabsPage } from './tabs.page';
+import { ActiveGuardGuard } from '../../core/active-guard.guard';
 
 const routes: Routes = [
   {
@@ -10,6 +11,7 @@ const routes: Routes = [
     children: [
       {
         path: 'panel',
+        canActivate: [ActiveGuardGuard],
         children: [
           {
             path: '',
@@ -22,6 +24,7 @@ const routes: Routes = [
       },
       {
         path: 'mapa',
+        canActivate: [ActiveGuardGuard],
         children: [
           {
             path: '',

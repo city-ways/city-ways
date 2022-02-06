@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ParkingDataService } from '../../core/parking-data.service';
 import { UserService } from '../../core/user.service';
 import { Parking } from '../../shared/parking';
 import { ModalController } from '@ionic/angular';
-import { EditParkingPage } from 'src/app/pages/edit-parking/edit-parking.page';
-import { AddParkingPage } from '../../pages/add-parking/add-parking.page';
 import { ParkingListInfoPage } from '../../shared/parking-list-info/parking-list-info.page';
+import { ParkingFormPage } from '../../shared/parking-form/parking-form.page';
+import { filter, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-quick-actions',
@@ -15,6 +15,7 @@ import { ParkingListInfoPage } from '../../shared/parking-list-info/parking-list
 export class QuickActionsComponent implements OnInit {
   idUser: number;
   parkingsOfUser: Parking[];
+
   constructor(
     private userService: UserService,
     public modalController: ModalController,
@@ -22,21 +23,15 @@ export class QuickActionsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // get the id of the user
-    this.userService.user.subscribe((user) => {
-      this.idUser = user.id;
-      console.log(user);
-    });
-    //get all parkings of the user
-    this.userService.getUser(this.idUser).subscribe((user) => {
-      this.parkingsOfUser = user.owns;
-    });
-
-    // this.parkingDataService.parking.subscribe((value) => {
-    //   if (value != null) {
-    //     this.showModalPage();
-    //   }
-    // });
+    this.userService.user
+      .pipe(
+        filter((value) => value !== null),
+        switchMap((user) => this.userService.getUser(user.id))
+      )
+      .subscribe((res) => {
+        this.idUser = res.id;
+        this.parkingsOfUser = res.owns;
+      });
   }
   showModal() {
     console.log('owns-->', this.parkingsOfUser);
@@ -49,10 +44,11 @@ export class QuickActionsComponent implements OnInit {
 
   async showModalPage(parking?: Parking | null, create?: boolean) {
     const modal = await this.modalController.create({
-      component: create ? AddParkingPage : EditParkingPage,
+      component: ParkingFormPage,
       componentProps: {
+        type: create ? 'crear' : 'editar',
         user: this.idUser,
-        parking,
+        data: create ? null : parking,
       },
     });
     return await modal.present();

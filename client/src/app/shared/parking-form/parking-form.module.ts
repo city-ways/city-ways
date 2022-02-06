@@ -4,20 +4,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AddParkingPageRoutingModule } from './add-parking-routing.module';
+import { ParkingFormPageRoutingModule } from './parking-form-routing.module';
 
-import { AddParkingPage } from './add-parking.page';
-import { SharedModule } from '../../shared/shared.module';
+import { ParkingFormPage } from './parking-form.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AddParkingPageRoutingModule,
-    SharedModule,
+    ParkingFormPageRoutingModule,
     ReactiveFormsModule,
   ],
-  declarations: [AddParkingPage],
+  declarations: [ParkingFormPage],
 })
-export class AddParkingPageModule {}
+export class ParkingFormPageModule {}

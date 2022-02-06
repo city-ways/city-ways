@@ -23,6 +23,7 @@ export class UserService {
 
   public updateUser(mail: string) {
     const param = new HttpParams().append('mail', mail);
+    console.log(mail);
     this.http
       .get<User>(this.url, { params: param })
       .subscribe((data) => this.idSource.next(data));

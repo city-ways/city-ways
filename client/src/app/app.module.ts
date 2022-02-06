@@ -9,12 +9,18 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { JwtTokenProviderService } from './core/jwt-token-provider.service';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import {
+  HTTP_INTERCEPTORS,
+  HttpClient,
+  HttpClientModule,
+} from '@angular/common/http';
 import { AuthInterceptorInterceptor } from './core/auth-interceptor.interceptor';
 import { UserService } from './core/user.service';
+import { SplashScreen } from '@capacitor/splash-screen';
 
-export const jwtCheckOnRun = (token: JwtTokenProviderService) => () =>
+export const jwtCheckOnRun = (token: JwtTokenProviderService) => () => {
   token.load();
+};
 
 @NgModule({
   declarations: [AppComponent],

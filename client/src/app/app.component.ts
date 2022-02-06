@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ParkingService } from './core/parking.service';
+import { SplashScreen } from '@capacitor/splash-screen';
 
 @Component({
   selector: 'app-root',

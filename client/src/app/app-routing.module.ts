@@ -40,6 +40,10 @@ const routes: Routes = [
       import('./pages/login/login.module').then((m) => m.LoginPageModule),
   },
   { path: '**', redirectTo: '/app/mapa', pathMatch: 'full' },
+  {
+    path: 'parking-form',
+    loadChildren: () => import('./shared/parking-form/parking-form.module').then( m => m.ParkingFormPageModule)
+  },
 ];
 
 @NgModule({

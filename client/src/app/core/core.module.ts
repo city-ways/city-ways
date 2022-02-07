@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ParkingService } from './parking.service';
-import { HttpClientModule } from '@angular/common/http';
-import { UserIdService } from './user-id.service';
+import { UserService } from './user.service';
+import { AuthInterceptorInterceptor } from './auth-interceptor.interceptor';
+import { AuthGuard } from './auth.guard';
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, HttpClientModule],
-  providers: [ParkingService, UserIdService],
+  imports: [CommonModule],
+  providers: [ParkingService, AuthInterceptorInterceptor, AuthGuard],
 })
 export class CoreModule {}

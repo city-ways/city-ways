@@ -1,7 +1,12 @@
 ion-button {
   display: inline-block;
 }
-#scroll {
+.scroll {
   overflow: auto;
   white-space: nowrap;
+}
+ion-skeleton-text {
+  border-radius: 64px;
+  height: 35px;
+  width: auto;
 }

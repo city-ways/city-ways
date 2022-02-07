@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UserIdService } from '../../core/user-id.service';
+import { UserService } from '../../core/user.service';
+import { AuthService } from '../../core/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-actions',
@@ -8,7 +10,12 @@ import { UserIdService } from '../../core/user-id.service';
 })
 export class UserActionsComponent implements OnInit {
   public name: string;
-  constructor(private userService: UserIdService) {}
+  constructor(private authService: AuthService, private router: Router) {}
   // todo: refactorizar con el servico de usurios
   ngOnInit() {}
+
+  logOut() {
+    this.authService.logout();
+    this.router.navigate(['/home']);
+  }
 }

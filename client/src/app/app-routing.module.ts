@@ -1,28 +1,48 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { LoginPageModule } from './pages/login/login.module';
+import { AuthGuard } from './core/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home/mapa',
+    redirectTo: '/home',
     pathMatch: 'full',
   },
   {
-    path: 'home',
+    path: 'app',
+    canLoad: [AuthGuard],
     loadChildren: () =>
       import('./pages/tabs/tabs.module').then((m) => m.TabsPageModule),
   },
   {
-    path: 'dashboard',
+    path: 'home',
     loadChildren: () =>
-      import('./pages/dashboard/dashboard.module').then(
-        (m) => m.DashboardPageModule
-      ),
+      import('./pages/home/home.module').then((m) => m.HomePageModule),
   },
+  // {
+  //   path: 'dashboard',
+  //   canLoad: [AuthGuard],
+  //   loadChildren: () =>
+  //     import('./pages/dashboard/dashboard.module').then(
+  //       (m) => m.DashboardPageModule
+  //     ),
+  // },
+  // {
+  //   path: 'map',
+  //   canLoad: [AuthGuard],
+  //   loadChildren: () =>
+  //     import('./pages/map/map.module').then((m) => m.MapPageModule),
+  // },
   {
-    path: 'map',
+    path: 'login',
     loadChildren: () =>
-      import('./pages/map/map.module').then((m) => m.MapPageModule),
+      import('./pages/login/login.module').then((m) => m.LoginPageModule),
+  },
+  { path: '**', redirectTo: '/app/mapa', pathMatch: 'full' },
+  {
+    path: 'parking-form',
+    loadChildren: () => import('./shared/parking-form/parking-form.module').then( m => m.ParkingFormPageModule)
   },
 ];
 

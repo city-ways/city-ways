@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Parking } from '../parking';
 import {
   FormArray,
   FormBuilder,
@@ -6,25 +7,32 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { ParkingService } from 'src/app/core/parking.service';
-import { Parking } from '../parking';
-
-import { ModalController } from '@ionic/angular';
-import { SelectionMapPage } from '../../pages/selection-map/selection-map.page';
-import { UserService } from '../../core/user.service';
 import { User } from '../User';
+import { ParkingService } from '../../core/parking.service';
+import { ModalController } from '@ionic/angular';
+import { UserService } from '../../core/user.service';
+import { SelectionMapPage } from '../../pages/selection-map/selection-map.page';
 
 @Component({
-  selector: 'app-parking-data',
-  templateUrl: './parking-data.component.html',
-  styleUrls: ['./parking-data.component.scss'],
+  selector: 'app-parking-form',
+  templateUrl: './parking-form.page.html',
+  styleUrls: ['./parking-form.page.scss'],
 })
-export class ParkingDataComponent implements OnInit {
+export class ParkingFormPage implements OnInit {
   @Input() type: string;
   @Input() data: Parking;
-  @Output() actionsFinish: EventEmitter<boolean> = new EventEmitter<boolean>();
+  // @Output() actionsFinish: EventEmitter<boolean> = new EventEmitter<boolean>();
   parkingData: FormGroup;
   pageTitle: string;
+  daysOfWeek = [
+    'Lunes',
+    'Martes',
+    'Miércoles',
+    'Jueves',
+    'Viernes',
+    'Sábado',
+    'Domingo',
+  ];
   private user: User;
   constructor(
     private formBuilder: FormBuilder,
@@ -65,16 +73,22 @@ export class ParkingDataComponent implements OnInit {
 
   // dynamic controls
   addPriceInput() {
-    console.log('tipo:', this.getTypeParking());
-    (this.getTypeParking()
-      ? this.getDaysRangesInputs()
-      : this.getHoursRangesInputs()
-    ).push(
-      this.formBuilder.group({
-        start: ['', Validators.required],
-        end: ['', Validators.required],
-      })
-    );
+    const hrInputs = this.getHoursRangesInputs();
+    const dayInputs = this.getDaysRangesInputs();
+    const inputGroup = this.formBuilder.group({
+      start: ['', Validators.required],
+      end: ['', Validators.required],
+    });
+    if (!this.getTypeParking()) {
+      //parking type: short time
+      if (hrInputs.length < 7) {
+        hrInputs.push(inputGroup);
+      }
+    } else {
+      if (dayInputs.length < 1) {
+        dayInputs.push(inputGroup);
+      }
+    }
   }
   deleteInput(i: number) {
     (this.getTypeParking()
@@ -115,7 +129,7 @@ export class ParkingDataComponent implements OnInit {
             .subscribe((pk) => console.log('Parking creado', pk));
         }
         // close form
-        this.emitFinishEvent();
+        this.exit();
         console.log(this.parkingData.value);
       }
     } else {
@@ -167,11 +181,14 @@ export class ParkingDataComponent implements OnInit {
   deleteCurrentParking() {
     this.parkingService
       .deleteParking(this.data.id)
-      .subscribe((e) => this.emitFinishEvent());
+      .subscribe((e) => this.exit());
   }
 
-  emitFinishEvent() {
-    this.actionsFinish.emit(true);
+  // emitFinishEvent() {
+  //   this.actionsFinish.emit(true);
+  // }
+  exit() {
+    this.modalController.dismiss();
   }
 
   castToParking(object: any): Parking {

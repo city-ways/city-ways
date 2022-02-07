@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { TabsPage } from './tabs.page';
+import { ActiveGuardGuard } from '../../core/active-guard.guard';
 
 const routes: Routes = [
   {
@@ -10,6 +11,7 @@ const routes: Routes = [
     children: [
       {
         path: 'panel',
+        canActivate: [ActiveGuardGuard],
         children: [
           {
             path: '',
@@ -18,24 +20,11 @@ const routes: Routes = [
                 (m) => m.DashboardPageModule
               ),
           },
-          {
-            path: 'new-parking',
-            loadChildren: () =>
-              import('../add-parking/add-parking.module').then(
-                (m) => m.AddParkingPageModule
-              ),
-          },
-          {
-            path: 'edit/:id',
-            loadChildren: () =>
-              import('../edit-parking/edit-parking.module').then(
-                (m) => m.EditParkingPageModule
-              ),
-          },
         ],
       },
       {
         path: 'mapa',
+        canActivate: [ActiveGuardGuard],
         children: [
           {
             path: '',

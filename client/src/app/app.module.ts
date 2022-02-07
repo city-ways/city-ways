@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { RouteReuseStrategy } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -8,7 +8,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { BrowserModule } from '@angular/platform-browser';
-import { BookingParkingPageModule } from './pages/booking-parking/booking-parking.module';
+import { JwtTokenProviderService } from './core/jwt-token-provider.service';
+import {
+  HTTP_INTERCEPTORS,
+  HttpClient,
+  HttpClientModule,
+} from '@angular/common/http';
+import { AuthInterceptorInterceptor } from './core/auth-interceptor.interceptor';
+import { UserService } from './core/user.service';
+
+export const jwtCheckOnRun = (token: JwtTokenProviderService) => () => {
+  token.load();
+};
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,10 +28,26 @@ import { BookingParkingPageModule } from './pages/booking-parking/booking-parkin
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
+    HttpClientModule,
     CoreModule,
     SharedModule,
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [
+    JwtTokenProviderService,
+    UserService,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: jwtCheckOnRun,
+      multi: true,
+      deps: [JwtTokenProviderService, UserService],
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

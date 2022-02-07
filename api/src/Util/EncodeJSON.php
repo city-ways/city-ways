@@ -142,9 +142,10 @@ class EncodeJSON
     //Returns an encoded JSON array of all users that had used by a given parking id -- Params: $history is an array of objects of type History
     public static function EncodeParkingHistory(History $history, Parkings $parking) : array {
         $parkingHistoryEncode = [];
+        $total = 0;
         foreach ($history as $historyItem){
+            $total += $historyItem->getPrice();
             $tmpHistoryItem = [
-                "parking" => self::EncodeParking($parking),
                 "id" => $historyItem->getId(),
                 "price" => $historyItem->getPrice(),
                 "date" => $historyItem->getDate(),
@@ -152,7 +153,11 @@ class EncodeJSON
             ];
             $parkingHistoryEncode[] = $tmpHistoryItem;
         }
-        return $parkingHistoryEncode;
+        return [
+            "parking" => self::EncodeParking($parking),
+            "uses" => $parkingHistoryEncode,
+            "totalEarned" => $total
+        ];
     }
 
     public static function DecodeHistory($historyJSON): History{

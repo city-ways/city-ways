@@ -1,25 +1,36 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>{{parking?.direction }}</ion-title>
-  </ion-toolbar>
+  <div class="scroll" *ngIf="parking; else load">
+    <ion-toolbar>
+      <ion-title>{{parking?.direction }}</ion-title>
+    </ion-toolbar>
+  </div>
+  <ng-template #load class="scroll">
+    <ion-skeleton-text animated></ion-skeleton-text>
+  </ng-template>
 </ion-header>
 
 <ion-content>
-  <form [formGroup]="formBook" (ngSubmit)="send()">
-    <ion-item>
-      <ion-label>Inicio</ion-label>
-      <ion-input [type]="inputType" formControlName="startPeriod"> </ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>Fin</ion-label>
-      <ion-input [type]="inputType" formControlName="endPeriod"> </ion-input>
-    </ion-item>
-    <ion-button
-      type="submit"
-      expand="full"
-      color="primary"
-      class="ion-margin-top"
-      >Reservar</ion-button
-    >
-  </form>
+  <div class="scroll" *ngIf="parking; else load">
+    <form [formGroup]="formBook" (ngSubmit)="send()">
+      <ion-item>
+        <ion-label>Inicio</ion-label>
+        <ion-input [type]="inputType" formControlName="startPeriod">
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Fin</ion-label>
+        <ion-input [type]="inputType" formControlName="endPeriod"> </ion-input>
+      </ion-item>
+      <ion-button
+        type="submit"
+        expand="full"
+        color="primary"
+        class="ion-margin-top"
+        >Reservar</ion-button
+      >
+    </form>
+  </div>
+  <ng-template #load class="scroll">
+    <ion-skeleton-text animated></ion-skeleton-text>
+  </ng-template>
 </ion-content>

@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 import { UserService } from '../../core/user.service';
 import { filter, mergeMap, switchMap } from 'rxjs/operators';
 import { data } from 'autoprefixer';
-import { SplashScreen } from '@capacitor/splash-screen';
 
 @Component({
   selector: 'app-map',

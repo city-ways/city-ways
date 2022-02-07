@@ -4,7 +4,6 @@ import { UserService } from './user.service';
 import { User } from '../shared/User';
 import { filter } from 'rxjs/operators';
 import { data } from 'autoprefixer';
-import { SplashScreen } from '@capacitor/splash-screen';
 
 @Injectable()
 export class JwtTokenProviderService {

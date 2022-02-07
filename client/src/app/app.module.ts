@@ -16,7 +16,6 @@ import {
 } from '@angular/common/http';
 import { AuthInterceptorInterceptor } from './core/auth-interceptor.interceptor';
 import { UserService } from './core/user.service';
-import { SplashScreen } from '@capacitor/splash-screen';
 
 export const jwtCheckOnRun = (token: JwtTokenProviderService) => () => {
   token.load();

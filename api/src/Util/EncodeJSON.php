@@ -4,6 +4,7 @@ namespace App\Util;
 
 use App\Entity\Coordinates;
 use App\Entity\DatesAvailable;
+use App\Entity\History;
 use App\Entity\Parkings;
 use App\Entity\TimesAvailable;
 use App\Entity\Users;
@@ -123,4 +124,49 @@ class EncodeJSON
         return $user;
     }
 
+    //Returns an encoded JSON array of all parkings used by a given user Id -- Params: $history is an array of objects of type History
+    public static function EncodeUserHistory($history): array {
+        $userHistoryEncode = [];
+        foreach ($history as $historyItem){
+            $tmpHistoryItem = [
+                "id" => $historyItem->getId(),
+                "price" => $historyItem->getPrice(),
+                "date" => $historyItem->getDate(),
+                "parking" => self::EncodeParking($historyItem->getParking())
+            ];
+            $userHistoryEncode[] = $tmpHistoryItem;
+        }
+        return $userHistoryEncode;
+    }
+
+    //Returns an encoded JSON array of all users that had used by a given parking id -- Params: $history is an array of objects of type History
+    public static function EncodeParkingHistory($history, Parkings $parking) : array {
+        $parkingHistoryEncode = [];
+        $total = 0;
+        foreach ($history as $historyItem){
+            $total += $historyItem->getPrice();
+            $tmpHistoryItem = [
+                "id" => $historyItem->getId(),
+                "price" => $historyItem->getPrice(),
+                "date" => $historyItem->getDate(),
+                "user" => self::EncodeUser($historyItem->getClientUser())
+            ];
+            $parkingHistoryEncode[] = $tmpHistoryItem;
+        }
+        return [
+            "parking" => self::EncodeParking($parking),
+            "uses" => $parkingHistoryEncode,
+            "totalEarned" => $total
+        ];
+    }
+
+    public static function DecodeHistory($historyJSON): History{
+        $history = new History();
+        $history_stdClass = $historyJSON;
+
+        $history->setDate($history_stdClass->date);
+        $history->setPrice($history_stdClass->price);
+
+        return $history;
+    }
 }

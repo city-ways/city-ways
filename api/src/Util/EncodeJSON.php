@@ -125,7 +125,7 @@ class EncodeJSON
     }
 
     //Returns an encoded JSON array of all parkings used by a given user Id -- Params: $history is an array of objects of type History
-    public static function EncodeUserHistory(History $history): array {
+    public static function EncodeUserHistory($history): array {
         $userHistoryEncode = [];
         foreach ($history as $historyItem){
             $tmpHistoryItem = [
@@ -140,7 +140,7 @@ class EncodeJSON
     }
 
     //Returns an encoded JSON array of all users that had used by a given parking id -- Params: $history is an array of objects of type History
-    public static function EncodeParkingHistory(History $history, Parkings $parking) : array {
+    public static function EncodeParkingHistory($history, Parkings $parking) : array {
         $parkingHistoryEncode = [];
         $total = 0;
         foreach ($history as $historyItem){

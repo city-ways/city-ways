@@ -22,7 +22,7 @@ class HistoryController extends AbstractController
         $this->validator = $validator;
     }
     /**
-     * @Route("/history/{userId}", name="userHistory")
+     * @Route("/api/history/{userId}", name="userHistory", methods={"GET"}, requirements={"id": "\d+"})
      */
     public function userHistory(int $userId): Response
     {
@@ -35,7 +35,7 @@ class HistoryController extends AbstractController
         return $this->json($data);
     }
     /**
-     * @Route("/history/parking/{parkingId}", name="parkingHistory")
+     * @Route("/api/history/parking/{parkingId}", name="parkingHistory", methods={"GET"}, requirements={"parkingId": "\d+"})
      */
     public function parkingHistory(int $parkingId): Response
     {
@@ -48,7 +48,7 @@ class HistoryController extends AbstractController
         return $this->json($data);
     }
     /**
-     * @Route("/history", name="createHistory", methods="POST")
+     * @Route("/api/history", name="createHistory", methods="POST")
      */
     public function createHistory(Request $request){
         $data = $request->getContent();

@@ -5,15 +5,20 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <!--    <ion-searchbar showCancelButton="focus"></ion-searchbar>-->
-    <ion-item
-      *ngFor="let parking of parkingList; let position = index"
-      button="true"
-      (click)="clickParking(position)"
-    >
-      <ion-icon name="location-outline" class="ion-margin-end"></ion-icon>
-      <ion-label>{{parking.direction}}</ion-label>
-    </ion-item>
-  </ion-list>
+  <div class="scroll" *ngIf="parkingList; else load">
+    <ion-list>
+      <!--    <ion-searchbar showCancelButton="focus"></ion-searchbar>-->
+      <ion-item
+        *ngFor="let parking of parkingList; let position = index"
+        button="true"
+        (click)="clickParking(position)"
+      >
+        <ion-icon name="location-outline" class="ion-margin-end"></ion-icon>
+        <ion-label>{{parking.direction}}</ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+  <ng-template #load class="scroll">
+    <ion-skeleton-text animated></ion-skeleton-text>
+  </ng-template>
 </ion-content>

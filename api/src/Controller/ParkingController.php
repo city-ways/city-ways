@@ -90,10 +90,12 @@ class ParkingController extends AbstractController
         $data = $request->getContent();
         $entityManager = $this->doctrine->getManager();
         $parking = $entityManager->getRepository(Parkings::class)->find($id);
-        $this->denyAccessUnlessGranted('edit', $parking);
         if (!$parking) {
             return $this->json("No parking found for id: $id", 404);
         }
+
+        $this->denyAccessUnlessGranted('edit', $parking);
+
         $parkingDecode = json_decode($data);
         $updateParking = EncodeJSON::DecodeParking($parkingDecode, $parking, true);
 

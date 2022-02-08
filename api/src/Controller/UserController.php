@@ -71,6 +71,8 @@ class UserController extends AbstractController
         if (!$user) {
             return $this->json("No user found for id: $id", 404);
         }
+        $this->denyAccessUnlessGranted("edit", $user);
+
         $userDecode = json_decode($data);
         $updateUser = EncodeJSON::DecodeUser($userDecode, false, true, $user);
         $errors = $this->validator->validate($updateUser);
@@ -97,6 +99,7 @@ class UserController extends AbstractController
         if (!$user) {
             return $this->json("No user found for id: $id", 404);
         }
+        $this->denyAccessUnlessGranted("edit", $user);
 
         $entityManager->remove($user);
         $entityManager->flush();

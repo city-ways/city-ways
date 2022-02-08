@@ -94,7 +94,7 @@ class ParkingController extends AbstractController
             return $this->json("No parking found for id: $id", 404);
         }
 
-        $this->denyAccessUnlessGranted('edit', $parking);
+        $this->denyAccessUnlessGranted("edit", $parking);
 
         $parkingDecode = json_decode($data);
         $updateParking = EncodeJSON::DecodeParking($parkingDecode, $parking, true);

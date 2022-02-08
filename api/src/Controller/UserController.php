@@ -16,10 +16,14 @@ class UserController extends AbstractController
 {
     private $doctrine;
     private $validator;
-    public function __construct(ManagerRegistry $doctrine, ValidatorInterface $validator)
+    private $jwtManager;
+    private $tokenStorageInterface;
+    public function __construct(ManagerRegistry $doctrine, ValidatorInterface $validator, TokenStorageInterface $tokenStorageInterface, JWTTokenManagerInterface $jwtManager)
     {
         $this->doctrine = $doctrine;
         $this->validator = $validator;
+        $this->jwtManager = $jwtManager;
+        $this->tokenStorageInterface = $tokenStorageInterface;
     }
     /**
      * @Route("/api/user/{id}", name="user", methods={"GET"}, requirements={"id": "\d+"})
@@ -54,12 +58,14 @@ class UserController extends AbstractController
         return $this->json($data);
     }
 
+
     /**
      * @Route("/api/user/{id}", name="updateUser", methods={"PUT"}, requirements={"id": "\d+"})
      */
     public function updateUser(int $id, Request $request): Response
     {
         $data = $request->getContent();
+        $decodedJwtToken = $this->jwtManager->decode($this->tokenStorageInterface->getToken());
         // update user info, no password change
         $entityManager = $this->doctrine->getManager();
         $user = $entityManager->getRepository(Users::class)->find($id);

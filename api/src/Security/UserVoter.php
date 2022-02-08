@@ -8,11 +8,9 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Security;
 
-class ParkingVoter extends Voter
+class UserVoter extends Voter
 {
-    /*
-     *
-     */
+
     const VIEW = 'view';
     const EDIT = 'edit';
 
@@ -29,7 +27,7 @@ class ParkingVoter extends Voter
             return false;
         }
 
-        if (!$subject instanceof Parkings) {
+        if (!$subject instanceof Users) {
             return false;
         }
 
@@ -38,9 +36,9 @@ class ParkingVoter extends Voter
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
-        $user = $token->getUser();
+        $currentUser = $token->getUser();
 
-        if (!$user instanceof Users) {
+        if (!$currentUser instanceof Users) {
             return false;
         }
         // admin can edit all parkings
@@ -48,30 +46,30 @@ class ParkingVoter extends Voter
             return true;
         }
 
-        /** @var Parkings $parkings */
-        $parkings = $subject;
+        /** @var Users $user */
+        $user = $subject;
 
         switch ($attribute) {
             case self::VIEW:
-                return $this->canView($parkings, $user);
+                return $this->canView($user, $currentUser);
             case self::EDIT:
-                return $this->canEdit($parkings, $user);
+                return $this->canEdit($user, $currentUser);
         }
 
         throw new \LogicException('What are you doing??');
     }
 
-    private function canView(Parkings $parkings, Users $user): bool
+    private function canView(Users $affectedUser, Users $user): bool
     {
-        if ($this->canEdit($parkings, $user)) {
+        if ($this->canEdit($affectedUser, $user)) {
             return true;
         }
 
         return false;
     }
 
-    private function canEdit(Parkings $parkings, Users $user): bool
+    private function canEdit(Users $affectedUser, Users $user): bool
     {
-        return $user == $parkings->getOwner()->first();
+        return $user === $affectedUser;
     }
 }

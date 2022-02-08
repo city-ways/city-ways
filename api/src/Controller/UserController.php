@@ -8,7 +8,6 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -16,14 +15,11 @@ class UserController extends AbstractController
 {
     private $doctrine;
     private $validator;
-    private $jwtManager;
-    private $tokenStorageInterface;
-    public function __construct(ManagerRegistry $doctrine, ValidatorInterface $validator, TokenStorageInterface $tokenStorageInterface, JWTTokenManagerInterface $jwtManager)
+
+    public function __construct(ManagerRegistry $doctrine, ValidatorInterface $validator)
     {
         $this->doctrine = $doctrine;
         $this->validator = $validator;
-        $this->jwtManager = $jwtManager;
-        $this->tokenStorageInterface = $tokenStorageInterface;
     }
     /**
      * @Route("/api/user/{id}", name="user", methods={"GET"}, requirements={"id": "\d+"})
@@ -35,6 +31,8 @@ class UserController extends AbstractController
         if (!$user) {
             return $this->json("No user found for id: $id", 404);
         }
+        // return sensitive information about the user, only the user can see their information.
+        $this->denyAccessUnlessGranted("view", $user);
         // return the full information of the user
         $data = EncodeJSON::EncodeUser($user);
 
@@ -43,6 +41,7 @@ class UserController extends AbstractController
 
     /**
      * @Route("/api/user", name="userid", methods={"GET"})
+     * get method can't have body, so the mail is passed by a query
      */
     public function getIdOfUser(Request $request): Response
     {
@@ -65,7 +64,7 @@ class UserController extends AbstractController
     public function updateUser(int $id, Request $request): Response
     {
         $data = $request->getContent();
-        $decodedJwtToken = $this->jwtManager->decode($this->tokenStorageInterface->getToken());
+
         // update user info, no password change
         $entityManager = $this->doctrine->getManager();
         $user = $entityManager->getRepository(Users::class)->find($id);

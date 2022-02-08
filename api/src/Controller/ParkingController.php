@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Entity\Parkings;
 use App\Entity\Users;
+use App\EventListener\JWTDecodedListener;
 use App\Util\EncodeJSON;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -89,7 +90,7 @@ class ParkingController extends AbstractController
         $data = $request->getContent();
         $entityManager = $this->doctrine->getManager();
         $parking = $entityManager->getRepository(Parkings::class)->find($id);
-
+        $this->denyAccessUnlessGranted('edit', $parking);
         if (!$parking) {
             return $this->json("No parking found for id: $id", 404);
         }

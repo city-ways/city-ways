@@ -121,6 +121,7 @@ class ParkingController extends AbstractController
         if (!$parking) {
             return $this->json("No parking found for id: $id", 404);
         }
+        $this->denyAccessUnlessGranted("edit", $parking);
 
         $entityManager->remove($parking);
         $entityManager->flush();

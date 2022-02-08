@@ -3,11 +3,16 @@ security:
         App\Entity\Users:
             algorithm: auto
 
+
     providers:
         entity_provider:
             entity:
                 class: App\Entity\Users
                 property: Mail
+
+    role_hierarchy:
+        ROLE_SUPER_ADMIN: [ ROLE_USER, ROLE_ALLOWED_TO_SWITCH ]
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/

@@ -47,17 +47,23 @@ export class MapPage implements OnInit {
           this.map.setStyle(this.mapLight);
         }
       });
-    this.mapService.getUserLocation().then((data) => {
-      const {
-        coords: { latitude, longitude },
-      } = data;
-      this.map.setCenter([longitude, latitude]);
-
-      new Marker({ color: 'red' })
-        .setLngLat([longitude, latitude])
-        .addTo(this.map);
-    });
-
+    this.mapService
+      .getUserLocation()
+      .then((data) => {
+        const {
+          coords: { latitude, longitude },
+        } = data;
+        this.map.setCenter([longitude, latitude]);
+        new Marker({ color: 'red' })
+          .setLngLat([longitude, latitude])
+          .addTo(this.map);
+      })
+      .catch(() => {
+        this.map.setCenter([-1.6601001, 42.8244985]);
+        new Marker({ color: 'red' })
+          .setLngLat([-1.6601001, 42.8244985])
+          .addTo(this.map);
+      });
     this.map.on('load', () => {
       this.map.resize();
     });

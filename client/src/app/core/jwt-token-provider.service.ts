@@ -37,6 +37,7 @@ export class JwtTokenProviderService {
       this.userService.user
         .pipe(filter((value) => value !== null))
         .subscribe((data) => {
+          console.log('TEST', data);
           resolve(true);
         });
 

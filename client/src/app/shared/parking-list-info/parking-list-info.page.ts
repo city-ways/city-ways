@@ -20,7 +20,7 @@ export class ParkingListInfoPage implements OnInit {
 
   ngOnInit() {
     this.userService
-      .getUser(this.user)
+      .getUser()
       .subscribe((parkingsList) => (this.parkingList = parkingsList.owns));
   }
 

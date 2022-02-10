@@ -11,7 +11,11 @@
         (click)="showModalPage(null, true)"
         >Agregar Parking</ion-button
       >
-      <ion-button class="ion-padding-end" shape="round" (click)="showModal()"
+      <ion-button
+        class="ion-padding-end"
+        shape="round"
+        (click)="showModal()"
+        [disabled]="parkingsOfUser.length === 0"
         >Editar Parking</ion-button
       >
 

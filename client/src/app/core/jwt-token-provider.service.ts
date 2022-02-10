@@ -34,13 +34,7 @@ export class JwtTokenProviderService {
           localStorage.removeItem('auth_token');
         }
       }
-      this.userService.user
-        .pipe(filter((value) => value !== null))
-        .subscribe((data) => {
-          console.log('TEST', data);
-          resolve(true);
-        });
-
+      resolve(true);
       // reject('Invalid Token');
     });
   }

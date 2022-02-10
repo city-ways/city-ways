@@ -16,8 +16,8 @@ export class UserService {
   user = this.idSource.asObservable();
   constructor(private http: HttpClient) {}
 
-  public getUser(id: number): Observable<User> {
-    return this.http.get<User>(`${this.url}/${id}`);
+  public getUser(): Observable<User> {
+    return this.http.get<User>(`${this.url}`);
   }
 
   public updateUser(mail: string) {

@@ -15,7 +15,6 @@ class UserController extends AbstractController
 {
     private $doctrine;
     private $validator;
-
     public function __construct(ManagerRegistry $doctrine, ValidatorInterface $validator)
     {
         $this->doctrine = $doctrine;
@@ -45,12 +44,19 @@ class UserController extends AbstractController
      */
     public function getIdOfUser(Request $request): Response
     {
-        $mail = $request->query->get('mail');
-        $entityManager = $this->doctrine->getManager();
-        $user = $entityManager->getRepository(Users::class)->findOneByMail($mail);
+//        $mail = $request->query->get('mail');
+//        $mail =
+//        $entityManager = $this->doctrine->getManager();
+//        $user = $entityManager->getRepository(Users::class)->findOneByMail($mail);
+//        if (!$user) {
+//            return $this->json("No user found for mail: $mail", 404);
+//        }
+
+        $user = $this->getUser();
         if (!$user) {
-            return $this->json("No user found for mail: $mail", 404);
+            return $this->json("No user found", 404);
         }
+
         // return the full information of the user
         $data = EncodeJSON::EncodeUser($user, true, true);
 

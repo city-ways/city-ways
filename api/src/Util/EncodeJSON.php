@@ -93,7 +93,7 @@ class EncodeJSON
         $userEncode = [
             "id" => $user->getId(),
             "mail" => $user->getMail(),
-            "username" => $user->getName(),
+            "name" => $user->getName(),
         ];
 
         if (!$basicUser) {

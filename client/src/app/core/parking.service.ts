@@ -62,11 +62,9 @@ export class ParkingService {
   }
 
   public createParking(parking: Parking): Observable<Parking> {
-    return this.http
-      .post<Parking>(this.url, parking, {
-        headers: this.headers,
-      })
-      .pipe(catchError(ParkingService.handleError));
+    return this.http.post<Parking>(this.url, parking, {
+      headers: this.headers,
+    });
   }
 
   public deleteParking(id: number): Observable<any> {

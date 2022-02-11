@@ -12,6 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class Admin extends Users
 {
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

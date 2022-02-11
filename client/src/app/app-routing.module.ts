@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { LoginPageModule } from './pages/login/login.module';
 import { AuthGuard } from './core/auth.guard';
+import { share } from 'rxjs/operators';
 
 const routes: Routes = [
   {
@@ -39,11 +40,15 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/login/login.module').then((m) => m.LoginPageModule),
   },
+  {
+    path: 'register',
+    loadChildren: () => import('./shared/register/register.module').then( m => m.RegisterPageModule)
+  },
   { path: '**', redirectTo: '/app/mapa', pathMatch: 'full' },
   {
     path: 'parking-form',
     loadChildren: () => import('./shared/parking-form/parking-form.module').then( m => m.ParkingFormPageModule)
-  },
+  }
 ];
 
 @NgModule({

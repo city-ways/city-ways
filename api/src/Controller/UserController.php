@@ -39,7 +39,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/api/user", name="users", methods={"GET"})
+     * @Route("/api/users", name="users", methods={"GET"})
      */
     public function allUsers(int $id): Response
     {
@@ -61,7 +61,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/api/users", name="userid", methods={"GET"})
+     * @Route("/api/user", name="userid", methods={"GET"})
      * get method can't have body, so the mail is passed by a query
      */
     public function getIdOfUser(Request $request): Response

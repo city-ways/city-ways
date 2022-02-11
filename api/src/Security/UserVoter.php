@@ -42,7 +42,7 @@ class UserVoter extends Voter
             return false;
         }
         // admin can edit all parkings
-        if ($this->security->isGranted('ROLE_ADMIN')) {
+        if ($this->security->isGranted('ROLE_SUPER_ADMIN')) {
             return true;
         }
 

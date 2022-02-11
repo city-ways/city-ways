@@ -42,6 +42,7 @@ class EncodeJSON
             "daysAvailable" => $datesAvailableData,
             "pricePerHour" => (float)$parking->getPricePerHour(),
             "pricePerDay" => (float)$parking->getPricePerDay(),
+            "owner" => self::EncodeUser($parking->getOwner()->first(), false, true)
         ];
 
 

@@ -3,10 +3,8 @@ import { BehaviorSubject, Observable, ReplaySubject, Subject } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { User } from '../shared/User';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { share } from 'rxjs/operators';
-import { Parking } from '../shared/parking';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 /*
 Para no agregar una libreria para implementar el patron Redux (NgRx) usamos BehaviorSubject de rxjs
  */

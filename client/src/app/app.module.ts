@@ -34,13 +34,12 @@ export const jwtCheckOnRun = (token: JwtTokenProviderService) => () => {
   ],
   providers: [
     JwtTokenProviderService,
-    UserService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: APP_INITIALIZER,
       useFactory: jwtCheckOnRun,
       multi: true,
-      deps: [JwtTokenProviderService, UserService],
+      deps: [JwtTokenProviderService],
     },
     {
       provide: HTTP_INTERCEPTORS,

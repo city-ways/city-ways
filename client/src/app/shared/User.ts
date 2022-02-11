@@ -6,5 +6,5 @@ export interface User {
   name: string;
   dni?: string;
   owns?: Parking[];
-  password?: String;
+  password?: string;
 }

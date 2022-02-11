@@ -5,6 +5,14 @@
 </ion-header>
 
 <ion-content>
+  <ion-item>
+    <ion-label> Tipo: {{parking?.type}} </ion-label>
+    <ion-icon name="cash-outline" size="small" slot="end"></ion-icon>
+  </ion-item>
+  <ion-item>
+    <ion-label> Propietario: {{parking?.owner?.name}} </ion-label>
+    <ion-icon name="cash-outline" size="small" slot="end"></ion-icon>
+  </ion-item>
   <form [formGroup]="formBook" (ngSubmit)="send()">
     <ion-item>
       <ion-label>Inicio</ion-label>
@@ -22,4 +30,8 @@
       >Reservar</ion-button
     >
   </form>
+  <ion-item>
+    <ion-label> Precio Total: </ion-label>
+    <ion-icon name="cash-outline" size="small" slot="end"></ion-icon>
+  </ion-item>
 </ion-content>

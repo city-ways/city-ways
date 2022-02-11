@@ -28,6 +28,7 @@ export class BookingParkingPage implements OnInit {
     this.parkingService.getParkingById(this.id).subscribe((parking) => {
       this.parking = parking;
       this.inputType = parking.type === 'larga estancia' ? 'Date' : 'time';
+      console.log(this.parking);
     });
   }
   send() {

@@ -39,7 +39,29 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/api/user", name="userid", methods={"GET"})
+     * @Route("/api/user", name="users", methods={"GET"})
+     */
+    public function allUsers(int $id): Response
+    {
+        $this->denyAccessUnlessGranted("ROLE_SUPER_ADMIN");
+        $entityManager = $this->doctrine->getManager();
+        $users = $entityManager->getRepository(Users::class)->findAll();
+        if (!$users) {
+            return $this->json("No user found", 404);
+        }
+        // return sensitive information about the user, only the user can see their information.
+//        $this->denyAccessUnlessGranted("view", $user);
+        // return the full information of the user
+        $data[] = [];
+        foreach ($users as $user) {
+            $data[] = EncodeJSON::EncodeUser($user);
+        }
+
+        return $this->json($data);
+    }
+
+    /**
+     * @Route("/api/users", name="userid", methods={"GET"})
      * get method can't have body, so the mail is passed by a query
      */
     public function getIdOfUser(Request $request): Response

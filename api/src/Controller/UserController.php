@@ -41,7 +41,7 @@ class UserController extends AbstractController
     /**
      * @Route("/api/users", name="users", methods={"GET"})
      */
-    public function allUsers(int $id): Response
+    public function allUsers(): Response
     {
         $this->denyAccessUnlessGranted("ROLE_SUPER_ADMIN");
         $entityManager = $this->doctrine->getManager();
@@ -52,7 +52,7 @@ class UserController extends AbstractController
         // return sensitive information about the user, only the user can see their information.
 //        $this->denyAccessUnlessGranted("view", $user);
         // return the full information of the user
-        $data[] = [];
+        $data = [];
         foreach ($users as $user) {
             $data[] = EncodeJSON::EncodeUser($user);
         }

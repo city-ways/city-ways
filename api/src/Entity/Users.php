@@ -13,9 +13,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=UsersRepository::class)
  * @method string getUserIdentifier()
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="rol", type="string")
+ * @ORM\DiscriminatorMap({"user" = "Users", "admin" = "Admin"})
  */
 class Users implements UserInterface, PasswordAuthenticatedUserInterface
 {
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

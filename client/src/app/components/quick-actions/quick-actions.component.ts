@@ -23,19 +23,23 @@ export class QuickActionsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.userService.user
-      .pipe(
-        filter((value) => value !== null),
-        switchMap((user) => this.userService.getUser(user.id))
-      )
-      .subscribe((res) => {
-        this.idUser = res.id;
-        this.parkingsOfUser = res.owns;
-      });
+    // this.userService.user
+    //   .pipe(
+    //     filter((value) => value !== null),
+    //     switchMap((user) => this.userService.getUser(user.id))
+    //   )
+    //   .subscribe((res) => {
+    //     this.idUser = res.id;
+    //     this.parkingsOfUser = res.owns;
+    //   });
+    this.userService.getUser().subscribe((user) => {
+      this.idUser = user.id;
+      this.parkingsOfUser = user.owns;
+    });
   }
   showModal() {
     console.log('owns-->', this.parkingsOfUser);
-    if (this.parkingsOfUser.length !== 1) {
+    if (this.parkingsOfUser.length > 1) {
       this.showModalList();
     } else {
       this.showModalPage(this.parkingsOfUser[0], false);

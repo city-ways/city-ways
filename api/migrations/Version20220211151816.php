@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20220207091256 extends AbstractMigration
+final class Version20220211151816 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -38,7 +38,7 @@ final class Version20220207091256 extends AbstractMigration
         $this->addSql('CREATE TABLE times_available (id INT NOT NULL, parking_id INT DEFAULT NULL, time_ranges TEXT DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_EC0F3465F17B2DD ON times_available (parking_id)');
         $this->addSql('COMMENT ON COLUMN times_available.time_ranges IS \'(DC2Type:simple_array)\'');
-        $this->addSql('CREATE TABLE users (id INT NOT NULL, mail VARCHAR(255) NOT NULL, name VARCHAR(255) NOT NULL, dni VARCHAR(9) NOT NULL, password VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE users (id INT NOT NULL, mail VARCHAR(255) NOT NULL, name VARCHAR(255) NOT NULL, dni VARCHAR(9) NOT NULL, password VARCHAR(255) NOT NULL, rol VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_1483A5E95126AC48 ON users (mail)');
         $this->addSql('CREATE TABLE users_parkings (users_id INT NOT NULL, parkings_id INT NOT NULL, PRIMARY KEY(users_id, parkings_id))');
         $this->addSql('CREATE INDEX IDX_D02D4BA167B3B43D ON users_parkings (users_id)');

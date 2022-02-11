@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, ReplaySubject, Subject } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { User } from '../shared/User';
 import { HttpClient, HttpParams } from '@angular/common/http';
@@ -11,14 +11,13 @@ Para no agregar una libreria para implementar el patron Redux (NgRx) usamos Beha
  */
 export class UserService {
   private url = `${environment.apiUrlBase}/api/user`;
-  private idSource: BehaviorSubject<User> = new BehaviorSubject<User>(null);
+  private idSource: ReplaySubject<User> = new ReplaySubject<User>();
   // eslint-disable-next-line @typescript-eslint/member-ordering
   user = this.idSource.asObservable();
-
   constructor(private http: HttpClient) {}
 
-  public getUser(id: number): Observable<User> {
-    return this.http.get<User>(`${this.url}/${id}`);
+  public getUser(): Observable<User> {
+    return this.http.get<User>(`${this.url}`);
   }
 
   public updateUser(mail: string) {

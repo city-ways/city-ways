@@ -54,7 +54,7 @@ export class ParkingFormPage implements OnInit {
     });
     let id: number;
     this.userService.user.subscribe((idUser) => (id = idUser.id));
-    this.userService.getUser(id).subscribe((user) => (this.user = user));
+    this.userService.getUser().subscribe((user) => (this.user = user));
 
     if (this.type === 'editar') {
       this.loadData(this.data);

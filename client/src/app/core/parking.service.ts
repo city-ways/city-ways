@@ -82,6 +82,10 @@ export class ParkingService {
       })
       .pipe(catchError(ParkingService.handleError));
   }
+
+  public bookAParking(id: number): Observable<any> {
+    return this.http.put<string>(`${this.url}/${id}/book`, null);
+  }
   // todo refactor id
   public getParkingOfUser(idUser: number): Observable<Parking[]> {
     const param = new HttpParams().append('user.id', idUser);

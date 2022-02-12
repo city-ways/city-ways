@@ -13,9 +13,10 @@ export class UserService {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  private idSource: ReplaySubject<User> = new ReplaySubject<User>();
+  private hasBookAParkingSource: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(false);
   // eslint-disable-next-line @typescript-eslint/member-ordering
-  user = this.idSource.asObservable();
+  hasBooking = this.hasBookAParkingSource.asObservable();
   constructor(private http: HttpClient) {}
 
   public getUser(): Observable<User> {

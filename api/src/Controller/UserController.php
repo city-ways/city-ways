@@ -80,7 +80,7 @@ class UserController extends AbstractController
         }
 
         // return the full information of the user
-        $data = EncodeJSON::EncodeUser($user, true, true);
+        $data = EncodeJSON::EncodeUser($user, true, false);
 
         return $this->json($data);
     }

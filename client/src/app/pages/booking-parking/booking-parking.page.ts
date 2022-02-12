@@ -13,9 +13,7 @@ export class BookingParkingPage implements OnInit {
   formBook: FormGroup;
   inputType: string;
   parking: Parking;
-  validRanges: string[];
-  dateValue = '';
-  dateValue2 = '';
+
   constructor(
     private formBuilder: FormBuilder,
     private parkingService: ParkingService,
@@ -28,40 +26,36 @@ export class BookingParkingPage implements OnInit {
       startPeriod: ['', Validators.required],
       endPeriod: ['', Validators.required],
     });
-
     this.parkingService.getParkingById(this.id).subscribe((parking) => {
       this.parking = parking;
-      if (parking.type === 'larga estancia') {
-        this.inputType = 'Date';
-        this.validRanges = [
-          parking.daysAvailable[0].start.toString(),
-          parking.daysAvailable[0].end.toString(),
-        ];
-      } else {
-        this.inputType = 'time';
-        const todayRange = new Date().getDay() - 1;
-        this.validRanges = [
-          parking.timesAvailable[todayRange]?.start?.toString(),
-          parking.timesAvailable[todayRange]?.end?.toString(),
-        ];
-        console.log(todayRange);
-        console.log(parking.timesAvailable);
-      }
-      console.log(this.validRanges);
     });
+
+    // this.parkingService.getParkingById(this.id).subscribe((parking) => {
+    //   this.parking = parking;
+    //   if (parking.type === 'larga estancia') {
+    //     this.inputType = 'Date';
+    //     this.validRanges = [
+    //       parking.daysAvailable[0].start.toString(),
+    //       parking.daysAvailable[0].end.toString(),
+    //     ];
+    //   } else {
+    //     this.inputType = 'time';
+    //     const todayRange = new Date().getDay() - 1;
+    //     this.validRanges = [
+    //       parking.timesAvailable[todayRange]?.start?.toString(),
+    //       parking.timesAvailable[todayRange]?.end?.toString(),
+    //     ];
+    //     console.log(todayRange);
+    //     console.log(parking.timesAvailable);
+    //   }
+    //   console.log(this.validRanges);
+    // });
   }
 
   send() {
-    if (this.formBook.valid) {
-      if (this.formBook.dirty) {
-        const { startPeriod, endPeriod } = this.formBook.value;
-        if (this.inputType === 'time') {
-          const pr = new Date();
-          pr.setTime(startPeriod);
-          console.log(pr);
-        }
-      }
-    }
+    this.parkingService
+      .bookAParking(this.parking.id)
+      .subscribe((res) => console.log(res));
   }
   async presentAlert() {
     const alert = await this.alertController.create({

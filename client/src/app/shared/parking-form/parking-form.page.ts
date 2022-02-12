@@ -52,8 +52,8 @@ export class ParkingFormPage implements OnInit {
       pricePerHour: 0,
       pricePerDay: 0,
     });
-    let id: number;
-    this.userService.user.subscribe((idUser) => (id = idUser.id));
+    // let id: number;
+    // this.userService.user.subscribe((idUser) => (id = idUser.id));
     this.userService.getUser().subscribe((user) => (this.user = user));
 
     if (this.type === 'editar') {

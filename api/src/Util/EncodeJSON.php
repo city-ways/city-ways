@@ -52,6 +52,7 @@ class EncodeJSON
         $parking_stdClass = $parkingJSON;
 
         $parking = $updateMode ? $updateParking : new Parkings();
+
         $parking->setDirection($parking_stdClass->direction);
 
         $cords = new Coordinates();

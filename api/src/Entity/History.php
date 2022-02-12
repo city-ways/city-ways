@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class History
 {
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -38,6 +39,20 @@ class History
      * @ORM\JoinColumn(nullable=false)
      */
     private $Parking;
+
+    /**
+     * @param float $Price
+     * @param $Date
+     * @param $ClientUser
+     * @param $Parking
+     */
+    public function __construct($Date, $ClientUser, $Parking, float $Price = 0.0)
+    {
+        $this->Price = $Price;
+        $this->Date = $Date;
+        $this->ClientUser = $ClientUser;
+        $this->Parking = $Parking;
+    }
 
     public function getId(): ?int
     {

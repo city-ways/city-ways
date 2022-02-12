@@ -71,7 +71,7 @@ class Parkings
     private $Owner;
 
     /**
-     * @ORM\OneToMany(targetEntity=History::class, mappedBy="Parking")
+     * @ORM\OneToMany(targetEntity=History::class, mappedBy="Parking", cascade={"persist"})
      */
     private $History;
 

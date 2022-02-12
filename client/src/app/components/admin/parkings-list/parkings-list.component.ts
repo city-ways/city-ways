@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '../../../shared/User';
+import { UserService } from '../../../core/user.service';
+import { ModalController } from '@ionic/angular';
+import { RegisterPage } from '../../../shared/user-form/register.page';
+import { Parking } from '../../../shared/parking';
+import { ParkingService } from '../../../core/parking.service';
+import { ParkingFormPage } from '../../../shared/parking-form/parking-form.page';
 
 @Component({
   selector: 'app-parkings-list',
@@ -6,9 +13,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./parkings-list.component.scss'],
 })
 export class ParkingsListComponent implements OnInit {
+  public parkings: Parking[];
+  constructor(
+    private parkingService: ParkingService,
+    private modalController: ModalController
+  ) {}
 
-  constructor() { }
-
-  ngOnInit() {}
-
+  ngOnInit() {
+    this.parkingService
+      .getParkings()
+      .subscribe((parkings) => (this.parkings = parkings));
+  }
+  deleteParking(id: number) {
+    this.parkingService.deleteParking(id).subscribe();
+  }
+  async showModalPage(parking?: Parking) {
+    const modal = await this.modalController.create({
+      component: ParkingFormPage,
+      componentProps: {
+        type: 'editar',
+        data: parking,
+      },
+    });
+    return await modal.present();
+  }
 }

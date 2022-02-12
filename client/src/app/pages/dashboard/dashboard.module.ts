@@ -8,6 +8,7 @@ import { QuickActionsComponent } from '../../components/quick-actions/quick-acti
 import { SharedModule } from '../../shared/shared.module';
 import { UserActionsComponent } from '../../components/user-actions/user-actions.component';
 import { AdminModule } from '../../components/admin/admin.module';
+import { HistoryComponent } from '../../components/history/history.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,11 @@ import { AdminModule } from '../../components/admin/admin.module';
     SharedModule,
     AdminModule,
   ],
-  declarations: [DashboardPage, QuickActionsComponent, UserActionsComponent],
+  declarations: [
+    DashboardPage,
+    QuickActionsComponent,
+    UserActionsComponent,
+    HistoryComponent,
+  ],
 })
 export class DashboardPageModule {}

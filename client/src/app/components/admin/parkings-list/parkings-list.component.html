@@ -1,3 +1,29 @@
-<p>
-  parkings-list works!
-</p>
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Parkings:</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    <ion-list *ngIf="parkings; else load">
+      <ng-container *ngFor="let parking of parkings">
+        <ion-item [class]="parking.id === null ? 'ion-hide' : ''">
+          <ion-label>
+            {{ parking.direction }}
+          </ion-label>
+          <ion-button color="warning" (click)="showModalPage(parking)">
+            <ion-icon
+              slot="icon-only"
+              name="information-circle-outline"
+            ></ion-icon>
+          </ion-button>
+          <ion-button color="danger" (click)="deleteParking(parking.id)">
+            <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ng-container>
+    </ion-list>
+    <ng-template #load class="scroll">
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ng-template>
+  </ion-card-content>
+</ion-card>

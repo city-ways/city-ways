@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ParkingService } from '../../core/parking.service';
 import { UserService } from '../../core/user.service';
 import { data } from 'autoprefixer';
+import { AuthService } from '../../core/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,15 +11,18 @@ import { data } from 'autoprefixer';
 })
 export class DashboardPage implements OnInit {
   public editModalIsOpen: boolean;
+  private isAdmin = false;
   constructor(
     private parkingService: ParkingService,
-    private userService: UserService
+    private userService: UserService,
+    private authService: AuthService
   ) {}
   ngOnInit() {
-    this.userService.getUser().subscribe((user) => console.log('DATA', user));
-    // todo: refactorizar
-    // this.userIdService.updateId(2);
-    // this.userIdService.id.subscribe((data) => console.log(data));
+    this.authService.admin.subscribe((role) => (this.isAdmin = role));
+    this.userService.getUser().subscribe((user) => {
+      console.log('DATA', user);
+    });
+    console.log(this.isAdmin);
   }
   newParking() {
     console.log('ff');

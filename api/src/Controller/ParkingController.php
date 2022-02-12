@@ -160,7 +160,9 @@ class ParkingController extends AbstractController
         if (!$parking) {
             return $this->json("No parking found for id: $id", 404);
         }
+        // only the user can book a parking if the user aren't already booking one.
         $this->denyAccessUnlessGranted("book", $parking);
+        // user can book this parking
         $parking->setStatus(!$parking->getStatus());
 
         // when the parking is release, is added to the history

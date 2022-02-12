@@ -9,6 +9,7 @@ import { catchError, map, mapTo, reduce, take, tap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class ParkingService {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   private url = `${environment.apiUrlBase}/api/parkings`;
 

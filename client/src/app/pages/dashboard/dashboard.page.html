@@ -8,7 +8,8 @@
   <app-user-actions></app-user-actions>
   <app-quick-actions *ngIf="!isAdmin else admin"></app-quick-actions>
   <ng-template #admin>
-    <ion-button>holaa</ion-button>
+    <app-users-list></app-users-list>
+    <app-users-list></app-users-list>
   </ng-template>
   <!--  Modals-->
 </ion-content>

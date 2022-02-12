@@ -18,11 +18,8 @@ export class LoginPage implements OnInit {
     const { username, password } = formData.value;
     this.authService.login(username, password).subscribe((response: any) => {
       localStorage.setItem('auth_token', response.token);
-      this.authService.setRole(
-        this.helper.decodeToken(response.token).roles[0]
-      );
+
       this.router.navigate(['app/map']);
     });
-    console.log(formData.value);
   }
 }

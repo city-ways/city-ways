@@ -5,7 +5,6 @@ import { Parking } from '../../shared/parking';
 import { ModalController } from '@ionic/angular';
 import { ParkingListInfoPage } from '../../shared/parking-list-info/parking-list-info.page';
 import { ParkingFormPage } from '../../shared/parking-form/parking-form.page';
-import { filter, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-quick-actions',

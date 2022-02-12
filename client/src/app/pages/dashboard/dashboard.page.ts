@@ -3,6 +3,8 @@ import { ParkingService } from '../../core/parking.service';
 import { UserService } from '../../core/user.service';
 import { data } from 'autoprefixer';
 import { AuthService } from '../../core/auth.service';
+import { filter, switchMap, takeWhile } from 'rxjs/operators';
+import { iif } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,14 +13,21 @@ import { AuthService } from '../../core/auth.service';
 })
 export class DashboardPage implements OnInit {
   public editModalIsOpen: boolean;
-  private isAdmin = false;
+  public isAdmin = false;
   constructor(
     private parkingService: ParkingService,
     private userService: UserService,
     private authService: AuthService
   ) {}
   ngOnInit() {
-    this.authService.admin.subscribe((role) => (this.isAdmin = role));
+    this.authService.admin.subscribe((res) => {
+      console.log('res', res);
+      if (res === undefined) {
+        this.authService.decodeToken();
+      } else {
+        this.isAdmin = res;
+      }
+    });
     this.userService.getUser().subscribe((user) => {
       console.log('DATA', user);
     });

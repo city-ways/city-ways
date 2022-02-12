@@ -6,7 +6,9 @@
 
 <ion-content>
   <app-user-actions></app-user-actions>
-  <app-quick-actions></app-quick-actions>
-
+  <app-quick-actions *ngIf="!isAdmin else admin"></app-quick-actions>
+  <ng-template #admin>
+    <ion-button>holaa</ion-button>
+  </ng-template>
   <!--  Modals-->
 </ion-content>

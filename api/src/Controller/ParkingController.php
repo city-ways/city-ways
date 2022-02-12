@@ -160,20 +160,26 @@ class ParkingController extends AbstractController
         if (!$parking) {
             return $this->json("No parking found for id: $id", 404);
         }
+        $this->denyAccessUnlessGranted("book", $parking);
         $parking->setStatus(!$parking->getStatus());
 
         // when the parking is release, is added to the history
         // false == free, true == a user is using that parking
-        if (!$parking->getStatus()) {
+        // when the user take the parking, history is added
+        if ($parking->getStatus()) {
             $currentDate = new DateTime();
             $strDate = $currentDate->format('Y-m-d');
             $parking->addHistory(new History($strDate, $this->getUser(), $parking));
+        } else {
+            /** @var History $history */
+            $history = $parking->getHistory()->last();
+            $history->setInProgress(false);
         }
         $errors = $this->validator->validate($parking);
         if (count($errors) > 0) {
             return $this->json((string) $errors, 400);
         }
         $entityManager->flush();
-        return $this->json($parking);
+        return $this->json("You are current using the parking $id");
     }
 }

@@ -13,7 +13,7 @@ class ParkingVoter extends Voter
     /*
      *
      */
-    const VIEW = 'view';
+    const BOOK = 'book';
     const EDIT = 'edit';
 
     private $security;
@@ -25,7 +25,7 @@ class ParkingVoter extends Voter
 
     protected function supports(string $attribute, $subject): bool
     {
-        if (!in_array($attribute, [self::VIEW, self::EDIT])) {
+        if (!in_array($attribute, [self::BOOK, self::EDIT])) {
             return false;
         }
 
@@ -52,8 +52,8 @@ class ParkingVoter extends Voter
         $parkings = $subject;
 
         switch ($attribute) {
-            case self::VIEW:
-                return $this->canView($parkings, $user);
+            case self::BOOK:
+                return $this->canBook($parkings, $user);
             case self::EDIT:
                 return $this->canEdit($parkings, $user);
         }
@@ -61,13 +61,16 @@ class ParkingVoter extends Voter
         throw new \LogicException('What are you doing??');
     }
 
-    private function canView(Parkings $parkings, Users $user): bool
+    private function canBook(Parkings $parkings, Users $user): bool
     {
-        if ($this->canEdit($parkings, $user)) {
-            return true;
-        }
+        // only the user can book a parking if the user aren't already booking one.
+        foreach ($user->getHistory() as $history) {
+            if ($history->isInProgress() && $history->getParking()->getId() !== $parkings->getId()) {
+                return false;
+            }
+       }
+        return true;
 
-        return false;
     }
 
     private function canEdit(Parkings $parkings, Users $user): bool

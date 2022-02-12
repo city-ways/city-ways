@@ -14,7 +14,7 @@
         <form [formGroup]="userData" (ngSubmit)="sendForm()">
           <ion-item lines="full" class="ion-margin-vertical">
             <ion-label position="floating">Correo electrónico </ion-label>
-            <ion-input type="email" formControlName="mail"> </ion-input>
+            <ion-input type="email" formControlName="mail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}$"> </ion-input>
           </ion-item>
           <ion-item lines="full" class="ion-margin-vertical">
             <ion-label position="floating">Username </ion-label>
@@ -22,7 +22,7 @@
           </ion-item>
           <ion-item lines="full" class="ion-margin-vertical">
             <ion-label position="floating">DNI </ion-label>
-            <ion-input type="text" formControlName="dni"> </ion-input>
+            <ion-input type="text" formControlName="dni" pattern="[0-9]{8}[A-Za-z]{1}"> </ion-input>
           </ion-item>
           <ion-item lines="full">
             <ion-label position="floating">Contraseña</ion-label>

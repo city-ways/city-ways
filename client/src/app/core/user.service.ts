@@ -22,6 +22,10 @@ export class UserService {
     return this.http.get<User>(`${this.url}`);
   }
 
+  public getAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${environment.apiUrlBase}/api/users`);
+  }
+
   public updateUser(mail: string) {
     const param = new HttpParams().append('mail', mail);
     console.log(mail);

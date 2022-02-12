@@ -15,7 +15,6 @@ import {
   HttpClientModule,
 } from '@angular/common/http';
 import { AuthInterceptorInterceptor } from './core/auth-interceptor.interceptor';
-import { UserService } from './core/user.service';
 
 export const jwtCheckOnRun = (token: JwtTokenProviderService) => () => {
   token.load();

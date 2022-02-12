@@ -1,0 +1,27 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Usuarios:</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    <ion-list *ngIf="users; else load">
+      <ion-item *ngFor="let user of users">
+        <ion-label>
+          {{ user.mail }}
+        </ion-label>
+        <ion-button color="warning">
+          <ion-icon
+            slot="icon-only"
+            name="information-circle-outline"
+          ></ion-icon>
+        </ion-button>
+        <ion-button color="danger">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+    <ng-template #load class="scroll">
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ng-template>
+  </ion-card-content>
+</ion-card>

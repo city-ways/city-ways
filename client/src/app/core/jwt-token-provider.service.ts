@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { UserService } from './user.service';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class JwtTokenProviderService {
   helper = new JwtHelperService();
-  constructor() {}
+  constructor(private authService: AuthService) {}
   // this service is always run before the angular application is started, see app.module.ts for the config
   // checks if the stored token is valid and has not expired
   load(): Promise<boolean> {
@@ -18,12 +18,14 @@ export class JwtTokenProviderService {
         try {
           if (this.helper.isTokenExpired(token) === true) {
             localStorage.removeItem('auth_token');
+          } else {
+            resolve(true);
           }
         } catch (exception) {
           localStorage.removeItem('auth_token');
         }
       }
-      resolve(true);
+      resolve(false);
       // reject('Invalid Token');
     });
   }

@@ -7,6 +7,7 @@ import { DashboardPage } from './dashboard.page';
 import { QuickActionsComponent } from '../../components/quick-actions/quick-actions.component';
 import { SharedModule } from '../../shared/shared.module';
 import { UserActionsComponent } from '../../components/user-actions/user-actions.component';
+import { AdminModule } from '../../components/admin/admin.module';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { UserActionsComponent } from '../../components/user-actions/user-actions
     IonicModule,
     DashboardPageRoutingModule,
     SharedModule,
+    AdminModule,
   ],
   declarations: [DashboardPage, QuickActionsComponent, UserActionsComponent],
 })

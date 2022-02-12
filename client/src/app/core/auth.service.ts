@@ -20,12 +20,10 @@ export class AuthService {
   private headers = new HttpHeaders().set('Content-Type', 'application/json');
   constructor(private http: HttpClient) {}
 
-  public register(username: string, password: string) {
-    return this.http.post<User>(
-      `${this.url}/register`,
-      { username, password },
-      { headers: this.headers }
-    );
+  public register(user: User) {
+    return this.http.post<User>(`${this.url}/register`, user, {
+      headers: this.headers,
+    });
   }
 
   public login(username: string, password: string) {

@@ -5,20 +5,22 @@
 
   <ion-card-content>
     <ion-list *ngIf="users; else load">
-      <ion-item *ngFor="let user of users">
-        <ion-label>
-          {{ user.mail }}
-        </ion-label>
-        <ion-button color="warning">
-          <ion-icon
-            slot="icon-only"
-            name="information-circle-outline"
-          ></ion-icon>
-        </ion-button>
-        <ion-button color="danger">
-          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-        </ion-button>
-      </ion-item>
+      <ng-container *ngFor="let user of users">
+        <ion-item [class]="user.id === null ? 'ion-hide' : ''">
+          <ion-label>
+            {{ user.mail }}
+          </ion-label>
+          <ion-button color="warning" (click)="showModalPage(user)">
+            <ion-icon
+              slot="icon-only"
+              name="information-circle-outline"
+            ></ion-icon>
+          </ion-button>
+          <ion-button color="danger" (click)="deleteUser(user.id)">
+            <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ng-container>
     </ion-list>
     <ng-template #load class="scroll">
       <ion-skeleton-text animated></ion-skeleton-text>

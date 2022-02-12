@@ -42,13 +42,19 @@ const routes: Routes = [
   },
   {
     path: 'register',
-    loadChildren: () => import('./shared/register/register.module').then( m => m.RegisterPageModule)
+    loadChildren: () =>
+      import('./shared/user-form/register.module').then(
+        (m) => m.RegisterPageModule
+      ),
   },
   { path: '**', redirectTo: '/app/mapa', pathMatch: 'full' },
   {
     path: 'parking-form',
-    loadChildren: () => import('./shared/parking-form/parking-form.module').then( m => m.ParkingFormPageModule)
-  }
+    loadChildren: () =>
+      import('./shared/parking-form/parking-form.module').then(
+        (m) => m.ParkingFormPageModule
+      ),
+  },
 ];
 
 @NgModule({

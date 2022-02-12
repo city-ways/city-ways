@@ -26,12 +26,8 @@ export class UserService {
     return this.http.get<User[]>(`${environment.apiUrlBase}/api/users`);
   }
 
-  public updateUser(mail: string) {
-    const param = new HttpParams().append('mail', mail);
-    console.log(mail);
-    this.http
-      .get<User>(this.url, { params: param })
-      .subscribe((data) => this.idSource.next(data));
+  public updateUser(user: User) {
+    return this.http.put<User>(`${this.url}/${user.id}`, user);
   }
   // todo: delete, is duplicate in auth service
   public register(user: User): Observable<any> {
@@ -39,7 +35,7 @@ export class UserService {
       headers: this.headers,
     });
   }
-  private deleteUser(id: number): Observable<any> {
-    return this.http.delete(this.url);
+  public deleteUser(id: number): Observable<any> {
+    return this.http.delete(`${this.url}/${id}`);
   }
 }

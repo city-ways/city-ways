@@ -33,10 +33,13 @@ export class UserService {
       .get<User>(this.url, { params: param })
       .subscribe((data) => this.idSource.next(data));
   }
-
+  // todo: delete, is duplicate in auth service
   public register(user: User): Observable<any> {
     return this.http.post<User>(`${environment.apiUrlBase}/register`, user, {
       headers: this.headers,
     });
+  }
+  private deleteUser(id: number): Observable<any> {
+    return this.http.delete(this.url);
   }
 }

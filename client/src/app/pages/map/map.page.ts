@@ -5,10 +5,7 @@ import { ParkingService } from '../../core/parking.service';
 import { ModalController, ViewWillEnter } from '@ionic/angular';
 import { BookingParkingPage } from '../booking-parking/booking-parking.page';
 import { MapService } from '../../core/map.service';
-import { Router } from '@angular/router';
 import { UserService } from '../../core/user.service';
-import { filter, mergeMap, switchMap } from 'rxjs/operators';
-import { data } from 'autoprefixer';
 
 @Component({
   selector: 'app-map',
@@ -61,6 +58,7 @@ export class MapPage implements OnInit {
     this.map.on('load', () => {
       this.map.resize();
     });
+
     this.parkingService.getParkings().subscribe((data) => {
       data.map(({ cords: { longitude, latitude }, id }) => {
         // Add a marker for each car park and its corresponding event to show the booking mode

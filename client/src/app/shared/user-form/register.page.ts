@@ -18,7 +18,7 @@ import { AuthService } from '../../core/auth.service';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
-  @Input() type: string;
+  @Input() type = 'Registro';
   @Input() data: User;
 
   userData: FormGroup;
@@ -48,7 +48,7 @@ export class RegisterPage implements OnInit {
     const { mail, username, password, dni } = object;
 
     return {
-      id: this.data.id,
+      id: this.data?.id,
       name: username,
       mail,
       password,

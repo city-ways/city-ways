@@ -5,6 +5,7 @@ import { data } from 'autoprefixer';
 import { AuthService } from '../../core/auth.service';
 import { filter, switchMap, takeWhile } from 'rxjs/operators';
 import { iif } from 'rxjs';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,12 +15,21 @@ import { iif } from 'rxjs';
 export class DashboardPage implements OnInit {
   public editModalIsOpen: boolean;
   public isAdmin = false;
+  mySubscription: any;
   constructor(
     private parkingService: ParkingService,
     private userService: UserService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
   ngOnInit() {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.mySubscription = this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        // Trick the Router into believing it's last link wasn't previously loaded
+        this.router.navigated = false;
+      }
+    });
     this.authService.admin.subscribe((res) => {
       console.log('res', res);
       if (res === undefined) {

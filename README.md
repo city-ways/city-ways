@@ -12,7 +12,7 @@ Para poder ejecutar tanto el backend (api) y el cliente es necesario tener
 
 ### Uso:
 
-- API:
+-   API:
 
 ```bash
 cd api
@@ -22,7 +22,7 @@ composer install
 symfony serve
 ```
 
-- Cliente:
+-   Cliente:
 
 ```bash
 cd client
@@ -32,9 +32,13 @@ npm install
 npm run start
 ```
 
-## Additional Documentation and Acknowledgments
+## Metodologías aplicadas:
 
-- Project folder on server:
-- Confluence link:
-- Asana board:
-- etc...
+-   Project folder on server:
+-   Confluence link:
+-   Asana board:
+-   etc...
+
+## CI/CD:
+
+Para el depliege de tanto la api (backend) como del cliente (frontend) empleamos [Github Actions](https://github.com/features/actions), que nos ofrece la posibilidad de automatizar el despliege. Los archivos de configuración estan en .github/workflows

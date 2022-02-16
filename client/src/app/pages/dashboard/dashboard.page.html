@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>dashboard</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-user-actions></app-user-actions>
+  <ng-container *ngIf="!isAdmin else admin">
+    <app-quick-actions></app-quick-actions>
+    <app-history></app-history>
+  </ng-container>
+  <ng-template #admin>
+    <app-users-list></app-users-list>
+    <app-parkings-list></app-parkings-list>
+  </ng-template>
+  <!--  Modals-->
+</ion-content>

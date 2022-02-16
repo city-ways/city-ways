@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="type === 'editar'" size="big" (click)="exit()"
+        >Salir</ion-button
+      >
+      <ion-back-button *ngIf="type !== 'editar'"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ type | titlecase }} </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="auth-form">
+  <ion-grid>
+    <ion-row>
+      <ion-col class="ion-align-self-center">
+        <form [formGroup]="userData" (ngSubmit)="sendForm()">
+          <ion-item lines="full" class="ion-margin-vertical">
+            <ion-label position="floating">Correo electrónico </ion-label>
+            <ion-input
+              type="email"
+              formControlName="mail"
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}$"
+            >
+            </ion-input>
+          </ion-item>
+          <ion-item lines="full" class="ion-margin-vertical">
+            <ion-label position="floating">Username </ion-label>
+            <ion-input type="text" formControlName="username"> </ion-input>
+          </ion-item>
+          <ion-item
+            lines="full"
+            class="ion-margin-vertical"
+            [disabled]="type === 'editar'"
+          >
+            <ion-label position="floating">DNI </ion-label>
+            <ion-input
+              type="text"
+              formControlName="dni"
+              pattern="[0-9]{8}[A-Za-z]{1}"
+            >
+            </ion-input>
+          </ion-item>
+          <ion-item lines="full" [hidden]="type === 'editar'">
+            <ion-label position="floating">Contraseña</ion-label>
+            <ion-input type="password" formControlName="password"> </ion-input>
+          </ion-item>
+          <ion-row>
+            <ion-col>
+              <ion-button type="submit" class="ion-margin-top" size="block"
+                >{{ type }}</ion-button
+              >
+            </ion-col>
+          </ion-row>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

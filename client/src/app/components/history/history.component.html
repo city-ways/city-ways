@@ -1,0 +1,22 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Tu Historial:</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    <ion-list *ngIf="history; else load">
+      <ng-container *ngFor="let record of history">
+        <ion-item>
+          {{ record.parking.direction }}
+          <ion-chip slot="end">
+            <ion-icon name="calendar"></ion-icon>
+            <ion-label>{{ record.date | date }}</ion-label>
+          </ion-chip>
+        </ion-item>
+      </ng-container>
+    </ion-list>
+    <ng-template #load class="scroll">
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ng-template>
+  </ion-card-content>
+</ion-card>

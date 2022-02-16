@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>2d3dad79-d8d7-4a2f-82a2-218e7823a3f6.TABLE:citywaysdb.public.coordinates</OriginalElement>
+  <nodes>
+    <node x="657.921052631579" y="173.0">2d3dad79-d8d7-4a2f-82a2-218e7823a3f6.TABLE:citywaysdb.public.times_available</node>
+    <node x="779.421052631579" y="385.0">2d3dad79-d8d7-4a2f-82a2-218e7823a3f6.TABLE:citywaysdb.public.dates_available</node>
+    <node x="46.46052631578942" y="177.0">2d3dad79-d8d7-4a2f-82a2-218e7823a3f6.TABLE:citywaysdb.public.users</node>
+    <node x="205.96052631578942" y="80.5">2d3dad79-d8d7-4a2f-82a2-218e7823a3f6.TABLE:citywaysdb.public.users_parkings</node>
+    <node x="199.46052631578942" y="363.0">2d3dad79-d8d7-4a2f-82a2-218e7823a3f6.TABLE:citywaysdb.public.history</node>
+    <node x="414.42105263157896" y="155.0">2d3dad79-d8d7-4a2f-82a2-218e7823a3f6.TABLE:citywaysdb.public.parkings</node>
+    <node x="737.421052631579" y="4.0">2d3dad79-d8d7-4a2f-82a2-218e7823a3f6.TABLE:citywaysdb.public.coordinates</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="2d3dad79-d8d7-4a2f-82a2-218e7823a3f6.TABLE:citywaysdb.public.parkings" target="2d3dad79-d8d7-4a2f-82a2-218e7823a3f6.TABLE:citywaysdb.public.coordinates" relationship="REFERENCES">
+      <point x="0.0" y="-94.5" />
+      <point x="507.42105263157896" y="128.0" />
+      <point x="818.421052631579" y="128.0" />
+      <point x="0.0" y="50.5" />
+    </edge>
+    <edge source="2d3dad79-d8d7-4a2f-82a2-218e7823a3f6.TABLE:citywaysdb.public.history" target="2d3dad79-d8d7-4a2f-82a2-218e7823a3f6.TABLE:citywaysdb.public.parkings" relationship="REFERENCES">
+      <point x="0.0" y="-72.5" />
+      <point x="275.4605263157894" y="277.8881578947369" />
+      <point x="-93.0" y="28.388157894736878" />
+    </edge>
+    <edge source="2d3dad79-d8d7-4a2f-82a2-218e7823a3f6.TABLE:citywaysdb.public.history" target="2d3dad79-d8d7-4a2f-82a2-218e7823a3f6.TABLE:citywaysdb.public.users" relationship="REFERENCES">
+      <point x="-76.0" y="-65.0" />
+      <point x="135.20065789473685" y="370.5" />
+      <point x="135.20065789473685" y="292.50000000000006" />
+      <point x="76.5" y="43.00000000000006" />
+    </edge>
+    <edge source="2d3dad79-d8d7-4a2f-82a2-218e7823a3f6.TABLE:citywaysdb.public.dates_available" target="2d3dad79-d8d7-4a2f-82a2-218e7823a3f6.TABLE:citywaysdb.public.parkings" relationship="REFERENCES">
+      <point x="0.0" y="-50.5" />
+      <point x="895.921052631579" y="454.0" />
+      <point x="492.9999999999999" y="454.0" />
+      <point x="-14.421052631579073" y="94.7588234120646" />
+    </edge>
+    <edge source="2d3dad79-d8d7-4a2f-82a2-218e7823a3f6.TABLE:citywaysdb.public.times_available" target="2d3dad79-d8d7-4a2f-82a2-218e7823a3f6.TABLE:citywaysdb.public.parkings" relationship="REFERENCES">
+      <point x="0.0" y="-50.5" />
+      <point x="793.421052631579" y="360.0" />
+      <point x="571.9999999999998" y="360.0" />
+      <point x="64.57894736842081" y="93.7588234120646" />
+    </edge>
+    <edge source="2d3dad79-d8d7-4a2f-82a2-218e7823a3f6.TABLE:citywaysdb.public.users_parkings" target="2d3dad79-d8d7-4a2f-82a2-218e7823a3f6.TABLE:citywaysdb.public.parkings" relationship="REFERENCES">
+      <point x="0.0" y="39.0" />
+      <point x="275.4605263157894" y="249.5" />
+      <point x="-93.0" y="0.0" />
+    </edge>
+    <edge source="2d3dad79-d8d7-4a2f-82a2-218e7823a3f6.TABLE:citywaysdb.public.users_parkings" target="2d3dad79-d8d7-4a2f-82a2-218e7823a3f6.TABLE:citywaysdb.public.users" relationship="REFERENCES">
+      <point x="-69.5" y="0.0" />
+      <point x="122.96052631578942" y="119.5" />
+      <point x="0.0" y="-72.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="1.0" showDependencies="false" x="530.0" y="288.0" />
+  <SelectedNodes>
+    <node>2d3dad79-d8d7-4a2f-82a2-218e7823a3f6.TABLE:citywaysdb.public.coordinates</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Columns</Category>
+    <Category>Comments</Category>
+    <Category>Key columns</Category>
+    <Category>Virtual foreign keys</Category>
+  </Categories>
+</Diagram>
+

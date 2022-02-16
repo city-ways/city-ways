@@ -1,0 +1,40 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Acciones Rápidas</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    <div class="scroll" *ngIf="this.user; else load">
+      <ion-button
+        class="ion-padding-end"
+        shape="round"
+        (click)="showModalPage(null, true)"
+        >Agregar Parking</ion-button
+      >
+      <ion-button
+        class="ion-padding-end"
+        shape="round"
+        (click)="showModal()"
+        [disabled]="parkingsOfUser.length === 0"
+        >Editar Parking</ion-button
+      >
+      <ion-button
+        class="ion-padding-end"
+        shape="round"
+        (click)="showModalPageProfile()"
+        [disabled]="parkingsOfUser.length === 0"
+        >Editar Perfil</ion-button
+      >
+
+      <!--      <ion-button class="ion-padding-end" shape="round" (click)="showModal()"-->
+      <!--        >Deshabilitar Parking</ion-button-->
+      <!--      >-->
+      <!--      <ion-button class="" shape="round" (click)="showModal()"-->
+      <!--        >Activar Parking</ion-button-->
+      <!--      >-->
+    </div>
+    <ng-template #load class="scroll">
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ng-template>
+  </ion-card-content>
+</ion-card>

@@ -1,0 +1,51 @@
+# Specifies intentionally untracked files to ignore when using Git
+# http://git-scm.com/docs/gitignore
+
+*~
+*.sw[mnpcod]
+.tmp
+*.tmp
+*.tmp.*
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+Thumbs.db
+UserInterfaceState.xcuserstate
+$RECYCLE.BIN/
+
+/client/*.log
+/client/log.txt
+/client/npm-debug.log*
+
+/client/.idea
+/client/.ionic
+/client/.sass-cache
+/client/.sourcemaps
+/client/.versions
+/client/.vscode
+/client/coverage
+/client/dist
+/client/node_modules
+/client/platforms
+/client/plugins
+/client/www
+/client/.angular
+/client/.husky
+/client/db.json
+/client/src/environments/environment.ts
+/client/src/environments/enviroment.prod.ts
+
+# api
+
+###> symfony/framework-bundle ###
+/api/.env.local
+/api/.env.local.php
+/api/.env.*.local
+/api/config/secrets/prod/prod.decrypt.private.php
+/api/public/bundles/
+/api/var/
+/api/vendor/
+###< symfony/framework-bundle ###
+/api/.env
+/api/.idea
+/api/nbproject

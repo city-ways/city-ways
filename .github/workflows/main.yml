@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - develop
+  workflow_dispatch:
 
 jobs:
   build:
@@ -16,3 +17,6 @@ jobs:
           heroku_app_name: "cityways-api"
           heroku_email: "ikerlarrea150+heruku@gmail.com"
           appdir: "api"
+        env:
+          DATABASE_URL: ${{secrets.DATABASE_URL}}
+          APP_SECRET: ${{secrets.APP_SECRET}}

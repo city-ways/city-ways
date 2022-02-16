@@ -1,0 +1,45 @@
+security:
+    encoders:
+        App\Entity\Users:
+            algorithm: auto
+
+
+    providers:
+        entity_provider:
+            entity:
+                class: App\Entity\Users
+                property: Mail
+
+    role_hierarchy:
+        ROLE_SUPER_ADMIN: [ ROLE_USER, ROLE_ALLOWED_TO_SWITCH ]
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        login:
+            pattern: ^/login
+            stateless: true
+            anonymous: true
+            json_login:
+                check_path: /login_check
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+
+        register:
+            pattern: ^/register
+            stateless: true
+            anonymous: true
+
+        api:
+            pattern: ^/api
+            stateless: true
+            provider: entity_provider
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
+
+    access_control:
+        - { path: ^/login, roles: PUBLIC_ACCESS  }
+        - { path: ^/register, roles: PUBLIC_ACCESS  }
+        - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }

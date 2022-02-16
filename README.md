@@ -8,7 +8,7 @@ _[en progreso]_
 
 ### Instalación:
 
-Para poder ejecutar tanto el backend (api) y el cliente es necesario tener los diferentes archivos con las variables de entorno, para el frontend hay que agregar la carpeta [environments](https://drive.google.com/file/d/1Vgpoy70Hnyoe3s10T3cHXRiDrcAP_FoK/view?usp=sharing) a nivel de _src_ y para el backend hay que agregar el archivo [.env](https://drive.google.com/file/d/1rDUuG9SYZvLNTLFaPgB6UJThMplEDRHG/view?usp=sharing) a nivel de raíz.
+Para poder ejecutar tanto el backend (api) y el cliente es necesario tener los diferentes archivos con las variables de entorno, para el frontend hay que agregar la carpeta [environments](https://drive.google.com/file/d/1Vgpoy70Hnyoe3s10T3cHXRiDrcAP_FoK/view?usp=sharing) a nivel de _src_ y para el backend hay que agregar el archivo [.env](https://drive.google.com/file/d/1rDUuG9SYZvLNTLFaPgB6UJThMplEDRHG/view?usp=sharing) a nivel de raíz y generar las claves para los tokens JWT con openssl con el valor de la variable `JWT_PASSPHRASE` que se encuentra en el archivo `.env`
 
 ### Uso:
 

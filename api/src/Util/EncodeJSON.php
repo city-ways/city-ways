@@ -42,6 +42,7 @@ class EncodeJSON
             "daysAvailable" => $datesAvailableData,
             "pricePerHour" => (float)$parking->getPricePerHour(),
             "pricePerDay" => (float)$parking->getPricePerDay(),
+            "owner" => self::EncodeUser($parking->getOwner()->first(), false, true)
         ];
 
 
@@ -51,6 +52,7 @@ class EncodeJSON
         $parking_stdClass = $parkingJSON;
 
         $parking = $updateMode ? $updateParking : new Parkings();
+
         $parking->setDirection($parking_stdClass->direction);
 
         $cords = new Coordinates();
@@ -92,7 +94,7 @@ class EncodeJSON
         $userEncode = [
             "id" => $user->getId(),
             "mail" => $user->getMail(),
-            "username" => $user->getName(),
+            "name" => $user->getName(),
         ];
 
         if (!$basicUser) {

@@ -3,10 +3,11 @@
 namespace App\Controller;
 
 
+use App\Entity\History;
 use App\Entity\Parkings;
 use App\Entity\Users;
-use App\EventListener\JWTDecodedListener;
 use App\Util\EncodeJSON;
+use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -130,8 +131,9 @@ class ParkingController extends AbstractController
             'result' => "parking " .$parking->getId() . " updated"
         ]);
     }
+
     /**
-     * @Route("/api/parkings/{id}", name="getParkingById", methods={"GET"})
+     * @Route("/api/parkings/{id}", name="getParkingById", methods={"GET"}, requirements={"id": "\d+"})
      */
     public function getParking(int $id): Response
     {
@@ -145,5 +147,41 @@ class ParkingController extends AbstractController
         $parking = EncodeJSON::EncodeParking($parking);
 
         return $this->json($parking);
+    }
+
+    /**
+     * @Route("/api/parkings/{id}/book", name="bookParking", methods={"PUT"}, requirements={"id": "\d+"})
+     */
+    public function bookParking(int $id, Request $request): Response
+    {
+        $entityManager = $this->doctrine->getManager();
+        $parking = $entityManager->getRepository(Parkings::class)->find($id);
+
+        if (!$parking) {
+            return $this->json("No parking found for id: $id", 404);
+        }
+        // only the user can book a parking if the user aren't already booking one.
+        $this->denyAccessUnlessGranted("book", $parking);
+        // user can book this parking
+        $parking->setStatus(!$parking->getStatus());
+
+        // when the parking is release, is added to the history
+        // false == free, true == a user is using that parking
+        // when the user take the parking, history is added
+        if ($parking->getStatus()) {
+            $currentDate = new DateTime();
+            $strDate = $currentDate->format('Y-m-d');
+            $parking->addHistory(new History($strDate, $this->getUser(), $parking));
+        } else {
+            /** @var History $history */
+            $history = $parking->getHistory()->last();
+            $history->setInProgress(false);
+        }
+        $errors = $this->validator->validate($parking);
+        if (count($errors) > 0) {
+            return $this->json((string) $errors, 400);
+        }
+        $entityManager->flush();
+        return $this->json("You are current using the parking $id");
     }
 }

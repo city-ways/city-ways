@@ -5,21 +5,59 @@
 </ion-header>
 
 <ion-content>
-  <form [formGroup]="formBook" (ngSubmit)="send()">
-    <ion-item>
-      <ion-label>Inicio</ion-label>
-      <ion-input [type]="inputType" formControlName="startPeriod"> </ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>Fin</ion-label>
-      <ion-input [type]="inputType" formControlName="endPeriod"> </ion-input>
-    </ion-item>
-    <ion-button
-      type="submit"
-      expand="full"
-      color="primary"
-      class="ion-margin-top"
-      >Reservar</ion-button
-    >
-  </form>
+  <ion-item>
+    <ion-label> Tipo: {{parking?.type}} </ion-label>
+    <ion-icon
+      name="information-circle-outline"
+      size="small"
+      slot="end"
+    ></ion-icon>
+  </ion-item>
+  <ion-item>
+    <ion-label> Propietario: {{parking?.owner?.name}} </ion-label>
+    <ion-icon name="person-outline" size="small" slot="end"></ion-icon>
+  </ion-item>
+  <ion-button type="submit" expand="full" color="primary" (click)="send()"
+    >Reservar</ion-button
+  >
+
+  <!--  <form [formGroup]="formBook" (ngSubmit)="send()">-->
+  <!--    <ion-item>-->
+  <!--      <ion-label>-->
+  <!--        Rango disponible: {{validRanges?.[0]}} - {{validRanges?.[1]}}-->
+  <!--      </ion-label>-->
+  <!--      <ion-icon name="git-commit-outline" size="small" slot="end"></ion-icon>-->
+  <!--    </ion-item>-->
+  <!--    <ion-item>-->
+  <!--      <ion-label>Inicio</ion-label>-->
+  <!--      <ion-input-->
+  <!--        [type]="inputType"-->
+  <!--        formControlName="startPeriod"-->
+  <!--        [min]="validRanges?.[0]"-->
+  <!--        [max]="validRanges?.[1]"-->
+  <!--      >-->
+  <!--      </ion-input>-->
+  <!--    </ion-item>-->
+  <!--    <ion-item>-->
+  <!--      <ion-label>Fin</ion-label>-->
+  <!--      <ion-input-->
+  <!--        [type]="inputType"-->
+  <!--        formControlName="endPeriod"-->
+  <!--        [min]="validRanges?.[0]"-->
+  <!--        [max]="validRanges?.[1]"-->
+  <!--      >-->
+  <!--      </ion-input>-->
+  <!--    </ion-item>-->
+  <!--    <ion-item>-->
+  <!--      <ion-label> Precio Total: </ion-label>-->
+  <!--      <ion-icon name="cash-outline" size="small" slot="end"></ion-icon>-->
+  <!--    </ion-item>-->
+  <!--    <ion-button-->
+  <!--      type="submit"-->
+  <!--      expand="full"-->
+  <!--      color="primary"-->
+  <!--      [disabled]="!validRanges?.[0]"-->
+  <!--      >Reservar</ion-button-->
+  <!--    >-->
+  <!--  </form>-->
 </ion-content>

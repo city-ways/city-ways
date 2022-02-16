@@ -5,7 +5,8 @@ import { Parking } from '../../shared/parking';
 import { ModalController } from '@ionic/angular';
 import { ParkingListInfoPage } from '../../shared/parking-list-info/parking-list-info.page';
 import { ParkingFormPage } from '../../shared/parking-form/parking-form.page';
-import { filter, switchMap } from 'rxjs/operators';
+import { User } from '../../shared/User';
+import { RegisterPage } from '../../shared/user-form/register.page';
 
 @Component({
   selector: 'app-quick-actions',
@@ -13,7 +14,7 @@ import { filter, switchMap } from 'rxjs/operators';
   styleUrls: ['./quick-actions.component.scss'],
 })
 export class QuickActionsComponent implements OnInit {
-  idUser: number;
+  user: User;
   parkingsOfUser: Parking[];
 
   constructor(
@@ -33,7 +34,7 @@ export class QuickActionsComponent implements OnInit {
     //     this.parkingsOfUser = res.owns;
     //   });
     this.userService.getUser().subscribe((user) => {
-      this.idUser = user.id;
+      this.user = user;
       this.parkingsOfUser = user.owns;
     });
   }
@@ -51,8 +52,18 @@ export class QuickActionsComponent implements OnInit {
       component: ParkingFormPage,
       componentProps: {
         type: create ? 'crear' : 'editar',
-        user: this.idUser,
+        user: this.user.id,
         data: create ? null : parking,
+      },
+    });
+    return await modal.present();
+  }
+  async showModalPageProfile() {
+    const modal = await this.modalController.create({
+      component: RegisterPage,
+      componentProps: {
+        type: 'editar',
+        data: this.user,
       },
     });
     return await modal.present();
@@ -61,7 +72,7 @@ export class QuickActionsComponent implements OnInit {
     const modal = await this.modalController.create({
       component: ParkingListInfoPage,
       componentProps: {
-        user: this.idUser,
+        user: this.user.id,
       },
       initialBreakpoint: 0.5,
       breakpoints: [0, 0.5, 1],

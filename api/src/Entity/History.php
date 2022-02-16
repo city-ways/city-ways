@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class History
 {
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -28,6 +29,11 @@ class History
     private $Date;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $InProgress;
+
+    /**
      * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="History")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -38,6 +44,21 @@ class History
      * @ORM\JoinColumn(nullable=false)
      */
     private $Parking;
+
+    /**
+     * @param float $Price
+     * @param $Date
+     * @param $ClientUser
+     * @param $Parking
+     */
+    public function __construct($Date, $ClientUser, $Parking, float $Price = 0.0)
+    {
+        $this->Price = $Price;
+        $this->Date = $Date;
+        $this->ClientUser = $ClientUser;
+        $this->Parking = $Parking;
+        $this->InProgress = true;
+    }
 
     public function getId(): ?int
     {
@@ -91,4 +112,21 @@ class History
 
         return $this;
     }
+
+    /**
+     * @return bool
+     */
+    public function isInProgress(): bool
+    {
+        return $this->InProgress;
+    }
+
+    /**
+     * @param bool $InProgress
+     */
+    public function setInProgress(bool $InProgress): void
+    {
+        $this->InProgress = $InProgress;
+    }
+
 }

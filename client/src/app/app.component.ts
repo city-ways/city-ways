@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import { ParkingService } from './core/parking.service';
+import { Component, OnInit } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { AuthService } from './core/auth.service';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',

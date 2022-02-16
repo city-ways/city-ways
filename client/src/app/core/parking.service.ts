@@ -62,11 +62,9 @@ export class ParkingService {
   }
 
   public createParking(parking: Parking): Observable<Parking> {
-    return this.http
-      .post<Parking>(this.url, parking, {
-        headers: this.headers,
-      })
-      .pipe(catchError(ParkingService.handleError));
+    return this.http.post<Parking>(this.url, parking, {
+      headers: this.headers,
+    });
   }
 
   public deleteParking(id: number): Observable<any> {
@@ -83,6 +81,10 @@ export class ParkingService {
         headers: this.headers,
       })
       .pipe(catchError(ParkingService.handleError));
+  }
+
+  public bookAParking(id: number): Observable<any> {
+    return this.http.put<string>(`${this.url}/${id}/book`, null);
   }
   // todo refactor id
   public getParkingOfUser(idUser: number): Observable<Parking[]> {

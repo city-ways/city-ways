@@ -22,14 +22,15 @@ class HistoryController extends AbstractController
         $this->validator = $validator;
     }
     /**
-     * @Route("/api/history/{userId}", name="userHistory", methods={"GET"}, requirements={"id": "\d+"})
+     * @Route("/api/history", name="userHistory", methods={"GET"})
      */
-    public function userHistory(int $userId): Response
+    public function userHistory(): Response
     {
         $entityManager = $this->doctrine->getManager();
-        $user = $entityManager->getRepository(Users::class)->find($userId);
+        $user = $this->getUser();
+//        $user = $entityManager->getRepository(Users::class)->find($userId);
         if (!$user) {
-            return $this->json("No user found for id: $userId", 404);
+            return $this->json("No user found for id", 404);
         }
         $data = EncodeJSON::EncodeUserHistory($user->getHistory());
         return $this->json($data);

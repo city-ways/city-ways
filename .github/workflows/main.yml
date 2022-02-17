@@ -1,9 +1,9 @@
-name: Deploy DEV Server
+name: Deploy API Server
 
 on:
   push:
     branches:
-      - develop
+      - main
   workflow_dispatch:
 
 jobs:

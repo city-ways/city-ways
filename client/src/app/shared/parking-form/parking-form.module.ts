@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ParkingFormPageRoutingModule } from './parking-form-routing.module';
 
 import { ParkingFormPage } from './parking-form.page';
+import { SelectionMapPageModule } from '../../pages/selection-map/selection-map.module';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { ParkingFormPage } from './parking-form.page';
     IonicModule,
     ParkingFormPageRoutingModule,
     ReactiveFormsModule,
+    SelectionMapPageModule,
   ],
   declarations: [ParkingFormPage],
 })

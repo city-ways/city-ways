@@ -40,9 +40,9 @@
         </ion-item>
         <ion-item-group
           formArrayName="daysAvailable"
-          *ngFor="let inputData of getDaysRangesInputs().controls; let i = index"
+          *ngFor="let inputData of $any(getDaysRangesInputs().controls); let i = index"
         >
-          <div [formGroup]="inputData">
+          <div [formGroup]=" inputData ">
             <ion-item>
               <ion-label>Dias disponible:</ion-label>
               <ion-button color="danger" (click)="deleteInput(i)">
@@ -75,7 +75,7 @@
         </ion-item>
         <ng-container formArrayName="timesAvailable">
           <ion-item-group
-            *ngFor="let ranges of getHoursRangesInputs().controls; let i = index"
+            *ngFor="let ranges of $any(getHoursRangesInputs().controls); let i = index"
           >
             <div [formGroup]="ranges">
               <ion-item>

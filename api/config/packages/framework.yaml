@@ -1,4 +1,6 @@
 # see https://symfony.com/doc/current/reference/configuration/framework.html
+parameters:
+    map_box_token: '%env(MAP_BOX_TOKEN)%'
 framework:
     secret: '%env(APP_SECRET)%'
     #csrf_protection: true

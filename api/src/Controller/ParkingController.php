@@ -14,15 +14,23 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class ParkingController extends AbstractController
 {
     private $doctrine;
     private $validator;
-    public function __construct(ManagerRegistry $doctrine, ValidatorInterface $validator)
+    private $client;
+    public function __construct(ManagerRegistry $doctrine, ValidatorInterface $validator, HttpClientInterface $client)
     {
         $this->doctrine = $doctrine;
         $this->validator = $validator;
+        $this->client = $client;
     }
 
     /**
@@ -55,8 +63,10 @@ class ParkingController extends AbstractController
 
         return $this->json($data);
     }
+
     /**
      * @Route("/api/parkings", name="setParking", methods="POST")
+     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function setParking(Request $request): Response
     {
@@ -71,6 +81,31 @@ class ParkingController extends AbstractController
             return $this->json("No user found for mail: " . $parkingDecode->owner->mail, 404);
         }
         $parking->addOwner(reset($owner));
+
+        $longitude = $parking->getCoordinates()->getLongitude();
+        $latitude = $parking->getCoordinates()->getLatitude();
+
+        // add the name of the street based on the coords
+        $response = $this->client->request("GET", "https://api.mapbox.com/geocoding/v5/mapbox.places/$longitude,$latitude.json", [
+            'query' => [
+                'access_token' => $this->getParameter('map_box_token'),
+                'limit' => '1',
+                'types' => 'address',
+                'language' => 'es'
+            ]
+        ]);
+        try {
+            $content = $response->toArray();
+        } catch (ClientExceptionInterface
+        |RedirectionExceptionInterface
+        |TransportExceptionInterface
+        |ServerExceptionInterface
+        |DecodingExceptionInterface $e) {
+            return $this->json( $e->getMessage(), $e->getCode());
+        }
+
+        $parking->setDirection(preg_split('/[,]+/', $content['features'][0]['place_name_es'])[0]);
+
 
         $errors = $this->validator->validate($parking);
         if (count($errors) > 0) {

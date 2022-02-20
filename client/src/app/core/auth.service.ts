@@ -36,6 +36,7 @@ export class AuthService {
 
   public logout() {
     localStorage.removeItem('auth_token');
+    location.reload();
   }
 
   public setRole(role: string) {

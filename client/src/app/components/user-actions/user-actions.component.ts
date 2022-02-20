@@ -16,6 +16,5 @@ export class UserActionsComponent implements OnInit {
 
   logOut() {
     this.authService.logout();
-    this.router.navigate(['/home']);
   }
 }

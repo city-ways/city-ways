@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20220211151816 extends AbstractMigration
+final class Version20220216190044 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -30,7 +30,7 @@ final class Version20220211151816 extends AbstractMigration
         $this->addSql('CREATE TABLE dates_available (id INT NOT NULL, parking_id INT DEFAULT NULL, dates TEXT NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_A8A6192EF17B2DD ON dates_available (parking_id)');
         $this->addSql('COMMENT ON COLUMN dates_available.dates IS \'(DC2Type:simple_array)\'');
-        $this->addSql('CREATE TABLE history (id INT NOT NULL, client_user_id INT NOT NULL, parking_id INT NOT NULL, price DOUBLE PRECISION NOT NULL, date VARCHAR(100) NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE history (id INT NOT NULL, client_user_id INT NOT NULL, parking_id INT NOT NULL, price DOUBLE PRECISION NOT NULL, date VARCHAR(100) NOT NULL, in_progress BOOLEAN NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_27BA704BF55397E8 ON history (client_user_id)');
         $this->addSql('CREATE INDEX IDX_27BA704BF17B2DD ON history (parking_id)');
         $this->addSql('CREATE TABLE parkings (id INT NOT NULL, coordinates_id INT NOT NULL, direction VARCHAR(255) NOT NULL, type VARCHAR(50) NOT NULL, status BOOLEAN NOT NULL, price_per_hour NUMERIC(5, 2) DEFAULT NULL, price_per_day NUMERIC(5, 2) DEFAULT NULL, PRIMARY KEY(id))');

@@ -60,8 +60,8 @@ class Parkings
     private $DatesAvailable;
 
     /**
-     * @ORM\OneToOne(targetEntity=Coordinates::class, inversedBy="Parking", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToOne(targetEntity=Coordinates::class, inversedBy="Parking", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $Coordinates;
 

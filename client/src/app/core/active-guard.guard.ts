@@ -23,7 +23,7 @@ export class ActiveGuardGuard implements CanActivate {
     | UrlTree {
     const token = localStorage.getItem('auth_token');
     if (!token) {
-      this.router.navigate(['/login'], {
+      this.router.navigate(['/home'], {
         queryParams: { returnUrl: state.url },
       });
       return false;

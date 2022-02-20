@@ -27,7 +27,7 @@ export class AuthGuard implements CanLoad {
     | UrlTree {
     const token = localStorage.getItem('auth_token');
     if (!token) {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/home']);
       return false;
     }
     return true;

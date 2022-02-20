@@ -55,11 +55,12 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\ManyToMany(targetEntity=Parkings::class, inversedBy="Owner", cascade={"remove"})
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $Owns;
 
     /**
-     * @ORM\OneToMany(targetEntity=History::class, mappedBy="ClientUser", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity=History::class, mappedBy="ClientUser", cascade={"remove"}, orphanRemoval=true)
      */
     private $History;
 

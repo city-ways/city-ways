@@ -35,13 +35,13 @@ class History
 
     /**
      * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="History")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $ClientUser;
 
     /**
      * @ORM\ManyToOne(targetEntity=Parkings::class, inversedBy="History")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $Parking;
 

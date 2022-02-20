@@ -49,3 +49,58 @@ $RECYCLE.BIN/
 /api/.env
 /api/.idea
 /api/nbproject
+
+#android
+# Using Android gitignore template: https://github.com/github/gitignore/blob/HEAD/Android.gitignore
+
+# Built application files
+*.apk
+*.aar
+*.ap_
+*.aab
+
+# Files for the ART/Dalvik VM
+*.dex
+
+# Java class files
+*.class
+
+# Generated files
+client/android/bin/
+client/android/gen/
+client/android/out/
+client/android/.gradle/
+client/android/build/
+client/android/local.properties
+client/android/proguard/
+client/android/*.log
+client/android/.navigation/
+client/android/captures/
+client/android/*.iml
+client/android/.idea/workspace.xml
+client/android/.idea/tasks.xml
+client/android/.idea/gradle.xml
+client/android/.idea/assetWizardSettings.xml
+client/android/.idea/dictionaries
+client/android/.idea/libraries
+client/android/.idea/caches
+client/android/.idea/modules.xml
+client/android/.idea/navEditor.xml
+client/android/.externalNativeBuild
+client/android/.cxx/
+client/android/freeline.py
+client/android/freeline/
+client/android/freeline_project_description.json
+client/android/fastlane/report.xml
+client/android/fastlane/Preview.html
+client/android/fastlane/screenshots
+client/android/fastlane/test_output
+client/android/fastlane/readme.md
+client/android/vcs.xml
+client/android/lint/intermediates/
+client/android/lint/generated/
+client/android/lint/outputs/
+client/android/lint/tmp/
+client/android/*.hprof
+client/android/capacitor-cordova-android-plugins
+client/android/app/src/main/assets/public

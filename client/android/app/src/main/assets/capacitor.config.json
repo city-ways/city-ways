@@ -1,0 +1,6 @@
+{
+	"appId": "app.cityways.android",
+	"appName": "CityWays",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

@@ -43,7 +43,7 @@ export class ParkingFormPage implements OnInit {
   ngOnInit() {
     console.log('pizza');
     this.parkingData = this.formBuilder.group({
-      direction: ['', Validators.required],
+      direction: '',
       lng: ['', Validators.required],
       lat: ['', Validators.required],
       longPeriod: [false, Validators.required],
@@ -144,7 +144,7 @@ export class ParkingFormPage implements OnInit {
     this.pageTitle = `Parking: ${parking.direction}`;
     // load static data of the parking
     this.parkingData.patchValue({
-      direction: parking.direction,
+      // direction: parking.direction,
       lng: parking.cords.longitude,
       lat: parking.cords.latitude,
       longPeriod: parking.type === 'larga estancia',

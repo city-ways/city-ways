@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'city-ways',
+  appId: 'app.cityways.android',
+  appName: 'CityWays',
   webDir: 'www',
   bundledWebRuntime: false,
 };

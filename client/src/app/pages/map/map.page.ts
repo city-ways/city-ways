@@ -14,6 +14,7 @@ import { UserService } from '../../core/user.service';
 })
 export class MapPage implements OnInit {
   private map!: Map;
+  private markers: Marker[] = [];
   private locationUser: [number, number];
   private mapDark = 'mapbox://styles/fgergfer/ckx2flh2d12km14pcyrf8mfqw';
   private mapLight = 'mapbox://styles/fgergfer/ckx2fkq0344le15mtc7owbizj';
@@ -44,21 +45,31 @@ export class MapPage implements OnInit {
           this.map.setStyle(this.mapLight);
         }
       });
+
+    this.map.on('load', () => {
+      this.map.resize();
+    });
+    this.loadMarkers();
+    console.log(this.locationUser);
+  }
+
+  public loadMarkers() {
+    if (this.markers.length > 0) {
+      this.markers.map((marker) => marker.remove());
+      this.markers = [];
+    }
     this.mapService.getUserLocation().then((data) => {
       const {
         coords: { latitude, longitude },
       } = data;
       this.map.setCenter([longitude, latitude]);
 
-      new Marker({ color: 'red' })
+      const mark = new Marker({ color: 'red' })
         .setLngLat([longitude, latitude])
         .addTo(this.map);
+      this.markers.push(mark);
     });
-
-    this.map.on('load', () => {
-      this.map.resize();
-    });
-
+    console.log('entra');
     this.parkingService.getParkings().subscribe((data) => {
       data.map(({ cords: { longitude, latitude }, id }) => {
         // Add a marker for each car park and its corresponding event to show the booking mode
@@ -67,13 +78,14 @@ export class MapPage implements OnInit {
           this.showModal(id);
         });
         console.log([[longitude, latitude]]);
-        new Marker({ color: '#3880ff' })
+        const markerParking = new Marker({ color: '#3880ff' })
           .setLngLat([longitude, latitude])
           .setPopup(popup)
           .addTo(this.map);
+        this.markers.push(markerParking);
       });
     });
-    console.log(this.locationUser);
+    console.log(this.markers);
   }
 
   async showModal(id: number) {

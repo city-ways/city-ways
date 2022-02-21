@@ -7,7 +7,7 @@
     <ion-list *ngIf="history; else load">
       <ng-container *ngFor="let record of history">
         <ion-item>
-          {{ record.parking.direction }}
+          {{ record.parking.direction ?? '[Parking Eliminado]' }}
           <ion-chip slot="end">
             <ion-icon name="calendar"></ion-icon>
             <ion-label>{{ record.date | date }}</ion-label>

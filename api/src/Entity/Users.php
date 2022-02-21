@@ -55,6 +55,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\ManyToMany(targetEntity=Parkings::class, inversedBy="Owner", cascade={"remove"})
+     * @ORM\JoinTable(name="owners")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $Owns;

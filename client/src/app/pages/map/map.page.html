@@ -2,9 +2,8 @@
   <ion-toolbar>
     <!--    <ion-searchbar showCancelButton="focus"></ion-searchbar>-->
     <ion-title>Mapa</ion-title>
-
     <ion-buttons slot="end">
-      <ion-button>
+      <ion-button (click)="loadMarkers()">
         <ion-icon name="reload-outline"></ion-icon>
       </ion-button>
     </ion-buttons>

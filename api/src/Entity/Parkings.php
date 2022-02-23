@@ -50,17 +50,17 @@ class Parkings
     private $PricePerDay;
 
     /**
-     * @ORM\OneToMany(targetEntity=TimesAvailable::class, mappedBy="Parking", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=TimesAvailable::class, mappedBy="Parking", cascade={"persist"})
      */
     private $TimesAvailable;
 
     /**
-     * @ORM\OneToMany(targetEntity=DatesAvailable::class, mappedBy="Parking", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=DatesAvailable::class, mappedBy="Parking", cascade={"persist"})
      */
     private $DatesAvailable;
 
     /**
-     * @ORM\OneToOne(targetEntity=Coordinates::class, inversedBy="Parking", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity=Coordinates::class, inversedBy="Parking", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $Coordinates;

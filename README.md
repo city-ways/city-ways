@@ -38,4 +38,4 @@ En cuanto a las diferentes metodologías que hemos puesto en practica durante el
 
 ## CI/CD:
 
-Para el depliege de tanto la api (backend) como del cliente (frontend, aun pendiente) empleamos [Github Actions](https://github.com/features/actions), que nos ofrece la posibilidad de automatizar el despliege. Los archivos de configuración están en [.github/workflows](./.github/workflows/)
+Para el depliege de tanto la api (backend) como del cliente (frontend) empleamos [Github Actions](https://github.com/features/actions), que nos ofrece la posibilidad de automatizar el despliege. Los archivos de configuración están en [.github/workflows](./.github/workflows/)

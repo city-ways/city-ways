@@ -115,6 +115,7 @@ export class ParkingFormPage implements OnInit {
         let parking: Parking = this.castToParking(this.parkingData.value);
         if (this.type === 'editar') {
           // update parking
+          console.warn(parking);
           this.parkingService
             .updateParking(parking)
             .subscribe((pk) => console.log('Parking update', pk));
@@ -144,7 +145,7 @@ export class ParkingFormPage implements OnInit {
     this.pageTitle = `Parking: ${parking.direction}`;
     // load static data of the parking
     this.parkingData.patchValue({
-      // direction: parking.direction,
+      direction: parking.direction,
       lng: parking.cords.longitude,
       lat: parking.cords.latitude,
       longPeriod: parking.type === 'larga estancia',

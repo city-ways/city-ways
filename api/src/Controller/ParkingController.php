@@ -66,7 +66,7 @@ class ParkingController extends AbstractController
 
     /**
      * @Route("/api/parkings", name="setParking", methods="POST")
-     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+     * @throws TransportExceptionInterface
      */
     public function setParking(Request $request): Response
     {

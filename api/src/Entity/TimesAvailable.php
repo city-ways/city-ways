@@ -18,9 +18,13 @@ class TimesAvailable
     private $id;
 
 
-
     /**
      * @ORM\ManyToOne(targetEntity=Parkings::class, inversedBy="TimesAvailable", cascade={"persist"})
+     * @ORM\JoinColumn(
+     *     name="parking_id",
+     *     referencedColumnName="id",
+     *     onDelete="CASCADE",
+     * )
      */
     private $Parking;
 

@@ -79,6 +79,7 @@ export class RegisterPage implements OnInit {
             .updateUser(user)
             .subscribe((updateRes) => console.warn('ec'));
         }
+        this.exit();
       }
     }
   }

@@ -43,7 +43,7 @@ export class ParkingFormPage implements OnInit {
   ngOnInit() {
     console.log('pizza');
     this.parkingData = this.formBuilder.group({
-      direction: ['', Validators.required],
+      direction: '',
       lng: ['', Validators.required],
       lat: ['', Validators.required],
       longPeriod: [false, Validators.required],
@@ -115,6 +115,7 @@ export class ParkingFormPage implements OnInit {
         let parking: Parking = this.castToParking(this.parkingData.value);
         if (this.type === 'editar') {
           // update parking
+          console.warn(parking);
           this.parkingService
             .updateParking(parking)
             .subscribe((pk) => console.log('Parking update', pk));

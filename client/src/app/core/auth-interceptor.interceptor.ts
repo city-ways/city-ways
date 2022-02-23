@@ -24,7 +24,7 @@ export class AuthInterceptorInterceptor implements HttpInterceptor {
 
     if (!token) {
       localStorage.removeItem('auth_token');
-      this.router.navigate(['/login']);
+      this.router.navigate(['/home']);
     }
 
     const request = req.clone({
@@ -34,7 +34,7 @@ export class AuthInterceptorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((err: HttpErrorResponse) => {
         if (err.status === 401 || err.status === 403) {
-          this.router.navigate(['/login']);
+          this.router.navigate(['/home']);
         }
 
         return throwError(err);

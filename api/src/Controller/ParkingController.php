@@ -196,8 +196,8 @@ class ParkingController extends AbstractController
             return $this->json("No parking found for id: $id", 404);
         }
         // only the user can book a parking if the user aren't already booking one.
-        // temporarily disabled
-//        $this->denyAccessUnlessGranted("book", $parking, "no puedes ocupar mas de un parking a la vez");
+        // $this->denyAccessUnlessGranted("book", $parking, "no puedes ocupar mas de un parking a la vez");
+        // prevent to throw 403
         if (!$this->isGranted("book", $parking)) {
             return $this->json("No puedes ocupar mas de un parking a la vez");
         }

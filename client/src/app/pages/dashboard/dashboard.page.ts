@@ -11,21 +11,13 @@ import { AuthService } from '../../core/auth.service';
 export class DashboardPage implements OnInit {
   public isAdmin = false;
   public reload = false;
-  // mySubscription: any;
+  public userName: string;
   constructor(
     private parkingService: ParkingService,
     private userService: UserService,
     private authService: AuthService
   ) {}
   ngOnInit() {
-    // todo: check if this is necessary
-    // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    // this.mySubscription = this.router.events.subscribe((event) => {
-    //   if (event instanceof NavigationEnd) {
-    //     // Trick the Router into believing it's last link wasn't previously loaded
-    //     this.router.navigated = false;
-    //   }
-    // });
     this.loadData();
   }
 
@@ -33,7 +25,7 @@ export class DashboardPage implements OnInit {
     this.reload = !this.reload;
     console.warn(this.reload);
     this.authService.admin.subscribe((res) => {
-      console.log('res', res);
+      console.log('Admin -->', res);
       if (res === undefined) {
         this.authService.decodeToken();
       } else {
@@ -41,8 +33,8 @@ export class DashboardPage implements OnInit {
       }
     });
     this.userService.getUser().subscribe((user) => {
-      console.log('DATA', user);
+      this.userName = user.name;
+      console.log('userData -->', user);
     });
-    console.log(this.isAdmin);
   }
 }

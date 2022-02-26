@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content>
-  <app-user-actions></app-user-actions>
+  <app-user-actions [name]="userName"></app-user-actions>
   <ng-container *ngIf="!isAdmin else admin">
     <app-quick-actions [reloadTrigger]="reload"></app-quick-actions>
     <app-history [reloadTrigger]="reload"></app-history>

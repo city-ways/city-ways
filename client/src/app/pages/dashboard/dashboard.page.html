@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>dashboard</ion-title>
+    <ion-title>Inicio</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="loadData()">
         <ion-icon name="reload-outline"></ion-icon>
@@ -16,8 +16,7 @@
     <app-history [reloadTrigger]="reload"></app-history>
   </ng-container>
   <ng-template #admin>
-    <app-users-list></app-users-list>
-    <app-parkings-list></app-parkings-list>
+    <app-users-list [reloadTrigger]="reload"></app-users-list>
+    <app-parkings-list [reloadTrigger]="reload"></app-parkings-list>
   </ng-template>
-  <!--  Modals-->
 </ion-content>

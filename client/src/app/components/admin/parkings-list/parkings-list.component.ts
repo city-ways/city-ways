@@ -5,10 +5,7 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { User } from '../../../shared/User';
-import { UserService } from '../../../core/user.service';
 import { ModalController } from '@ionic/angular';
-import { RegisterPage } from '../../../shared/user-form/register.page';
 import { Parking } from '../../../shared/parking';
 import { ParkingService } from '../../../core/parking.service';
 import { ParkingFormPage } from '../../../shared/parking-form/parking-form.page';

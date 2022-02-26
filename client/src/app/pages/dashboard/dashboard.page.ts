@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ParkingService } from '../../core/parking.service';
 import { UserService } from '../../core/user.service';
-import { data } from 'autoprefixer';
 import { AuthService } from '../../core/auth.service';
-import { filter, switchMap, takeWhile } from 'rxjs/operators';
-import { iif } from 'rxjs';
-import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',

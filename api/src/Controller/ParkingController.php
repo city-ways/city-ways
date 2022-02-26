@@ -115,7 +115,7 @@ class ParkingController extends AbstractController
         $entityManager->persist($parking);
         $entityManager->flush();
 
-        return new Response('Saved new parking with id '. $parking->getId());
+        return $this->json('Saved new parking with id '. $parking->getId());
     }
 
     /**

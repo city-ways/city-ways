@@ -1,5 +1,6 @@
 ion-card-content {
-  max-height: 250px;
+  max-height: 350px;
+  overflow-y: scroll;
 }
 
 ion-skeleton-text {

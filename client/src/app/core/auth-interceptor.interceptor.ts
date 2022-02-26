@@ -33,7 +33,7 @@ export class AuthInterceptorInterceptor implements HttpInterceptor {
 
     return next.handle(request).pipe(
       catchError((err: HttpErrorResponse) => {
-        if (err.status === 401 || err.status === 403) {
+        if (err.status === 401) {
           this.router.navigate(['/home']);
         }
 

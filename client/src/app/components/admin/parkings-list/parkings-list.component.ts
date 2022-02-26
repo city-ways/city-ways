@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { User } from '../../../shared/User';
 import { UserService } from '../../../core/user.service';
 import { ModalController } from '@ionic/angular';
@@ -12,18 +18,15 @@ import { ParkingFormPage } from '../../../shared/parking-form/parking-form.page'
   templateUrl: './parkings-list.component.html',
   styleUrls: ['./parkings-list.component.scss'],
 })
-export class ParkingsListComponent implements OnInit {
+export class ParkingsListComponent implements OnInit, OnChanges {
+  @Input() reloadTrigger: boolean;
   public parkings: Parking[];
   constructor(
     private parkingService: ParkingService,
     private modalController: ModalController
   ) {}
 
-  ngOnInit() {
-    this.parkingService
-      .getParkings()
-      .subscribe((parkings) => (this.parkings = parkings));
-  }
+  ngOnInit() {}
   deleteParking(id: number) {
     this.parkingService.deleteParking(id).subscribe();
   }
@@ -36,5 +39,11 @@ export class ParkingsListComponent implements OnInit {
       },
     });
     return await modal.present();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.parkingService
+      .getParkings()
+      .subscribe((parkings) => (this.parkings = parkings));
   }
 }

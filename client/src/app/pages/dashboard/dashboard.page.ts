@@ -13,23 +13,29 @@ import { NavigationEnd, Router } from '@angular/router';
   styleUrls: ['./dashboard.page.scss'],
 })
 export class DashboardPage implements OnInit {
-  public editModalIsOpen: boolean;
   public isAdmin = false;
-  mySubscription: any;
+  public reload = false;
+  // mySubscription: any;
   constructor(
     private parkingService: ParkingService,
     private userService: UserService,
-    private authService: AuthService,
-    private router: Router
+    private authService: AuthService
   ) {}
   ngOnInit() {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.mySubscription = this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        // Trick the Router into believing it's last link wasn't previously loaded
-        this.router.navigated = false;
-      }
-    });
+    // todo: check if this is necessary
+    // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    // this.mySubscription = this.router.events.subscribe((event) => {
+    //   if (event instanceof NavigationEnd) {
+    //     // Trick the Router into believing it's last link wasn't previously loaded
+    //     this.router.navigated = false;
+    //   }
+    // });
+    this.loadData();
+  }
+
+  loadData() {
+    this.reload = !this.reload;
+    console.warn(this.reload);
     this.authService.admin.subscribe((res) => {
       console.log('res', res);
       if (res === undefined) {
@@ -42,11 +48,5 @@ export class DashboardPage implements OnInit {
       console.log('DATA', user);
     });
     console.log(this.isAdmin);
-  }
-  newParking() {
-    console.log('ff');
-  }
-  editParking() {
-    this.editModalIsOpen = true;
   }
 }

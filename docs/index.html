@@ -39,7 +39,7 @@
               >Company</span
             >
           </a>
-          <ul class="flex items-center hidden space-x-8 lg:flex">
+          <ul class="items-center hidden space-x-8 lg:flex">
             <li>
               <a
                 href="/"
@@ -78,7 +78,7 @@
             </li>
           </ul>
         </div>
-        <ul class="flex items-center hidden space-x-8 lg:flex">
+        <ul class="items-center hidden space-x-8 lg:flex">
           <li>
             <a
               href="/"
@@ -121,8 +121,7 @@
               ></path>
             </svg>
           </button>
-          Mobile menu dropdown
-          <div class="absolute top-0 left-0 w-full">
+          <div class="absolute top-0 left-0 hidden w-full" aria-label="Menu">
             <div class="p-5 bg-white border rounded shadow-sm">
               <div class="flex items-center justify-between mb-4">
                 <div>
@@ -149,7 +148,7 @@
                     </svg>
                     <span
                       class="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase"
-                      >Company</span
+                      >City Ways</span
                     >
                   </a>
                 </div>
@@ -168,7 +167,7 @@
                   </button>
                 </div>
               </div>
-              <nav>
+              <nav id="mobile">
                 <ul class="space-y-4">
                   <li>
                     <a
@@ -711,5 +710,6 @@
         </p>
       </div>
     </footer>
+    <script src="./js/main.js"></script>
   </body>
 </html>

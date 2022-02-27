@@ -9,9 +9,10 @@ import {
 } from '@angular/forms';
 import { User } from '../User';
 import { ParkingService } from '../../core/parking.service';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController, AlertController } from '@ionic/angular';
 import { UserService } from '../../core/user.service';
 import { SelectionMapPage } from '../../pages/selection-map/selection-map.page';
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-parking-form',
@@ -38,8 +39,34 @@ export class ParkingFormPage implements OnInit {
     private formBuilder: FormBuilder,
     private parkingService: ParkingService,
     private modalController: ModalController,
-    private userService: UserService
+    private userService: UserService,
+    private alertController: AlertController,
+    private toastController: ToastController
   ) {}
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Error',
+      message: 'Revisa los campos no válidos',
+      buttons: ['Vale']
+    });
+
+    await alert.present();
+  }
+
+  async presentToast(type: string) {
+    var msg: string = 'Parking creado';
+    if (type=== 'editar'){
+      msg = 'Parking editado';
+    }
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: 2000
+    });
+    toast.present();
+  }
+
   ngOnInit() {
     console.log('pizza');
     this.parkingData = this.formBuilder.group({
@@ -128,12 +155,12 @@ export class ParkingFormPage implements OnInit {
             .createParking(parking)
             .subscribe((pk) => console.log('Parking creado', pk));
         }
-        // close form
+        this.presentToast(this.type);
         this.exit();
         console.log(this.parkingData.value);
       }
     } else {
-      // show errors
+      this.presentAlert(); 
     }
   }
 

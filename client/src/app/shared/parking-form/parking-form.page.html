@@ -36,7 +36,7 @@
       <div *ngIf="getTypeParking(); else cortaEstancia">
         <ion-item>
           <ion-label>Precio Por Dia</ion-label>
-          <ion-input type="number" formControlName="pricePerDay"> </ion-input>
+          <ion-input type="number" min="15" formControlName="pricePerDay"> </ion-input>
         </ion-item>
         <ion-item-group
           formArrayName="daysAvailable"
@@ -71,7 +71,7 @@
       <ng-template #cortaEstancia>
         <ion-item>
           <ion-label>Precio Por hr</ion-label>
-          <ion-input type="number" formControlName="pricePerHour"> </ion-input>
+          <ion-input type="number" min="1.18" formControlName="pricePerHour"> </ion-input>
         </ion-item>
         <ng-container formArrayName="timesAvailable">
           <ion-item-group

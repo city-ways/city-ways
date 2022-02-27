@@ -5,7 +5,6 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { ParkingDataService } from '../../core/parking-data.service';
 import { UserService } from '../../core/user.service';
 import { Parking } from '../../shared/parking';
 import { ModalController } from '@ionic/angular';

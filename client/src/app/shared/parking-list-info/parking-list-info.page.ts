@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Parking } from '../parking';
-import { ParkingDataService } from '../../core/parking-data.service';
 import { ModalController } from '@ionic/angular';
 import { UserService } from '../../core/user.service';
 
@@ -14,7 +13,6 @@ export class ParkingListInfoPage implements OnInit {
   public parkingList: Parking[];
   constructor(
     private modalController: ModalController,
-    private parkingDataService: ParkingDataService,
     private userService: UserService
   ) {}
 

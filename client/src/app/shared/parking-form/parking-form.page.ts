@@ -41,7 +41,6 @@ export class ParkingFormPage implements OnInit {
     private userService: UserService
   ) {}
   ngOnInit() {
-    console.log('pizza');
     this.parkingData = this.formBuilder.group({
       direction: '',
       lng: ['', Validators.required],
@@ -98,7 +97,6 @@ export class ParkingFormPage implements OnInit {
   }
 
   clearInputs() {
-    // todo: refactor
     if (this.getTypeParking()) {
       this.parkingData.get('pricePerDay').setValidators([Validators.required]);
     } else {

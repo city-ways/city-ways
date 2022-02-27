@@ -33,7 +33,7 @@ export class MapPage implements OnInit {
         ? this.mapDark
         : this.mapLight,
       attributionControl: false,
-      zoom: 17,
+      zoom: 15,
     });
     // change the map style if the user change the colors when the app is running
     window
@@ -69,7 +69,6 @@ export class MapPage implements OnInit {
         .addTo(this.map);
       this.markers.push(mark);
     });
-    console.log('entra');
     this.parkingService.getParkings().subscribe((data) => {
       data.map(({ cords: { longitude, latitude }, id }) => {
         // Add a marker for each car park and its corresponding event to show the booking mode
@@ -77,7 +76,6 @@ export class MapPage implements OnInit {
         popup.on('open', () => {
           this.showModal(id);
         });
-        console.log([[longitude, latitude]]);
         const markerParking = new Marker({ color: '#3880ff' })
           .setLngLat([longitude, latitude])
           .setPopup(popup)

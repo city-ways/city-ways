@@ -9,6 +9,7 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root',
@@ -23,8 +24,8 @@ export class AuthInterceptorInterceptor implements HttpInterceptor {
     const token = localStorage.getItem('auth_token');
 
     if (!token) {
-      localStorage.removeItem('auth_token');
-      this.router.navigate(['/home']);
+      // this.router.navigate(['/home']);
+      return next.handle(req);
     }
 
     const request = req.clone({
@@ -33,10 +34,9 @@ export class AuthInterceptorInterceptor implements HttpInterceptor {
 
     return next.handle(request).pipe(
       catchError((err: HttpErrorResponse) => {
-        if (err.status === 401 || err.status === 403) {
+        if (err.status === 401) {
           this.router.navigate(['/home']);
         }
-
         return throwError(err);
       })
     );

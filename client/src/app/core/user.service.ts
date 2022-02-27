@@ -30,12 +30,6 @@ export class UserService {
   public updateUser(user: User) {
     return this.http.put<User>(`${this.url}/${user.id}`, user);
   }
-  // todo: delete, is duplicate in auth service
-  // public register(user: User): Observable<any> {
-  //   return this.http.post<User>(`${environment.apiUrlBase}/register`, user, {
-  //     headers: this.headers,
-  //   });
-  // }
   public deleteUser(id: number): Observable<any> {
     return this.http.delete(`${this.url}/${id}`);
   }

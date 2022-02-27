@@ -44,11 +44,11 @@ export class ParkingFormPage implements OnInit {
     private toastController: ToastController
   ) {}
 
-  async presentAlert() {
+  async presentAlert(error: string) {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: 'Error',
-      message: 'Revisa los campos no válidos',
+      message:  error,
       buttons: ['Vale']
     });
 
@@ -76,8 +76,8 @@ export class ParkingFormPage implements OnInit {
       longPeriod: [false, Validators.required],
       timesAvailable: this.formBuilder.array([]),
       daysAvailable: this.formBuilder.array([]),
-      pricePerHour: 0,
-      pricePerDay: 0,
+      pricePerHour: 1.18,
+      pricePerDay: 15,
     });
     // let id: number;
     // this.userService.user.subscribe((idUser) => (id = idUser.id));
@@ -140,6 +140,13 @@ export class ParkingFormPage implements OnInit {
     if (this.parkingData.valid) {
       if (this.parkingData.dirty) {
         let parking: Parking = this.castToParking(this.parkingData.value);
+        var validRange = false;
+        if (parking.daysAvailable.length != 0 && validRange == false) validRange = true
+        if (parking.timesAvailable.length != 0 && validRange == false) validRange = true
+        if (validRange == false){
+          this.presentAlert('Establece un rango de tiempo/días');
+          return; 
+        }
         if (this.type === 'editar') {
           // update parking
           this.parkingService
@@ -160,7 +167,7 @@ export class ParkingFormPage implements OnInit {
         console.log(this.parkingData.value);
       }
     } else {
-      this.presentAlert(); 
+      this.presentAlert('Comprueba los campos obligatorios'); 
     }
   }
 

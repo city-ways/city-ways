@@ -33,7 +33,7 @@ export class MapPage implements OnInit {
         ? this.mapDark
         : this.mapLight,
       attributionControl: false,
-      zoom: 17,
+      zoom: 15,
     });
     // change the map style if the user change the colors when the app is running
     window

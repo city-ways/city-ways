@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="style/cw.css" />
     <title>City Ways</title>
   </head>
@@ -19,24 +20,16 @@
             title="Company"
             class="inline-flex items-center mr-8"
           >
-            <svg
-              class="w-8 text-blue-600"
-              viewBox="0 0 24 24"
-              stroke-linejoin="round"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-miterlimit="10"
-              stroke="currentColor"
-              fill="none"
-            >
-              <rect x="3" y="1" width="7" height="12"></rect>
-              <rect x="3" y="17" width="7" height="6"></rect>
-              <rect x="14" y="1" width="7" height="6"></rect>
-              <rect x="14" y="11" width="7" height="12"></rect>
-            </svg>
+            <img src="img/favicon.png" alt="logo" class="w-16" />
+
+            <rect x="3" y="1" width="7" height="12"></rect>
+            <rect x="3" y="17" width="7" height="6"></rect>
+            <rect x="14" y="1" width="7" height="6"></rect>
+            <rect x="14" y="11" width="7" height="12"></rect>
+
             <span
               class="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase"
-              >Company</span
+              >City Ways</span
             >
           </a>
           <ul class="items-center hidden space-x-8 lg:flex">
@@ -91,7 +84,7 @@
           <li>
             <a
               href="/"
-              class="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-blue-600 rounded shadow-md hover:bg-blue-accent-700 focus:shadow-outline focus:outline-none"
+              class="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-blue-600 rounded shadow-blue-700 hover:bg-blue-accent-700 focus:shadow-outline focus:outline-none"
               aria-label="Sign up"
               title="Sign up"
             >
@@ -252,21 +245,54 @@
                 No pierdas tiempo buscando una plaza de aparcamiento.
               </p>
             </div>
-            <div class="flex items-center space-x-3">
-              <a href="/" class="w-32 transition duration-300 hover:shadow-lg">
-                <img
-                  src="https://kitwind.io/assets/kometa/app-store.png"
-                  class="object-cover object-top w-full h-auto mx-auto"
-                  alt=""
-                />
-              </a>
-              <a href="/" class="w-32 transition duration-300 hover:shadow-lg">
-                <img
-                  src="https://kitwind.io/assets/kometa/google-play.png"
-                  class="object-cover object-top w-full h-auto mx-auto"
-                  alt=""
-                />
-              </a>
+            <div class="space-x-10">
+              <button
+                class="inline-flex items-center h-12 p-2 px-6 space-x-3 font-medium tracking-wide text-white transition duration-200 bg-blue-600 rounded shadow-lg w-fit shadow-blue-700 hover:bg-blue-700"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-10"
+                  viewBox="0 0 512 512"
+                >
+                  <title>Laptop</title>
+                  <rect
+                    x="48"
+                    y="96"
+                    width="416"
+                    height="304"
+                    rx="32.14"
+                    ry="32.14"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linejoin="round"
+                    stroke-width="32"
+                  />
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-miterlimit="10"
+                    stroke-width="32"
+                    d="M16 416h480"
+                  />
+                </svg>
+                <span>Web</span>
+              </button>
+              <button
+                class="inline-flex items-center h-12 p-2 px-6 space-x-3 font-medium tracking-wide text-white transition duration-200 bg-blue-600 rounded shadow-lg w-fit shadow-blue-700 hover:bg-blue-700"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-10 ionicon"
+                  viewBox="0 0 512 512"
+                  fill="#fff"
+                >
+                  <title>Logo Android</title>
+                  <path
+                    d="M380.91 199l42.47-73.57a8.63 8.63 0 00-3.12-11.76 8.52 8.52 0 00-11.71 3.12l-43 74.52c-32.83-15-69.78-23.35-109.52-23.35s-76.69 8.36-109.52 23.35l-43-74.52a8.6 8.6 0 10-14.88 8.64L131 199C57.8 238.64 8.19 312.77 0 399.55h512c-8.19-86.78-57.8-160.91-131.09-200.55zM138.45 327.65a21.46 21.46 0 1121.46-21.46 21.47 21.47 0 01-21.46 21.46zm235 0A21.46 21.46 0 11395 306.19a21.47 21.47 0 01-21.51 21.46z"
+                  />
+                </svg>
+                <span>Web</span>
+              </button>
             </div>
           </div>
           <div class="flex items-center justify-center">
@@ -308,16 +334,166 @@
     <section
       class="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20"
     >
+      <div class="grid gap-12 row-gap-8 lg:grid-cols-2">
+        <div class="flex flex-col justify-center">
+          <div class="max-w-xl mb-6">
+            <h2
+              class="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none"
+            >
+              No pierdas el tiempo buscando un
+              <span class="relative px-1">
+                <div
+                  class="absolute inset-x-0 bottom-0 h-3 transform -skew-x-12 bg-yellow-accent-400"
+                ></div>
+                <span class="relative inline-block text-blue-600">parking</span>
+              </span>
+            </h2>
+            <p class="text-base text-gray-700 md:text-lg">
+              Con City Ways puedes encontrar el parking mas cercano al mejor
+              precio.
+            </p>
+          </div>
+          <div class="grid gap-8 row-gap-8 sm:grid-cols-2">
+            <div>
+              <div
+                class="flex items-center justify-center w-12 h-12 mb-4 bg-blue-600 rounded-full"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-6 text-white ionicon"
+                  viewBox="0 0 512 512"
+                >
+                  <title>Cash</title>
+                  <rect
+                    x="32"
+                    y="80"
+                    width="448"
+                    height="256"
+                    rx="16"
+                    ry="16"
+                    transform="rotate(180 256 208)"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linejoin="round"
+                    stroke-width="32"
+                  />
+                  <path
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="32"
+                    d="M64 384h384M96 432h320"
+                  />
+                  <circle
+                    cx="256"
+                    cy="208"
+                    r="80"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="32"
+                  />
+                  <path
+                    d="M480 160a80 80 0 01-80-80M32 160a80 80 0 0080-80M480 256a80 80 0 00-80 80M32 256a80 80 0 0180 80"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="32"
+                  />
+                </svg>
+              </div>
+              <h6 class="mb-2 font-semibold leading-5">Precio económico</h6>
+              <p class="text-sm text-gray-900">
+                En City Ways puedes encontrar los precios mas competitivos del
+                mercado.
+              </p>
+            </div>
+            <div>
+              <div
+                class="flex items-center justify-center w-12 h-12 mb-4 bg-blue-600 rounded-full"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-6 text-white ionicon"
+                  viewBox="0 0 512 512"
+                >
+                  <title>Analytics</title>
+                  <path
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="32"
+                    d="M344 280l88-88M232 216l64 64M80 320l104-104"
+                  />
+                  <circle
+                    cx="456"
+                    cy="168"
+                    r="24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="32"
+                  />
+                  <circle
+                    cx="320"
+                    cy="304"
+                    r="24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="32"
+                  />
+                  <circle
+                    cx="208"
+                    cy="192"
+                    r="24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="32"
+                  />
+                  <circle
+                    cx="56"
+                    cy="344"
+                    r="24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="32"
+                  />
+                </svg>
+              </div>
+              <h6 class="mb-2 font-semibold leading-5">Cercano</h6>
+              <p class="text-sm text-gray-900">
+                City Ways cuenta con un amplia red parkings en las principales
+                ciudades.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <img
+            class="object-cover w-full h-56 rounded shadow-lg sm:h-96"
+            src="img/car.jpg"
+            alt="coche img"
+          />
+        </div>
+      </div>
+    </section>
+    <section
+      class="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20"
+    >
       <div
         class="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12"
       >
-        <div>
-          <p
-            class="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-teal-900 uppercase rounded-full bg-teal-accent-400"
-          >
-            Make history
-          </p>
-        </div>
         <h2
           class="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto"
         >
@@ -344,13 +520,13 @@
                 height="24"
               ></rect>
             </svg>
-            <span class="relative">Let's</span>
+            <span class="relative">Empieza</span>
           </span>
-          launch a rocket into outer space
+          a ganar dinero con tu aparcamiento
         </h2>
         <p class="text-base text-gray-700 md:text-lg">
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium doloremque rem aperiam, eaque ipsa quae.
+          Para empezar a gar dinero minetras no utilizas tu plaza de
+          aparcamiento sigue los siguientes pasos.
         </p>
       </div>
       <div class="grid gap-8 row-gap-5 md:row-gap-8 lg:grid-cols-3">
@@ -363,11 +539,10 @@
             >
               1
             </p>
-            <p class="text-lg font-bold leading-5">Fill her up</p>
+            <p class="text-lg font-bold leading-5">Regístrate</p>
           </div>
           <p class="text-sm text-gray-900">
-            Bro ipsum dolor sit amet gaper backside single track, manny Bike
-            epic clipless.
+            Para empezar necesitas una cuenta de City Ways.
           </p>
         </div>
         <div
@@ -379,11 +554,11 @@
             >
               2
             </p>
-            <p class="text-lg font-bold leading-5">Light it</p>
+            <p class="text-lg font-bold leading-5">Añade tu plaza</p>
           </div>
           <p class="text-sm text-gray-900">
-            Skate ipsum dolor sit amet, alley oop vert mute-air Colby Carter
-            flail 180 berm.
+            Añade tu plaza con sus rangos de días o horas en el que estará
+            libre.
           </p>
         </div>
         <div
@@ -395,11 +570,11 @@
             >
               3
             </p>
-            <p class="text-lg font-bold leading-5">Shoot for the stars</p>
+            <p class="text-lg font-bold leading-5">Obtén tus ingresos</p>
           </div>
           <p class="text-sm text-gray-900">
-            A flower in my garden, a mystery in my panties. Heart attack never
-            stopped.
+            Cada vez que un usuario de City Ways utilicé tu parking obtendrás
+            benefició.
           </p>
           <p
             class="absolute top-0 right-0 flex items-center justify-center w-8 h-8 -mt-4 -mr-4 font-bold bg-blue-600 rounded-full sm:-mt-5 sm:-mr-5 sm:w-10 sm:h-10"
@@ -429,20 +604,21 @@
         <div class="flex flex-col mb-16 sm:text-center">
           <a href="/" class="mb-6 sm:mx-auto">
             <div
-              class="flex items-center justify-center w-12 h-12 rounded-full bg-indigo-50"
+              class="flex items-center justify-center w-12 h-12 bg-blue-600 rounded-full"
             >
               <svg
-                class="w-10 h-10 text-deep-purple-accent-400"
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-6 h-6 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
                 stroke="currentColor"
-                viewBox="0 0 52 52"
               >
-                <polygon
-                  stroke-width="3"
+                <path
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                  fill="none"
-                  points="29 13 14 29 25 29 23 39 38 23 27 23"
-                ></polygon>
+                  stroke-width="2"
+                  d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
               </svg>
             </div>
           </a>
@@ -473,13 +649,12 @@
                     height="24"
                   ></rect>
                 </svg>
-                <span class="relative">The</span>
+                <span class="relative">Prguntas</span>
               </span>
-              quick, brown fox jumps over a lazy dog
+              Frecuentes:
             </h2>
             <p class="text-base text-gray-700 md:text-lg">
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque rem aperiam, eaque ipsa quae.
+              Encuentra respuesta a las preguntas más frecuentes.
             </p>
           </div>
         </div>

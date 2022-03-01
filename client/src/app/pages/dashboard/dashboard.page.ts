@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ParkingService } from '../../core/parking.service';
 import { UserService } from '../../core/user.service';
-import { data } from 'autoprefixer';
 import { AuthService } from '../../core/auth.service';
-import { filter, switchMap, takeWhile } from 'rxjs/operators';
-import { iif } from 'rxjs';
-import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,25 +9,23 @@ import { NavigationEnd, Router } from '@angular/router';
   styleUrls: ['./dashboard.page.scss'],
 })
 export class DashboardPage implements OnInit {
-  public editModalIsOpen: boolean;
   public isAdmin = false;
-  mySubscription: any;
+  public reload = false;
+  public userName: string;
   constructor(
     private parkingService: ParkingService,
     private userService: UserService,
-    private authService: AuthService,
-    private router: Router
+    private authService: AuthService
   ) {}
   ngOnInit() {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.mySubscription = this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        // Trick the Router into believing it's last link wasn't previously loaded
-        this.router.navigated = false;
-      }
-    });
+    this.loadData();
+  }
+
+  loadData() {
+    this.reload = !this.reload;
+    console.warn(this.reload);
     this.authService.admin.subscribe((res) => {
-      console.log('res', res);
+      console.log('Admin -->', res);
       if (res === undefined) {
         this.authService.decodeToken();
       } else {
@@ -39,14 +33,8 @@ export class DashboardPage implements OnInit {
       }
     });
     this.userService.getUser().subscribe((user) => {
-      console.log('DATA', user);
+      this.userName = user.name;
+      console.log('userData -->', user);
     });
-    console.log(this.isAdmin);
-  }
-  newParking() {
-    console.log('ff');
-  }
-  editParking() {
-    this.editModalIsOpen = true;
   }
 }

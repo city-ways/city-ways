@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../core/user.service';
+import { Component, Input, OnInit } from '@angular/core';
 import { AuthService } from '../../core/auth.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-actions',
@@ -9,9 +7,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./user-actions.component.scss'],
 })
 export class UserActionsComponent implements OnInit {
-  public name: string;
-  constructor(private authService: AuthService, private router: Router) {}
-  // todo: refactorizar con el servico de usurios
+  @Input() name: string;
+  constructor(private authService: AuthService) {}
   ngOnInit() {}
 
   logOut() {

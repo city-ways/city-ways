@@ -9,6 +9,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { UserActionsComponent } from '../../components/user-actions/user-actions.component';
 import { AdminModule } from '../../components/admin/admin.module';
 import { HistoryComponent } from '../../components/history/history.component';
+import { ParkingFormPageModule } from '../../shared/parking-form/parking-form.module';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { HistoryComponent } from '../../components/history/history.component';
     DashboardPageRoutingModule,
     SharedModule,
     AdminModule,
+    ParkingFormPageModule,
   ],
   declarations: [
     DashboardPage,

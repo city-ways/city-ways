@@ -55,20 +55,18 @@ export class BookingParkingPage implements OnInit {
   send() {
     this.parkingService
       .bookAParking(this.parking.id)
-      .subscribe((res) => console.log(res));
+      .subscribe((res) => this.presentAlert(res));
   }
-  async presentAlert() {
+  async presentAlert(text: string) {
     const alert = await this.alertController.create({
-      cssClass: 'my-custom-class',
-      header: 'Alert',
-      subHeader: 'Subtitle',
-      message: 'This is an alert message.',
+      header: 'Reserva',
+      subHeader: text,
       buttons: ['OK'],
     });
 
     await alert.present();
 
-    const { role } = await alert.onDidDismiss();
-    console.log('onDidDismiss resolved with role', role);
+    // const { role } = await alert.onDidDismiss();
+    // console.log('onDidDismiss resolved with role', role);
   }
 }

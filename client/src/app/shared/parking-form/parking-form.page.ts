@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { User } from '../User';
 import { ParkingService } from '../../core/parking.service';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { UserService } from '../../core/user.service';
 import { SelectionMapPage } from '../../pages/selection-map/selection-map.page';
 
@@ -38,10 +38,10 @@ export class ParkingFormPage implements OnInit {
     private formBuilder: FormBuilder,
     private parkingService: ParkingService,
     private modalController: ModalController,
-    private userService: UserService
+    private userService: UserService,
+    private toastController: ToastController
   ) {}
   ngOnInit() {
-    console.log('pizza');
     this.parkingData = this.formBuilder.group({
       direction: '',
       lng: ['', Validators.required],
@@ -98,7 +98,6 @@ export class ParkingFormPage implements OnInit {
   }
 
   clearInputs() {
-    // todo: refactor
     if (this.getTypeParking()) {
       this.parkingData.get('pricePerDay').setValidators([Validators.required]);
     } else {
@@ -109,32 +108,37 @@ export class ParkingFormPage implements OnInit {
   }
 
   sendForm() {
-    console.log(this.parkingData.get('lng').value);
     if (this.parkingData.valid) {
       if (this.parkingData.dirty) {
         let parking: Parking = this.castToParking(this.parkingData.value);
         if (this.type === 'editar') {
           // update parking
           console.warn(parking);
-          this.parkingService
-            .updateParking(parking)
-            .subscribe((pk) => console.log('Parking update', pk));
+          this.parkingService.updateParking(parking).subscribe((pk) => {
+            console.log('Parking update', pk);
+            this.presentToast('Has editado tu parking');
+          });
         } else {
           // new parking
           this.parkingService
             .getMaxParkingId()
             .subscribe((id) => (parking.id = ++id));
           console.log('parking--->', parking);
-          this.parkingService
-            .createParking(parking)
-            .subscribe((pk) => console.log('Parking creado', pk));
+          this.parkingService.createParking(parking).subscribe((pk) => {
+            console.log('Parking creado', pk);
+            this.presentToast('Se ha añadido el parking');
+          });
         }
         // close form
         this.exit();
         console.log(this.parkingData.value);
+      } else {
+        this.presentToast('Haz cambios en el parking');
       }
     } else {
       // show errors
+      this.presentToast('Revisa los campo necesarios');
+      // this.presentToast();
     }
   }
 
@@ -232,5 +236,14 @@ export class ParkingFormPage implements OnInit {
       lng,
       lat,
     });
+  }
+
+  async presentToast(text: string) {
+    const toast = await this.toastController.create({
+      color: 'tertiary',
+      message: text,
+      duration: 2000,
+    });
+    toast.present();
   }
 }

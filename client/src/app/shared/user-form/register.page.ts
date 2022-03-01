@@ -61,7 +61,6 @@ export class RegisterPage implements OnInit {
         password: 'never reaches the backend',
       });
     }
-    console.warn(this.userData.value);
     console.log(this.userData.valid);
     if (this.userData.valid) {
       if (this.userData.dirty) {

@@ -65,7 +65,6 @@ export class RegisterPage implements OnInit {
     if (this.userData.valid) {
       if (this.userData.dirty) {
         const user: User = this.castToUser(this.userData.value);
-        console.warn(user);
         if (this.type !== 'editar') {
           this.authService.register(user).subscribe((response) => {
             // if (response !== 200) {

@@ -13,14 +13,10 @@ import { History } from '../../shared/history';
   templateUrl: './history.component.html',
   styleUrls: ['./history.component.scss'],
 })
-export class HistoryComponent implements OnInit, OnChanges {
+export class HistoryComponent implements OnChanges {
   @Input() reloadTrigger: boolean;
   public history: History[];
   constructor(private historyService: HistoryService) {}
-
-  ngOnInit() {
-    this.loadData();
-  }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.loadData();

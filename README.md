@@ -2,9 +2,13 @@
 
 Una aplicación web y movil que permite a sus usuarios utilizar plazas de aparcamientos que otros usuarios han puesto a su disposición.
 
-## Resumen:
+## Extras:
 
-_[en progreso]_
+- Cliente: </br>
+  En la parte del cliente, hemos implementado un sistema de comprobación del JWT almacenado del usuario mediante la librería [@auth0/angular-jwt](https://www.npmjs.com/package/@auth0/angular-jwt) en la inizializacion de la aplicacion gracias al token de Angular [APP_INITIALIZER](https://angular.io/api/core/APP_INITIALIZER). En el tema de la seguridad esta implementado en el HttpInterceptor una redireccion al _home_ en caso de que durante el funcionamiento se borren las credenciales o se le caduque el Token, tambien hemos empledo dos tipos de _guards_ [canLoad](https://angular.io/api/router/CanLoad) y [canActive](https://angular.io/api/router/CanActivate), el primero para controlar que se cargen los diferentes módulos que requieren estar autentautentificado y el segundo para controlar el acceso a las rutas una vez ya cargados los módulos.
+  </br>
+- Api: </br>
+  En la parte de la api hemos trabajado para implementar diversas mejoras como la validacion de los datos recibidos mediante componente de Symfony [Validator](https://symfony.com/doc/current/validation.html), la gestión de los permisos de cada usuario mediante los [Voters](https://symfony.com/doc/current/security/voters.html)
 
 ### Instalación:
 

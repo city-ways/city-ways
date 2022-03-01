@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { UserService } from '../../../core/user.service';
 import { User } from '../../../shared/User';
 import { Parking } from '../../../shared/parking';
@@ -11,18 +17,15 @@ import { RegisterPage } from '../../../shared/user-form/register.page';
   templateUrl: './users-list.component.html',
   styleUrls: ['./users-list.component.scss'],
 })
-export class UsersListComponent implements OnInit {
+export class UsersListComponent implements OnInit, OnChanges {
+  @Input() reloadTrigger: boolean;
   public users: User[];
   constructor(
     private userService: UserService,
     private modalController: ModalController
   ) {}
 
-  ngOnInit() {
-    this.userService
-      .getAllUsers()
-      .subscribe((userLst) => (this.users = userLst));
-  }
+  ngOnInit() {}
   deleteUser(id: number) {
     this.userService.deleteUser(id).subscribe();
   }
@@ -35,5 +38,11 @@ export class UsersListComponent implements OnInit {
       },
     });
     return await modal.present();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.userService
+      .getAllUsers()
+      .subscribe((userLst) => (this.users = userLst));
   }
 }

@@ -115,7 +115,7 @@ class ParkingController extends AbstractController
         $entityManager->persist($parking);
         $entityManager->flush();
 
-        return new Response('Saved new parking with id '. $parking->getId());
+        return $this->json('Saved new parking with id '. $parking->getId());
     }
 
     /**
@@ -196,19 +196,23 @@ class ParkingController extends AbstractController
             return $this->json("No parking found for id: $id", 404);
         }
         // only the user can book a parking if the user aren't already booking one.
-        // temporarily disabled
-//        $this->denyAccessUnlessGranted("book", $parking);
+        // $this->denyAccessUnlessGranted("book", $parking, "no puedes ocupar mas de un parking a la vez");
+        // prevent to throw 403
+        if (!$this->isGranted("book", $parking)) {
+            return $this->json("No puedes ocupar mas de un parking a la vez");
+        }
         // user can book this parking
         $parking->setStatus(!$parking->getStatus());
-
         // when the parking is release, is added to the history
         // false == free, true == a user is using that parking
         // when the user take the parking, history is added
         if ($parking->getStatus()) {
+            $message = "Estas usando el parking: " . $parking->getDirection();
             $currentDate = new DateTime();
             $strDate = $currentDate->format('Y-m-d');
             $parking->addHistory(new History($strDate, $this->getUser(), $parking));
         } else {
+            $message = "Has dejado de usar el parking: " . $parking->getDirection();
             /** @var History $history */
             $history = $parking->getHistory()->last();
             $history->setInProgress(false);
@@ -218,6 +222,6 @@ class ParkingController extends AbstractController
             return $this->json((string) $errors, 400);
         }
         $entityManager->flush();
-        return $this->json("You are current using the parking $id");
+        return $this->json($message);
     }
 }

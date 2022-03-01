@@ -5,21 +5,27 @@
 </ion-header>
 
 <ion-content>
-  <ion-item>
-    <ion-label> Tipo: {{parking?.type}} </ion-label>
-    <ion-icon
-      name="information-circle-outline"
-      size="small"
-      slot="end"
-    ></ion-icon>
-  </ion-item>
-  <ion-item>
-    <ion-label> Propietario: {{parking?.owner?.name}} </ion-label>
-    <ion-icon name="person-outline" size="small" slot="end"></ion-icon>
-  </ion-item>
-  <ion-button type="submit" expand="full" color="primary" (click)="send()"
-    >Reservar</ion-button
-  >
+  <ng-container *ngIf="parking; else load">
+    <ion-item>
+      <ion-label> Tipo: {{parking?.type}} </ion-label>
+      <ion-icon
+        name="information-circle-outline"
+        size="small"
+        slot="end"
+      ></ion-icon>
+    </ion-item>
+    <ion-item>
+      <ion-label> Propietario: {{parking?.owner?.name}} </ion-label>
+      <ion-icon name="person-outline" size="small" slot="end"></ion-icon>
+    </ion-item>
+    <ion-button type="submit" expand="full" color="primary" (click)="send()"
+      >Reservar</ion-button
+    >
+  </ng-container>
+  <ng-template #load class="scroll">
+    <!-- Crescent -->
+    <ion-spinner color="primary" name="crescent"></ion-spinner>
+  </ng-template>
 
   <!--  <form [formGroup]="formBook" (ngSubmit)="send()">-->
   <!--    <ion-item>-->

@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { ParkingDataService } from '../../core/parking-data.service';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { UserService } from '../../core/user.service';
 import { Parking } from '../../shared/parking';
 import { ModalController } from '@ionic/angular';
@@ -13,15 +18,19 @@ import { RegisterPage } from '../../shared/user-form/register.page';
   templateUrl: './quick-actions.component.html',
   styleUrls: ['./quick-actions.component.scss'],
 })
-export class QuickActionsComponent implements OnInit {
+export class QuickActionsComponent implements OnInit, OnChanges {
+  @Input() reloadTrigger: boolean;
   user: User;
   parkingsOfUser: Parking[];
 
   constructor(
     private userService: UserService,
-    public modalController: ModalController,
-    private parkingDataService: ParkingDataService
+    public modalController: ModalController
   ) {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.loadData();
+  }
 
   ngOnInit() {
     // this.userService.user
@@ -33,11 +42,16 @@ export class QuickActionsComponent implements OnInit {
     //     this.idUser = res.id;
     //     this.parkingsOfUser = res.owns;
     //   });
+    // this.loadData();
+  }
+
+  loadData() {
     this.userService.getUser().subscribe((user) => {
       this.user = user;
       this.parkingsOfUser = user.owns;
     });
   }
+
   showModal() {
     console.log('owns-->', this.parkingsOfUser);
     if (this.parkingsOfUser.length > 1) {

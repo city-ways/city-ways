@@ -36,6 +36,7 @@ $RECYCLE.BIN/
 /client/src/environments/enviroment.prod.ts
 /client/src/environments/environment.prod.ts
 
+/docs/node_modules
 # api
 
 ###> symfony/framework-bundle ###

@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+details:hover {
+  cursor: pointer;
+}
+details > summary {
+  list-style-type: "▶️";
+}
+
+details[open] > summary {
+  list-style-type: "🔽";
+}
+html {
+  scroll-behavior: smooth;
+}

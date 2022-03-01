@@ -109,6 +109,15 @@ export class ParkingFormPage implements OnInit {
 
   sendForm() {
     if (this.parkingData.valid) {
+      if (
+        (this.getTypeParking()
+          ? this.getDaysRangesInputs()
+          : this.getHoursRangesInputs()
+        ).length === 0
+      ) {
+        this.presentToast('Tienes que almenos agregar un rango de horas/dias');
+        return;
+      }
       if (this.parkingData.dirty) {
         let parking: Parking = this.castToParking(this.parkingData.value);
         if (this.type === 'editar') {

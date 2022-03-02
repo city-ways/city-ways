@@ -193,9 +193,12 @@ export class ParkingFormPage implements OnInit {
   }
 
   deleteCurrentParking() {
-    this.parkingService
-      .deleteParking(this.data.id)
-      .subscribe((e) => this.exit());
+    this.parkingService.deleteParking(this.data.id).subscribe(
+      (e) => this.exit(),
+      (error) => {
+        this.presentToast('No pues eliminar un parking que esta en uso');
+      }
+    );
   }
 
   // emitFinishEvent() {

@@ -131,7 +131,7 @@ class UserController extends AbstractController
         $this->denyAccessUnlessGranted("edit", $user);
         /** @var History $lastHistory */
         $lastHistory = $user->getHistory()->first();
-        if ($lastHistory->isInProgress()) {
+        if ($lastHistory != null && $lastHistory->isInProgress()) {
             return $this->json("No se puede eliminar un usuario mientras esta ocupando un parking", 400);
         }
         $entityManager->remove($user);

@@ -54,6 +54,7 @@ export class MapPage implements OnInit {
   }
 
   public loadMarkers() {
+    this.map.resize();
     if (this.markers.length > 0) {
       this.markers.map((marker) => marker.remove());
       this.markers = [];

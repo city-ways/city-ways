@@ -152,6 +152,7 @@ export class ParkingFormPage implements OnInit {
   }
 
   loadData(parking: Parking) {
+    console.log('>>>', parking);
     if (this.parkingData) {
       this.parkingData.reset();
     }
@@ -224,7 +225,7 @@ export class ParkingFormPage implements OnInit {
       id: this.data?.id,
       direction,
       cords: !this.data ? { longitude: lng, latitude: lat } : this.data.cords,
-      status: false,
+      status: this.data.status,
       type: longPeriod ? 'larga estancia' : 'corta estancia',
       timesAvailable,
       daysAvailable,

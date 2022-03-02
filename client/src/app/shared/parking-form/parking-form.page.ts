@@ -225,7 +225,7 @@ export class ParkingFormPage implements OnInit {
       id: this.data?.id,
       direction,
       cords: !this.data ? { longitude: lng, latitude: lat } : this.data.cords,
-      status: this.data.status,
+      status: this.data?.status ?? false,
       type: longPeriod ? 'larga estancia' : 'corta estancia',
       timesAvailable,
       daysAvailable,

@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use App\Entity\History;
 use App\Entity\Parkings;
 use App\Entity\Users;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -63,6 +64,26 @@ class ParkingVoter extends Voter
 
     private function canBook(Parkings $parkings, Users $user): bool
     {
+        /** @var History $lastHistory */
+        $lastHistory = null;
+       if ($parkings->getStatus()) {
+           foreach ($parkings->getHistory() as $value) {
+               if ($value->getClientUser() !== null) {
+                   if ($value->isInProgress() && $value->getClientUser()->getId() == $user->getId()) {
+                       $lastHistory = $value;
+                   }
+               }
+           }
+           if ($lastHistory == null) {
+               return false;
+           }
+       }
+        if ($parkings->getStatus()) {
+            if ($lastHistory->getParking()->getId() != $parkings->getId()){
+                return false;
+
+            }
+        }
         // only the user can book a parking if the user aren't already booking one.
         foreach ($user->getHistory() as $history) {
             if ($history->isInProgress() && $history->getParking()->getId() !== $parkings->getId()) {

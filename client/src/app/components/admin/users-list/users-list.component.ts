@@ -28,9 +28,16 @@ export class UsersListComponent implements OnInit, OnChanges {
 
   ngOnInit() {}
   deleteUser(id: number) {
-    this.userService.deleteUser(id).subscribe((value) => {
-      this.presentToast('Se ha eliminado el usuario');
-    });
+    this.userService.deleteUser(id).subscribe(
+      (value) => {
+        this.presentToast('Se ha eliminado el usuario');
+      },
+      (error) => {
+        this.presentToast(
+          'No se puede eliminar un usuario mientras esta ocupando un parking'
+        );
+      }
+    );
   }
   async showModalPage(user?: User) {
     const modal = await this.modalController.create({

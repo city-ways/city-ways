@@ -26,9 +26,12 @@ export class ParkingsListComponent implements OnInit, OnChanges {
 
   ngOnInit() {}
   deleteParking(id: number) {
-    this.parkingService.deleteParking(id).subscribe((value) => {
-      this.presentToast('se ha eliminado el parking');
-    });
+    this.parkingService.deleteParking(id).subscribe(
+      (value) => {
+        this.presentToast('se ha eliminado el parking');
+      },
+      (error) => this.presentToast('No se puede eliminar un parking en uso')
+    );
   }
   async showModalPage(parking?: Parking) {
     const modal = await this.modalController.create({

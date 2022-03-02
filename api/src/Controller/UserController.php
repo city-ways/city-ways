@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\History;
 use App\Entity\Users;
 use App\Util\EncodeJSON;
 use Doctrine\Persistence\ManagerRegistry;
@@ -128,7 +129,11 @@ class UserController extends AbstractController
             return $this->json("No user found for id: $id", 404);
         }
         $this->denyAccessUnlessGranted("edit", $user);
-
+        /** @var History $lastHistory */
+        $lastHistory = $user->getHistory()->first();
+        if ($lastHistory->isInProgress()) {
+            return $this->json("No se puede eliminar un usuario mientras esta ocupando un parking", 400);
+        }
         $entityManager->remove($user);
         $entityManager->flush();
 
